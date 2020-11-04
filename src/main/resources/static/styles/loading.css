@@ -1,0 +1,23 @@
+
+/* 
+    Created on : Nov 1, 2020, 16:22:27 PM
+    Author     : sud
+*/
+
+.loading {
+    display : none;
+}
+.loading.show {
+    display : block;
+    position : fixed;
+    z-index: 100;
+    background-image : url('/flash/img/ajax-loader.gif');
+    background-color:#ffffff;
+    opacity : 0.8;
+    background-repeat : no-repeat;
+    background-position : center;
+    left : 0;
+    bottom : 0;
+    right : 0;
+    top : 0;
+}
