@@ -49,7 +49,7 @@ function constructionMenu() {
                                                     htmlButtonsSubmenu += "<div class='card-body'>";
                                                         htmlButtonsSubmenu += "<h5 class='card-title'>"+submenu[sub].title+"</h5>";
                                                         htmlButtonsSubmenu += "<p class='card-text'><blockquote class='blockquote mb-0 blockquote-footer'>" + submenu[sub].type + "</blockquote></p>";
-                                                        htmlButtonsSubmenu += "<button data-url='"+submenu[sub].url+"' onclick='"+submenu[sub].event+"' title='"+submenu[sub].title+"' class='"+submenu[sub].class+"'>"+submenu[sub].name+"</button>";
+                                                        htmlButtonsSubmenu += "<button data-url='"+submenu[sub].url+"' onclick='"+submenu[sub].event+"' title='"+submenu[sub].title+"' class='"+submenu[sub].class+"'>"+submenu[sub].icon+" "+submenu[sub].name+"</button>";
                                                     htmlButtonsSubmenu += "</div>";
                                                 htmlButtonsSubmenu += "</div>";
                                             htmlButtonsSubmenu += "</div>";
@@ -59,7 +59,7 @@ function constructionMenu() {
                                         htmlButtonsSubmenu += "</div>";
                                     }
                                     
-                                    htmlButtonsCadastro += "<button data-url='"+menus[i].url+"' onclick='"+menus[i].event+"' title='"+menus[i].title+ "'class='"+menus[i].class+"'>"+menus[i].name+"</button>";
+                                    htmlButtonsCadastro += "<button data-url='"+menus[i].url+"' onclick='"+menus[i].event+"' title='"+menus[i].title+ "'class='"+menus[i].class+"'>"+menus[i].icon+" "+menus[i].name+"</button>";
                                 htmlButtonsCadastro += "</div>";
                             htmlButtonsCadastro += "</div>";
                         htmlButtonsCadastro += "</div>";
@@ -102,6 +102,7 @@ function structureMenu() {
                 'title': 'Cadastro de estado',
                 'type': 'Página',
                 'class':'btn btn-success',
+                'icon': "<i class='fa fa-file'></i>",
                 'event':'eventContructionPage(this)',
                 'url': 'pages/estado/Estado.html'
             },
@@ -110,6 +111,7 @@ function structureMenu() {
                 'title': 'Cadastro de cidade',
                 'type': 'Página',
                 'class':'btn btn-success',
+                'icon': "<i class='fa fa-file'></i>",
                 'event':'eventContructionPage(this)',
                 'url': 'pages/estado/MenuCadastro.html'
             },
@@ -118,6 +120,7 @@ function structureMenu() {
                 'title': 'Cadastro de bairro',
                 'type': 'Página',
                 'class':'btn btn-success',
+                'icon': "<i class='fa fa-file'></i>",
                 'event':'eventContructionPage(this)',
                 'url': 'pages/estado/MenuCadastro.html'
             },
@@ -127,6 +130,7 @@ function structureMenu() {
                 'title': 'Cadastro de portaria',
                 'type': 'Menu',
                 'class':'btn btn-info',
+                'icon': "<i class='fa fa-bars' aria-hidden='true'></i>",
                 'event':'eventSubmenu(this)',
                 'url': 'pages/estado/MenuCadastro.html',
                 'submenu': [
@@ -135,6 +139,7 @@ function structureMenu() {
                         'title':'Cadastro de morador',
                         'type':'Página',
                         'class':'btn btn-success',
+                        'icon': "<i class='fa fa-file'></i>",
                         'event':'eventContructionPage(this)',
                         'url':'pages/estado/MenuCadastro.html'
                     },
@@ -143,6 +148,7 @@ function structureMenu() {
                         'title':'Cadastro de morador',
                         'type':'Página',
                         'class':'btn btn-success',
+                        'icon': "<i class='fa fa-file'></i>",
                         'event':'eventContructionPage(this)',
                         'url':'pages/estado/MenuCadastro.html'
                     }
