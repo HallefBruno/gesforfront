@@ -1,8 +1,9 @@
-let validaTemContudoDivMenus = "";
+let contentDivMenu = "";
 let htmlButtonsSubmenu = "";
 
 $(function () {
     constructionMenu();
+    getUrls();
 });
 
 function constructionMenu() {
@@ -13,12 +14,12 @@ function constructionMenu() {
     $(".li-pages").on("click", function (target) {
         htmlButtonsCadastro = "";
         htmlButtonsSubmenu = "";
-        if ($("#pages").find("div").length <= 1 || validaTemContudoDivMenus !== target.handleObj.selector) {
+        if ($("#pages").find("div").length <= 1 || contentDivMenu !== target.handleObj.selector) {
             $(".loading").addClass("show");
             $("#pages").find("div").empty();
             clearCanvasMyChart();
             
-            validaTemContudoDivMenus = target.handleObj.selector;
+            contentDivMenu = target.handleObj.selector;
             
             $.each(listMenus, function (index) {
                 let menus = listMenus[index];
@@ -35,8 +36,7 @@ function constructionMenu() {
                                     htmlButtonsCadastro += "<p class='card-text'><blockquote class='blockquote mb-0 blockquote-footer'>" + menus[i].type + "</blockquote></p>";
                                     
                                     if (menus[i].submenu && menus[i].submenu.length > 0) {
-                                        
-                                        
+
                                         let submenu = menus[i].submenu;
                                         
                                         htmlButtonsSubmenu += "<div style='margin-top: 40px;' class='container h-100'>";
@@ -57,7 +57,6 @@ function constructionMenu() {
                                         
                                         htmlButtonsSubmenu += "</div>";
                                         htmlButtonsSubmenu += "</div>";
-                                        
                                     }
                                     
                                     htmlButtonsCadastro += "<button data-url='"+menus[i].url+"' onclick='"+menus[i].event+"' title='"+menus[i].title+ "'class='"+menus[i].class+"'>"+menus[i].name+"</button>";
@@ -77,23 +76,19 @@ function constructionMenu() {
 }
 
 function eventContructionPage(target) {
-
     $(".loading").addClass("show");
     $("#pages").find("div").empty();
     $("#pages").find("div").load(target.dataset.url, function (target) {});
     $(".loading").removeClass("show");
-    validaTemContudoDivMenus = "";
-    
+    contentDivMenu = "";
 }
 
-function eventSubmenu(target) {
-    
+function eventSubmenu(target) {    
     $(".loading").addClass("show");
     $("#pages").find("div").empty();
     $("#pages").find("div").html(htmlButtonsSubmenu);
     $(".loading").removeClass("show");
-    validaTemContudoDivMenus = "";
-    
+    contentDivMenu = "";
 }
 
 function structureMenu() {
@@ -162,4 +157,10 @@ function structureMenu() {
 
 function clearCanvasMyChart() {
     $(".dashboard-myChart").find("div").empty();
+}
+
+function getUrls() {
+    $.getJSON("flash/urls", function (data) {
+        console.log(data);
+    });
 }
