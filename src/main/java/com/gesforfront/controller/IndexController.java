@@ -22,9 +22,15 @@ public class IndexController {
     }
     
     @ResponseBody
-    @GetMapping(path = {"flash/urls"})
+    @GetMapping(path = {"urlAtual"})
     public String getUrls(HttpServletRequest request) {
         return request.getRequestURL().toString();
+    }
+    
+    @ResponseBody
+    @GetMapping(path = {"urls"})
+    public FlashUrl getUrls() {
+        return flashUrlFront;
     }
 
 }

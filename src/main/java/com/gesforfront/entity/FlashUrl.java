@@ -9,27 +9,73 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "flash")
 public class FlashUrl {
     
-    @Value("${flash.urlFront}")
-    private String urlFront;
+    @Value("${flash.url.external.f}")
+    private String urlExternalFront;
     
-    @Value("${flash.urlBack}")
-    private String urlBack;
+    @Value("${flash.url.external.b}")
+    private String urlExternalBack;
+    
+    @Value("${flash.url.local.f}")
+    private String urlLocalFront;
+    
+    @Value("${flash.url.local.b}")
+    private String urlLocalBack;
 
-    public String getUrlFront() {
-        return urlFront;
+    /**
+     * @return the urlExternalFront
+     */
+    public String getUrlExternalFront() {
+        return urlExternalFront;
     }
 
-    public void setUrlFront(String urlFront) {
-        this.urlFront = urlFront;
+    /**
+     * @param urlExternalFront the urlExternalFront to set
+     */
+    public void setUrlExternalFront(String urlExternalFront) {
+        this.urlExternalFront = urlExternalFront;
     }
 
-    public String getUrlBack() {
-        return urlBack;
+    /**
+     * @return the urlExternalBack
+     */
+    public String getUrlExternalBack() {
+        return urlExternalBack;
     }
 
-    public void setUrlBack(String urlBack) {
-        this.urlBack = urlBack;
+    /**
+     * @param urlExternalBack the urlExternalBack to set
+     */
+    public void setUrlExternalBack(String urlExternalBack) {
+        this.urlExternalBack = urlExternalBack;
     }
 
+    /**
+     * @return the urlLocalFront
+     */
+    public String getUrlLocalFront() {
+        return urlLocalFront;
+    }
+
+    /**
+     * @param urlLocalFront the urlLocalFront to set
+     */
+    public void setUrlLocalFront(String urlLocalFront) {
+        this.urlLocalFront = urlLocalFront;
+    }
+
+    /**
+     * @return the urlLocalBack
+     */
+    public String getUrlLocalBack() {
+        return urlLocalBack;
+    }
+
+    /**
+     * @param urlLocalBack the urlLocalBack to set
+     */
+    public void setUrlLocalBack(String urlLocalBack) {
+        this.urlLocalBack = urlLocalBack;
+    }
+    
     
 }

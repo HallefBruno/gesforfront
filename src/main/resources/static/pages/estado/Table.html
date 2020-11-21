@@ -1,19 +1,39 @@
-<div class="table-responsive">
+
+<div style="overflow-y:scroll;height:450px;" class="table-responsive">
     <table class="table">
-        <caption>Lista de estados</caption>
+        
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
                 <th scope="col">UF</th>
+                <th class="text-center" scope="col">
+                    <span class="fa fa-cog"></span>
+                </th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th scope="row">3</th>
+                <th scope="row">1</th>
                 <td>Goiás</td>
                 <td>GO</td>
+                <td class="text-center">
+                    <button style="color: #007bff" title="Editar" class="btn btn-light btn-md">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </button>
+                    <button style="color: #dc3545" title="Excluir" class="btn btn-light btn-md">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
+
+    <nav>
+        <ul class="pagination justify-content-end">
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+        </ul>
+    </nav>
 </div>

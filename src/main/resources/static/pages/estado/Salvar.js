@@ -18,11 +18,18 @@ $(function () {
 
             Toast.fire({
                 icon: 'success',
-                title: 'Signed in successfully'
+                title: 'Salvo com sucesso!'
             });
         }
     });
+    
+    validar();
+    
+    $("#btnPesquisar").on("click", pagePesquisar);
+    
+});
 
+function validar() {
     $("#form-estado").validate({
         rules: {
             nome: {
@@ -56,9 +63,14 @@ $(function () {
             //$(element).addClass("is-valid").removeClass("is-invalid");
         }
     });
+}
 
-
-});
+function pagePesquisar() {
+    $(".loading").addClass("show");
+    $("#pages").find("div").empty();
+    $("#pages").find("div").load("pages/estado/Pesquisar.html");
+    $(".loading").removeClass("show");
+}
 
 //    $.validator.setDefaults({
 //        submitHandler: function () {

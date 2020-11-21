@@ -2,32 +2,36 @@
 
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Pesquisar estado</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div class="container shadow p-3 mb-5 bg-white rounded" style="height: 500px; margin-top: 20px;">
-            <div class="card" style="height: 400px;">
+        <div class="container shadow p-3 mb-5 bg-white rounded" style="height: 700px; margin-top: 20px;">
+            <div class="card" style="height: 650px;">
                 <h5 class="card-header">Pesquisa de estado</h5>
                 <div class="card-body">
                     <div class="container">
                         <form id="form-pesquisa">
                             <div class="form-row">
-                                <div class="col-5">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="nome">Nome</label>
-                                        <input type="text" name="nome" class="form-control" id="nome"/>
+                                        <input type="text" name="nome" class="form-control" id="nome" autocomplete="off"/>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div style="margin-top: 32px;"></div>
-                                    <button type="button" id="btnPesquisar" class="btn btn-light">
+                                    <button type="submit" id="btnPesquisar" class="btn btn-light">
                                         <i class="fa fa-search" aria-hidden="true"></i> Pesquisar
+                                    </button>
+                                    <button type="button" name="btnNovo" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i> Novo
                                     </button>
                                 </div>
                             </div>
-                            <div id="table">
+                            <div class="teste">Carregando...</div>
+                            <div id="tbestado">
                                 <div></div>
                             </div>
                         </form>

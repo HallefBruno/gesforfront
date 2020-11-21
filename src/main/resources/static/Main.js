@@ -68,8 +68,8 @@ function constructionMenu() {
                     htmlButtonsCadastro += "</div>";
                 }
             });
-            $(".loading").removeClass("show");
             $("#pages").find("div").html(htmlButtonsCadastro);
+            $(".loading").removeClass("show");
         }
     });
     
@@ -83,7 +83,7 @@ function eventContructionPage(target) {
     contentDivMenu = "";
 }
 
-function eventSubmenu(target) {    
+function eventSubmenu(target) {
     $(".loading").addClass("show");
     $("#pages").find("div").empty();
     $("#pages").find("div").html(htmlButtonsSubmenu);
@@ -104,7 +104,7 @@ function structureMenu() {
                 'class':'btn btn-success',
                 'icon': "<i class='fa fa-file'></i>",
                 'event':'eventContructionPage(this)',
-                'url': 'pages/estado/Estado.html'
+                'url': 'pages/estado/Salvar.html'
             },
             {
                 'name': 'Cidade',
@@ -166,7 +166,7 @@ function clearCanvasMyChart() {
 }
 
 function getUrls() {
-    $.getJSON("flash/urls", function (data) {
+    $.getJSON("urls", function (data) {
         console.log(data);
     });
 }
