@@ -1,0 +1,132 @@
+/* global Swal */
+
+var Message = Message || {};
+
+Message.SuccessToast = (function () {
+    
+    function SuccessToast() {}
+    
+    SuccessToast.prototype.show = function (message) {
+        
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: `${message}`
+        });
+    };
+    
+    return SuccessToast;
+    
+}());
+
+/**
+ * @type Message.Success
+ * @since 2020
+ * @author Hallef
+ * @description Lança mensagem de sucesso no topo a direita
+ */
+Message.Success = (function () {
+    
+    function Success() {}
+    
+    /**
+     * Descrição. Lança mensagem de sucesso no topo a direita
+     * @param {String} message
+     * @returns {undefined}
+     */
+    Success.prototype.show = function (message) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Atenção',
+            showConfirmButton: false,
+            text: `${message}`,
+            timer: 3000
+        });
+    };
+    
+    return Success;
+    
+}());
+
+/**
+ * @type Message.Warning
+ * @since 2020
+ * @author Hallef
+ * @description Lança mensagem de atenção no centro da tela duração de 5 segundos
+ */
+Message.Warning = (function () {
+    
+    function Warning() {}
+    
+    /**
+     * Descrição. Lança mensagem de atenção no centro da tela duração de 5 segundos.
+     * @param {String} message
+     * @returns {undefined}
+     */
+    Warning.prototype.show = function (message) {
+        
+//        Swal.fire({
+//            icon: 'warning',
+//            title: 'Atenção',
+//            showConfirmButton: false,
+//            text: `${message}`,
+//            timer: 5000
+//        });
+        
+        Swal.fire({
+            title: 'Atenção!',
+            text: `${message}`,
+            imageUrl: 'img/mascote.png',
+            imageWidth: 40,
+            imageHeight: 40,
+            imageAlt: 'Custom image',
+            timer: 5000
+        });
+    };
+    
+    return Warning;
+    
+}());
+
+
+
+/**
+ * @type MessageError.Error
+ * @since 2020
+ * @author Hallef
+ * @description Lança mensagem de erro no centro da tela
+ */
+Message.Error = (function () {
+    
+    function Error() {}
+    
+    /**
+     * Descrição. Lança mensagem de erro no centro da tela.
+     * @param {type} message 
+     * @returns {undefined}
+     */
+    Error.prototype.show = function (message) {
+        
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${message}`,
+            footer: "<a href='#' onclick=window.open('http://127.0.0.1:8081/flash/help')>Por que estou com esse problema?</a>"
+        });
+
+    };
+
+    return Error;
+    
+}());

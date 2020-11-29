@@ -1,33 +1,39 @@
-/* global Swal */
+/* global Swal, Requests, Message */
 
 $(function () {
+    
+    salvar();
+    validar();
+    pagePesquisar();
 
+});
+
+function salvar() {
+    
     $.validator.setDefaults({
         submitHandler: function () {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 4000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer);
-                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+            
+            var message = new Message.Success();
+            var retrievedObject = localStorage.getItem('targetUrl');
+            
+            let estado = {
+                nome: $("#nome").val(),
+                uf: $("#uf").val()
+            };
+            
+            $.ajax({
+                method: "POST",
+                url: retrievedObject+"/estados/salvar",
+                data: JSON.stringify(estado),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    message.show("Registro salvo com sucesso!");
                 }
             });
-
-            Toast.fire({
-                icon: 'success',
-                title: 'Salvo com sucesso!'
-            });
         }
-    });
-    
-    validar();
-    
-    $("#btnPesquisar").on("click", pagePesquisar);
-    
-});
+    });    
+}
 
 function validar() {
     $("#form-estado").validate({
@@ -35,14 +41,24 @@ function validar() {
             nome: {
                 required: true,
                 minlength: 2,
-                maxlength: 25
+                maxlength: 100
+            },
+            uf: {
+                required: true,
+                minlength: 2,
+                maxlength: 2
             }
         },
         messages: {
             nome: {
                 required: "Nome obrigatório",
+                minlength: "Tamanho mínimo para o nome é 3 caracter",
+                maxlength: "Tamanho máximo para no nome é 100 caracter"
+            },
+            uf: {
+                required: "UF obrigatório",
                 minlength: "Tamanho mínimo para o nome é 2 caracter",
-                maxlength: "Tamanho máximo para no nome é 50 caracter"
+                maxlength: "Tamanho máximo para no nome é 2 caracter"
             }
         },
         errorElement: "em",
@@ -66,10 +82,12 @@ function validar() {
 }
 
 function pagePesquisar() {
-    $(".loading").addClass("show");
-    $("#pages").find("div").empty();
-    $("#pages").find("div").load("pages/estado/Pesquisar.html");
-    $(".loading").removeClass("show");
+    $("#btnPesquisar").on("click", function () {
+        $(".loading").addClass("show");
+        $("#pages").find("div").empty();
+        $("#pages").find("div").load("pages/estado/Pesquisar.html");
+        $(".loading").removeClass("show");
+    });
 }
 
 //    $.validator.setDefaults({

@@ -3,7 +3,7 @@ let htmlButtonsSubmenu = "";
 
 $(function () {
     constructionMenu();
-    getUrls();
+    storageURL();
 });
 
 function constructionMenu() {
@@ -83,7 +83,7 @@ function eventContructionPage(target) {
     contentDivMenu = "";
 }
 
-function eventSubmenu(target) {
+function eventSubmenu() {
     $(".loading").addClass("show");
     $("#pages").find("div").empty();
     $("#pages").find("div").html(htmlButtonsSubmenu);
@@ -104,7 +104,7 @@ function structureMenu() {
                 'class':'btn btn-success',
                 'icon': "<i class='fa fa-file'></i>",
                 'event':'eventContructionPage(this)',
-                'url': 'pages/estado/Salvar.html'
+                'url': 'pages/estado/Pesquisar.html'
             },
             {
                 'name': 'Cidade',
@@ -154,7 +154,6 @@ function structureMenu() {
                     }
                 ]
             }
-            
         ]
     };
 
@@ -165,8 +164,18 @@ function clearCanvasMyChart() {
     $(".dashboard-myChart").find("div").empty();
 }
 
-function getUrls() {
+
+function storageURL() {
+    
     $.getJSON("urls", function (data) {
-        console.log(data);
+        var local = $(location).attr("href");
+        var targetUrl;
+
+        if (local.includes("127") || local.includes("host")) {
+            targetUrl = data.urlLocalBack;
+        } else {
+            targetUrl = data.urlExternalBack;
+        }
+        localStorage.setItem('targetUrl', targetUrl);
     });
 }

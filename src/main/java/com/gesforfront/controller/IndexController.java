@@ -22,9 +22,10 @@ public class IndexController {
     }
     
     @ResponseBody
-    @GetMapping(path = {"urlAtual"})
+    @GetMapping(path = {"atualUrl"})
     public String getUrls(HttpServletRequest request) {
-        return request.getRequestURL().toString();
+        String pureUrl = request.getRequestURL().substring(0,request.getRequestURL().indexOf("atualUrl"));
+        return pureUrl;
     }
     
     @ResponseBody
