@@ -1,7 +1,7 @@
 /* global Swal, Requests, Message */
 
 $(function () {
-    
+
     salvar();
     validar();
     pagePesquisar();

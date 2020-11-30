@@ -72,27 +72,32 @@ Message.Warning = (function () {
     /**
      * Descrição. Lança mensagem de atenção no centro da tela duração de 5 segundos.
      * @param {String} message
+     * @param {String} type
      * @returns {undefined}
      */
-    Warning.prototype.show = function (message) {
+    Warning.prototype.show = function (message, type) {
         
-//        Swal.fire({
-//            icon: 'warning',
-//            title: 'Atenção',
-//            showConfirmButton: false,
-//            text: `${message}`,
-//            timer: 5000
-//        });
+        if (type === "N") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Atenção',
+                showConfirmButton: false,
+                text: `${message}`,
+                timer: 5000
+            });
+        }
         
-        Swal.fire({
-            title: 'Atenção!',
-            text: `${message}`,
-            imageUrl: 'img/mascote.png',
-            imageWidth: 40,
-            imageHeight: 40,
-            imageAlt: 'Custom image',
-            timer: 5000
-        });
+        if(type === "I") {
+            Swal.fire({
+                title: 'Atenção!',
+                text: `${message}`,
+                imageUrl: 'img/mascote.png',
+                imageWidth: 40,
+                imageHeight: 40,
+                imageAlt: 'Custom image',
+                timer: 5000
+            });
+        }
     };
     
     return Warning;
@@ -119,9 +124,12 @@ Message.Error = (function () {
     Error.prototype.show = function (message) {
         
         Swal.fire({
-            icon: 'error',
             title: 'Oops...',
+            imageUrl: 'img/mascote.png',
             text: `${message}`,
+            imageWidth: 40,
+            imageHeight: 40,
+            imageAlt: 'Custom image',
             footer: "<a href='#' onclick=window.open('http://127.0.0.1:8081/flash/help')>Por que estou com esse problema?</a>"
         });
 
@@ -130,3 +138,9 @@ Message.Error = (function () {
     return Error;
     
 }());
+
+
+const TYPE =  {
+    ICON : {value: 0, name: "ICON", code: "I"}, 
+    NORMAL: {value: 1, name: "NORMAL", code: "N"}
+};

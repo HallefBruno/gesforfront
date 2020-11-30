@@ -1,4 +1,4 @@
-/* global Message */
+/* global Message, TYPE */
 
 var Listener = Listener || {};
 
@@ -25,7 +25,10 @@ Listener.Handler = (function () {
                 var message = new Message.Error();
                 message.show("Erro de comicação com o serviço!");
             } else if(jqXHR.status === 400) {
-                if(jqXHR.responseJSON !== null) {
+                if(jqXHR.responseJSON !== null && jqXHR.responseJSON.errors) {
+                    var message = new Message.Warning();
+                    message.show(jqXHR.responseJSON.errors[0],"N");
+                } else if(jqXHR.responseJSON.errors === undefined) {
                     var array = jqXHR.responseJSON;
                     var field = "";
                     var arrayFields = [];
@@ -57,27 +60,27 @@ Listener.Handler = (function () {
                             }
                         }
                     }
+                    
+                    if (array.length > 0) {
+                        var arrayElements = event.currentTarget.all;
+                        $.each(arrayElements, function (index, val) {
+                            var al = $(val);
+                            if (al[0].id === "errosGerais") {
+                                al[0].attributes[1].nodeValue = "font-size: 11px; display: block;";
+                                al[0].innerText = fieldMessage;
+                                $("#" + al[0].id).fadeOut(6000);
+                                return false;
+                            }
+                        });
+                    }
                 }
-                
-                if (array.length > 0) {
-                    var arrayElements = event.currentTarget.all;
-                    $.each(arrayElements, function (index, val) {
-                        var al = $(val);
-                        if (al[0].id === "errosGerais") {
-                            al[0].attributes[1].nodeValue = "font-size: 11px; display: block;";
-                            al[0].innerText = fieldMessage;
-                            $("#"+al[0].id).fadeOut(6000);
-                            return false;
-                        }
-                    });
-                }
+
             } else if (jqXHR.status === 500) {
                 if(jqXHR.responseJSON !== null) {
                     var message = new Message.Warning();
-                    message.show(jqXHR.responseJSON.errors[0]);
+                    message.show(jqXHR.responseJSON.errors[0],"I");
                 }
             }
-
         }.bind(this));
     };
 
