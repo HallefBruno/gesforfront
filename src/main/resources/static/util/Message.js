@@ -138,9 +138,3 @@ Message.Error = (function () {
     return Error;
     
 }());
-
-
-const TYPE =  {
-    ICON : {value: 0, name: "ICON", code: "I"}, 
-    NORMAL: {value: 1, name: "NORMAL", code: "N"}
-};

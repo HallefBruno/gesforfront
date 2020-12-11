@@ -1,31 +1,17 @@
-/* global Swal */
+/* global Swal, Message, DataTable */
 
 $(function () {
     pesquisar();
+    getList();
     novo();
-    assemblyDatatable();
+    //assemblyDatatable();
 });
 
 function pesquisar() {
     
     $.validator.setDefaults({
         submitHandler: function () {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 4000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer);
-                    toast.addEventListener('mouseleave', Swal.resumeTimer);
-                }
-            });
-
-            Toast.fire({
-                icon: 'success',
-                title: 'Signed in successfully'
-            });
+            getList();
         }
     });
 
@@ -73,8 +59,39 @@ function novo() {
     });
 }
 
-function assemblyDatatable() {
+
+function getList() {
     
+    //var message = new Message.Success();
+    var retrievedObject = localStorage.getItem('targetUrl');
+    var nome = $("#nome").val();
+    
+    let requestParamPageable = {
+        currentPage: 0,
+        totalItems : 10,
+        totalPages: null
+    };
+
+    $.ajax({
+        method: "GET",
+        url: retrievedObject + "/estados/todos",
+        data: {
+            "requestParamPageable":JSON.stringify(requestParamPageable),
+            "nome":nome
+        },
+        contentType: "application/json",
+        dataType: "json",
+        success: function (data) {
+            if(data !== undefined) {
+                var datatb = new DataTable.AssembleDataTable();
+                datatb.enable("Nenhum registro encontrado", data.content,true);
+            //message.show("Registro salvo com sucesso!");
+            }
+        }
+    });
+}
+
+function assemblyDatatable() {
     $(".teste").show();
     $("#tbestado").find("div").empty();
     $("#tbestado").find("div").load("pages/estado/Table.html");

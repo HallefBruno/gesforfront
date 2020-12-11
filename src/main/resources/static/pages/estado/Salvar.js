@@ -1,8 +1,39 @@
-/* global Swal, Requests, Message */
+/* global Message */
 
 $(function () {
+    $.validator.setDefaults({
+        submitHandler: function () {
 
-    salvar();
+            var message = new Message.Success();
+            var retrievedObject = localStorage.getItem('targetUrl');
+
+            let estado = {
+                nome: $("#nome").val(),
+                uf: $("#uf").val()
+            };
+
+            $.ajax({
+                
+                method: "POST",
+                url: retrievedObject + "/estados/salvar",
+                data: JSON.stringify(estado),
+                contentType: "application/json",
+                dataType: "json",
+                statusCode: {
+                    201: function (data) {
+                        message.show("Registro salvo com sucesso!");
+                        window.console.info(data);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    window.console.info(jqXHR);
+                }
+//                success: function (data) {
+//                    message.show("Registro salvo com sucesso!");
+//                }
+            });
+        }
+    });
     validar();
     pagePesquisar();
 
@@ -28,6 +59,7 @@ function salvar() {
                 contentType: "application/json",
                 dataType: "json",
                 success: function (data) {
+                    console.log(data);
                     message.show("Registro salvo com sucesso!");
                 }
             });

@@ -10,12 +10,14 @@ Listener.Handler = (function () {
 
         $(document).ajaxSend(function (event, jqXHR, settings) {
             if(settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
+                $(".loading").addClass("show");
                 console.log("ajaxSend");
             }
         }.bind(this));
 
         $(document).ajaxComplete(function (event, jqXHR, settings) {
             if(settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
+                $(".loading").removeClass("show");
                 console.log("ajaxComplete");
             }
         }.bind(this));
@@ -75,6 +77,11 @@ Listener.Handler = (function () {
                     }
                 }
 
+            } else if (jqXHR.status === 302) {
+                if(jqXHR.responseJSON !== null) {
+                    var message = new Message.Warning();
+                    message.show(jqXHR.responseJSON.errors[0],"N");
+                }
             } else if (jqXHR.status === 500) {
                 if(jqXHR.responseJSON !== null) {
                     var message = new Message.Warning();
