@@ -7,25 +7,53 @@ Listener.Handler = (function () {
     function Handler() {}
 
     Handler.prototype.execute = function () {
-
+        
+        let nativeSkeleton =
+        "<div class='ph-item'>"+
+            "<div class='ph-col-12'>"+
+                "<div class='ph-row'>"+
+                    "<div class='ph-col-6 big'></div>"+
+                    "<div class='ph-col-4 empty big'></div>"+
+                    "<div class='ph-col-2 big'></div>"+
+                    "<div class='ph-col-4 big'></div>"+
+                    "<div class='ph-col-8 empty big'></div>"+
+                    "<div class='ph-col-6 big'></div>"+
+                    "<div class='ph-col-4 empty big'></div>"+
+                    "<div class='ph-col-12 big'></div>"+
+                "</div>"+
+                "<div class='ph-row'>"+
+                    "<div class='ph-col-12 empty big'></div>"+
+                    "<div class='ph-col-12 empty big'></div>"+
+                    "<div class='ph-col-12 empty big'></div>"+
+                    "<div class='ph-col-12 empty big'></div>"+
+                "</div>"+
+                "<div class='ph-picture2'></div>"+
+            "</div>"+
+        "</div>";
+        
         $(document).ajaxSend(function (event, jqXHR, settings) {
-            if(settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
-                $(".loading").addClass("show");
-                console.log("ajaxSend");
+            if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
+                $(".table-responsive").block({message: null});
+                $("button[type='submit']").prop('disabled',true);
+                $("button[type='submit']").block({message: null});
             }
         }.bind(this));
 
         $(document).ajaxComplete(function (event, jqXHR, settings) {
-            if(settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
-                $(".loading").removeClass("show");
-                console.log("ajaxComplete");
+            if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
+                $(".table-responsive").unblock();
+                $("button[type='submit']").unblock();
+                $("button[type='submit']").prop('disabled',false);
             }
         }.bind(this));
 
         $(document).ajaxError(function (event, jqXHR, settings) {
             if (jqXHR.status === 0) {
                 var message = new Message.Error();
-                message.show("Erro de comicação com o serviço!");
+                message.show("Falha de comicação com o serviço!");
+                var form = $(event.target.forms);
+                $(form).empty();
+                $(form).append(nativeSkeleton);
             } else if(jqXHR.status === 400) {
                 if(jqXHR.responseJSON !== null && jqXHR.responseJSON.errors) {
                     var message = new Message.Warning();
@@ -86,6 +114,9 @@ Listener.Handler = (function () {
                 if(jqXHR.responseJSON !== null) {
                     var message = new Message.Warning();
                     message.show(jqXHR.responseJSON.errors[0],"I");
+                    var form = $(event.target.forms);
+                    $(form).empty();
+                    $(form).append(nativeSkeleton);
                 }
             }
         }.bind(this));

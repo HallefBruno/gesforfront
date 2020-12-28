@@ -2,6 +2,8 @@
 /* 
     Created on : Nov 1, 2020, 16:22:27 PM
     Author     : sud
+
+    /flash/img/hourglass.gif
 */
 
 .loading {
@@ -11,7 +13,7 @@
     display : block;
     position : fixed;
     z-index: 100;
-    background-image : url('/flash/img/hourglass.gif');
+    background-image : url('/flash/img/chuva.gif');
     background-color:#ffffff;
     opacity : 0.8;
     background-repeat : no-repeat;

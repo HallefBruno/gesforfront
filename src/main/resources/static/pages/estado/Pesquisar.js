@@ -62,33 +62,19 @@ function novo() {
 
 function getList() {
     
-    //var message = new Message.Success();
-    var retrievedObject = localStorage.getItem('targetUrl');
-    var nome = $("#nome").val();
-    
-    let requestParamPageable = {
-        currentPage: 0,
-        totalItems : 10,
-        totalPages: null
+    var parametros = {
+        url: "/estados/todos",
+        paginaAtual: 0,
+        nomeObject: "nome",
+        filters: {
+            "nome": $("#nome").val()
+        },
+        action: true
     };
 
-    $.ajax({
-        method: "GET",
-        url: retrievedObject + "/estados/todos",
-        data: {
-            "requestParamPageable":JSON.stringify(requestParamPageable),
-            "nome":nome
-        },
-        contentType: "application/json",
-        dataType: "json",
-        success: function (data) {
-            if(data !== undefined) {
-                var datatb = new DataTable.AssembleDataTable();
-                datatb.enable("Nenhum registro encontrado", data.content,true);
-            //message.show("Registro salvo com sucesso!");
-            }
-        }
-    });
+    var dataTb = new DataTable.AssembleDataTable2();
+    dataTb.init(parametros);
+
 }
 
 function assemblyDatatable() {

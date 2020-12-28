@@ -76,10 +76,8 @@ function constructionMenu() {
 }
 
 function eventContructionPage(target) {
-    $(".loading").addClass("show");
     $("#pages").find("div").empty();
     $("#pages").find("div").load(target.dataset.url, function (target) {});
-    $(".loading").removeClass("show");
     contentDivMenu = "";
 }
 
@@ -176,6 +174,6 @@ function storageURL() {
         } else {
             targetUrl = data.urlExternalBack;
         }
-        localStorage.setItem('targetUrl', targetUrl);
+        localStorage.setItem('currentUri', targetUrl);
     });
 }

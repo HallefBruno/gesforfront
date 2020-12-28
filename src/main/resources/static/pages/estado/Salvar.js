@@ -5,7 +5,7 @@ $(function () {
         submitHandler: function () {
 
             var message = new Message.Success();
-            var retrievedObject = localStorage.getItem('targetUrl');
+            var retrievedObject = localStorage.getItem('currentUri');
 
             let estado = {
                 nome: $("#nome").val(),
@@ -13,7 +13,6 @@ $(function () {
             };
 
             $.ajax({
-                
                 method: "POST",
                 url: retrievedObject + "/estados/salvar",
                 data: JSON.stringify(estado),
@@ -22,15 +21,8 @@ $(function () {
                 statusCode: {
                     201: function (data) {
                         message.show("Registro salvo com sucesso!");
-                        window.console.info(data);
                     }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    window.console.info(jqXHR);
                 }
-//                success: function (data) {
-//                    message.show("Registro salvo com sucesso!");
-//                }
             });
         }
     });
@@ -59,7 +51,6 @@ function salvar() {
                 contentType: "application/json",
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
                     message.show("Registro salvo com sucesso!");
                 }
             });

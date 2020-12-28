@@ -33,7 +33,7 @@
     position:absolute;
     top:0;
     bottom:0;
-    height:100%;
+    /*height:100%;*/
     left:0;
     width:60px;
     overflow:hidden;
@@ -41,6 +41,10 @@
     transition:width .05s linear;
     -webkit-transform:translateZ(0) scale(1,1);
     z-index:1000;
+    
+    
+    position: fixed;
+
 }
 
 .main-menu>ul {
@@ -128,6 +132,138 @@ nav ul,nav li {
     width: 100%;
     height: 100%;
 }
+
+.badge-edit-flash {
+    color:#fff;
+    background-color:#563d7c
+}
+a.badge-edit-flash:focus, a.badge-edit-flash:hover {
+    color:#fff;
+    background-color:#563d7c
+}
+a.badge-edit-flash.focus,a.badge-edit-flash:focus {
+    outline:0;box-shadow:0 0 0 .2rem rgba(86,61,124,.5)
+}
+
+.pagination-flash {
+    display:-ms-flexbox;display:flex;padding-left:0;list-style:none;border-radius:.25rem
+}
+.page-link-flash {
+    position:relative;
+    display:block;
+    padding:.5rem .75rem;
+    margin-left:-1px;
+    line-height:1.25;
+    color:#ff008c;
+    background-color:#fff;
+    border:1px solid #ffd4ec
+}
+.page-link-flash:hover{
+    z-index:2;
+    color:#fff;
+    text-decoration:none;
+    background-color:#ff008c;
+    border-color:#ffd4ec
+}
+.page-link-flash:focus{
+    z-index:2;
+    outline:0;
+    box-shadow:0 0 0 .2rem rgba(255, 0, 140,.25)
+}
+.page-item-flash:first-child 
+
+.page-link-flash{
+    margin-left:0;
+    border-top-left-radius:.25rem;
+    border-bottom-left-radius:.25rem
+}
+.page-item-flash:last-child .page-link-flash{
+    border-top-right-radius:.25rem;
+    border-bottom-right-radius:.25rem
+}
+.page-item-flash.active .page-link-flash {
+    z-index:1;
+    color:#fff;
+    background-color:#ff008c;
+    border-color:#ffd4ec
+}
+
+/*.pagination-flash {
+    display:-ms-flexbox;display:flex;padding-left:0;list-style:none;border-radius:.25rem
+}
+.page-link-flash {
+    position:relative;
+    display:block;
+    padding:.5rem .75rem;
+    margin-left:-1px;
+    line-height:1.25;
+    color:#00db58;
+    background-color:#fff;
+    border:1px solid #a1ffc7
+}
+.page-link-flash:hover{
+    z-index:2;
+    color:#fff;
+    text-decoration:none;
+    background-color:#00db58;
+    border-color:#a1ffc7
+}
+.page-link-flash:focus{
+    z-index:2;
+    outline:0;
+    box-shadow:0 0 0 .2rem rgba(161, 255, 199,.25)
+}
+.page-item-flash:first-child 
+
+.page-link-flash{
+    margin-left:0;
+    border-top-left-radius:.25rem;
+    border-bottom-left-radius:.25rem
+}
+.page-item-flash:last-child .page-link-flash{
+    border-top-right-radius:.25rem;
+    border-bottom-right-radius:.25rem
+}
+.page-item-flash.active .page-link-flash {
+    z-index:1;
+    color:#fff;
+    background-color:#00db58;
+    border-color:#a1ffc7
+}*/
+/*.page-item.disabled .page-link{
+    color:#6c757d;
+    pointer-events:none;
+    cursor:auto;
+    background-color:#fff;
+    border-color:#dee2e6
+}
+.pagination-lg .page-link{
+    padding:.75rem 1.5rem;
+    font-size:1.25rem;
+    line-height:1.5
+}
+.pagination-lg .page-item:first-child .page-link{
+    border-top-left-radius:.3rem;
+    border-bottom-left-radius:.3rem
+}
+.pagination-lg .page-item:last-child .page-link{
+    border-top-right-radius:.3rem;
+    border-bottom-right-radius:.3rem
+}*/
+/*.pagination-sm .page-link{
+    padding:.25rem .5rem;
+    font-size:.875rem;
+    line-height:1.5
+}
+.pagination-sm .page-item:first-child .page-link{
+    border-top-left-radius:.2rem;
+    border-bottom-left-radius:.2rem
+}
+.pagination-sm .page-item:last-child .page-link{
+    border-top-right-radius:.2rem;
+    border-bottom-right-radius:.2rem
+}*/
+
 @font-face {
     font-family: 'Titillium Web';
     font-style: normal;

@@ -7,8 +7,10 @@
         <meta http-equiv="Content-Language" content="pt-br">
         <link href="vendor/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="vendor/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
+        <link href="vendor/css/placeholder-loading.css" rel="stylesheet" type="text/css"/>
         <link href="styles/loading.css" rel="stylesheet" type="text/css"/>
         <link href="styles/sidebar.css" rel="stylesheet" type="text/css"/>
+        
     </head>
     <body>
         <nav class="main-menu">
@@ -59,6 +61,15 @@
                     </a>
                 </li>
                 
+                <li>
+                    <a href="#">
+                       <i class="fa fa-envelope fa-2x"></i>
+                        <span class="nav-text">
+                            Message <span class="badge badge-warning">9</span>
+                        </span>
+                    </a>
+                </li>
+                
             </ul>
 
             <ul class="logout">
@@ -82,6 +93,34 @@
         <div style="margin-left: 65px;" id="pages">
             <div></div>
         </div>
+        
+        <div style="margin-left: 65px; display: none;" id="skeliton">
+            <div class="container">
+                <div class="ph-item">
+                    <div class="ph-col-12">
+                        <div class="ph-row">
+                            <div class="ph-col-6 big"></div>
+                            <div class="ph-col-4 empty big"></div>
+                            <div class="ph-col-2 big"></div>
+                            <div class="ph-col-4 big"></div>
+                            <div class="ph-col-8 empty big"></div>
+                            <div class="ph-col-6 big"></div>
+                            <div class="ph-col-4 empty big"></div>
+                            <div class="ph-col-12 big"></div>
+                        </div>
+                        <div class="ph-row">
+                            <div class="ph-col-12 empty big"></div>
+                            <div class="ph-col-12 empty big"></div>
+                            <div class="ph-col-12 empty big"></div>
+                            <div class="ph-col-12 empty big"></div>
+                        </div>
+                        <div class="ph-picture2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
 
         <div class="loading"></div>
         
@@ -90,6 +129,8 @@
         <script src="vendor/js/chart.2.8.0.js" type="text/javascript"></script>
         <script src="vendor/js/jquery.validate.min.js" type="text/javascript"></script>
         <script src="vendor/js/sweetalert2.js" type="text/javascript"></script>
+        <script src="vendor/js/jquery.blockUI.js" type="text/javascript"></script>
+        <script src="util/Message.js" type="text/javascript"></script>
         <script src="util/Listener.js" type="text/javascript"></script>
         <script src="Main.js" type="text/javascript"></script>
         
