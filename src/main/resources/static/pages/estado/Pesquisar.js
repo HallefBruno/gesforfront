@@ -1,20 +1,86 @@
-/* global Swal, Message, DataTable */
+
+/* global Swal */
+
+"use strict";
+
+var parametros = {
+    columns: [
+        {data: "nome"},
+        {data: "uf"}
+    ]
+};
+
+var filtros = [
+    $("#nome").val()
+];
 
 $(function () {
-    pesquisar();
-    getList();
-    novo();
-    //assemblyDatatable();
-});
+    
+    setDefaultsDataTable(parametros);
 
-function pesquisar() {
+    var table = $('#tbestados').DataTable({
+        
+        ajax: {
+            url: localStorage.getItem('currentUri')+"/estados/todos",
+            method: "get",
+            data: {
+                filtros:filtros.toString()
+            }
+        }
+        
+    });
     
     $.validator.setDefaults({
         submitHandler: function () {
-            getList();
+            $("#tbestados").empty();
+            filtros[0] = $("#nome").val();
+            $('#tbestados').DataTable({
+                ajax: {
+                    url: localStorage.getItem('currentUri')+"/estados/todos",
+                    method: "get",
+                    data: {
+                        filtros: filtros.toString()
+                    }
+                }
+            });
+            var tbody = $("#tbestados > tbody");
+            if (tbody.children().length === 0) {
+                tbody.html("<tr><td colspan='2'>Nenhum registro encontrado</td></tr>");
+            }
         }
     });
+    
+    $("table").on("click", "#btn-excluir", function () {
 
+        Swal.fire({
+            title: 'Você tem certeza?',
+            text: "Você não poderá reverter isso!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, delete isso!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: "DELETE",
+                    url: localStorage.getItem('currentUri') + "/estados/excluir/" + $(this).data("excluir"),
+                    success: function () {
+                        table.ajax.reload();
+                        Swal.fire('Excluído! ', ' Seu registro foi excluído.', 'success');
+                    }
+                });
+            }
+        });
+
+    });
+
+    vaidation();
+    novo();
+});
+
+function vaidation() {
+    
     $("#form-pesquisa").validate({
         rules: {
             nome: {
@@ -40,46 +106,18 @@ function pesquisar() {
                 error.insertAfter(element);
             }
         },
-        highlight: function (element, errorClass, validClass) {
+        highlight: function (element) {
             $(element).addClass("is-invalid").removeClass("is-valid");
         },
-        unhighlight: function (element, errorClass, validClass) {
+        unhighlight: function (element) {
             $(element).removeClass("is-invalid");
-            //$(element).addClass("is-valid").removeClass("is-invalid");
         }
     });
 }
 
 function novo() {
     $("button[name='btnNovo']").on("click", function() {
-        $(".loading").addClass("show");
         $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/estado/Salvar.html");
-        $(".loading").removeClass("show");
+        $("#pages").find("div").load("pages/estado/Novo.html");
     });
-}
-
-
-function getList() {
-    
-    var parametros = {
-        url: "/estados/todos",
-        paginaAtual: 0,
-        nomeObject: "nome",
-        filters: {
-            "nome": $("#nome").val()
-        },
-        action: true
-    };
-
-    var dataTb = new DataTable.AssembleDataTable2();
-    dataTb.init(parametros);
-
-}
-
-function assemblyDatatable() {
-    $(".teste").show();
-    $("#tbestado").find("div").empty();
-    $("#tbestado").find("div").load("pages/estado/Table.html");
-    $(".teste").hide();
 }
