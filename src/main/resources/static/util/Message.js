@@ -95,7 +95,7 @@ Message.Warning = (function () {
                 imageWidth: 40,
                 imageHeight: 40,
                 imageAlt: 'Custom image',
-                timer: 5000
+                timer: 10000
             });
         }
     };

@@ -5,8 +5,8 @@
 
 var parametros = {
     columns: [
-        {data: "nome"},
-        {data: "uf"}
+        {data: "nome", sortable: true},
+        {data: "uf", sortable: false}
     ]
 };
 
@@ -17,36 +17,20 @@ var filtros = [
 $(function () {
     
     setDefaultsDataTable(parametros);
-
+    
     var table = $('#tbestados').DataTable({
         
         ajax: {
-            url: localStorage.getItem('currentUri')+"/estados/todos",
-            method: "get",
-            data: {
-                filtros:filtros.toString()
-            }
+            url: localStorage.getItem('currentUri')+"/estados/todos/"+filtros.toString(),
+            method: "get"
         }
         
     });
-    
+
     $.validator.setDefaults({
         submitHandler: function () {
-            $("#tbestados").empty();
             filtros[0] = $("#nome").val();
-            $('#tbestados').DataTable({
-                ajax: {
-                    url: localStorage.getItem('currentUri')+"/estados/todos",
-                    method: "get",
-                    data: {
-                        filtros: filtros.toString()
-                    }
-                }
-            });
-            var tbody = $("#tbestados > tbody");
-            if (tbody.children().length === 0) {
-                tbody.html("<tr><td colspan='2'>Nenhum registro encontrado</td></tr>");
-            }
+            table.ajax.url(localStorage.getItem('currentUri')+"/estados/todos/"+filtros.toString()).load();
         }
     });
     

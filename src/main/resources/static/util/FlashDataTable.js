@@ -77,6 +77,7 @@ function setDefaultsDataTable(parametros) {
             {targets: parametros.columns.length - 1, className: 'text-center'},
             {targets: parametros.columns.length - 1, orderable: false},
             {targets: '_all',defaultContent: '-'}
+            //{"targets": 0, "orderable": true}
         ],
         columns: parametros.columns
     });

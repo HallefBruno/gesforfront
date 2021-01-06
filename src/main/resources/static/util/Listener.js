@@ -39,6 +39,7 @@ Listener.Handler = (function () {
         }.bind(this));
         
         $(document).ajaxComplete(function (event, jqXHR, settings) {
+            console.log("ajaxComplete");
             $(".table-responsive").unblock();
             $("button[type='submit']").unblock();
             $("button[type='submit']").prop('disabled',false);
@@ -107,6 +108,11 @@ Listener.Handler = (function () {
                     var message = new Message.Warning();
                     message.show(jqXHR.responseJSON.errors[0],"N");
                 }
+            } else if (jqXHR.status === 404) {
+                if (jqXHR.responseJSON !== null) {
+                    var message = new Message.Warning();
+                    message.show(jqXHR.responseJSON.errors[0]+"\nRecurso não encontrado!", "I");
+                }
             } else if (jqXHR.status === 500) {
                 if(jqXHR.responseJSON !== null) {
                     var message = new Message.Warning();
@@ -116,6 +122,11 @@ Listener.Handler = (function () {
                     $(form).append(nativeSkeleton);
                 }
             }
+            
+            $(".table-responsive").unblock();
+            $("button[type='submit']").unblock();
+            $("button[type='submit']").prop('disabled',false);
+            
         }.bind(this));
     };
 

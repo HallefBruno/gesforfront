@@ -77,7 +77,7 @@ function validar() {
 }
 
 function pagePesquisar() {
-    $("#btnPesquisar").on("click", function () {
+    $("#btnPagePesquisar").on("click", function () {
         $("#pages").find("div").empty();
         $("#pages").find("div").load("pages/estado/Pesquisar.html");
     });
