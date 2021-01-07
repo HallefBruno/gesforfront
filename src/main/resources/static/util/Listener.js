@@ -34,15 +34,16 @@ Listener.Handler = (function () {
 
         $(document).ajaxSend(function (event, jqXHR, settings) {
             $(".table-responsive").block({message: null});
-            $("button[type='submit']").prop('disabled',true);
-            $("button[type='submit']").block({message: null});
+            //$("button[type='submit']").prop('disabled',true);
+            $(':button').prop('disabled', true);
+            $(':button').block({message: null});
         }.bind(this));
         
         $(document).ajaxComplete(function (event, jqXHR, settings) {
-            console.log("ajaxComplete");
             $(".table-responsive").unblock();
-            $("button[type='submit']").unblock();
-            $("button[type='submit']").prop('disabled',false);
+            $(':button').unblock();
+            $(':button').prop('disabled', false);
+            //$("button[type='submit']").prop('disabled',false);
         }.bind(this));
 
         $(document).ajaxError(function (event, jqXHR, settings) {
@@ -122,11 +123,6 @@ Listener.Handler = (function () {
                     $(form).append(nativeSkeleton);
                 }
             }
-            
-            $(".table-responsive").unblock();
-            $("button[type='submit']").unblock();
-            $("button[type='submit']").prop('disabled',false);
-            
         }.bind(this));
     };
 

@@ -19,12 +19,10 @@ $(function () {
     setDefaultsDataTable(parametros);
     
     var table = $('#tbestados').DataTable({
-        
         ajax: {
             url: localStorage.getItem('currentUri')+"/estados/todos/"+filtros.toString(),
             method: "get"
         }
-        
     });
 
     $.validator.setDefaults({
@@ -100,7 +98,12 @@ function vaidation() {
 }
 
 function novo() {
-    $("button[name='btnNovo']").on("click", function() {
+    $("body").on("click","#linkNovo", function() {
+        $("#pages").find("div").empty();
+        $("#pages").find("div").load("pages/estado/Novo.html");
+    });
+    
+    $("#btnNovo").on("click", function() {
         $("#pages").find("div").empty();
         $("#pages").find("div").load("pages/estado/Novo.html");
     });

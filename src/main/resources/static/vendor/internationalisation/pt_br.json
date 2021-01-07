@@ -1,5 +1,5 @@
 {
-    "emptyTable": "Nenhum registro encontrado",
+    "emptyTable": "Nenhum registro encontrado <a href='#' id='linkNovo' class='badge badge-primary'>Novo(a)</a>",
     "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
     "infoEmpty": "Mostrando 0 até 0 de 0 registros",
     "infoFiltered": "(Filtrados de _MAX_ registros)",
