@@ -33,16 +33,22 @@ Listener.Handler = (function () {
         "</div>";
 
         $(document).ajaxSend(function (event, jqXHR, settings) {
-            $(".table-responsive").block({message: null});
+            if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
+                $("div.loading").addClass("show");
+            }
+            //$(".table-responsive").block({message: null});
             //$("button[type='submit']").prop('disabled',true);
-            $(':button').prop('disabled', true);
-            $(':button').block({message: null});
+            //$(':button').prop('disabled', true);
+            //$(':button').block({message: null});
         }.bind(this));
         
         $(document).ajaxComplete(function (event, jqXHR, settings) {
-            $(".table-responsive").unblock();
-            $(':button').unblock();
-            $(':button').prop('disabled', false);
+            if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
+                $("div.loading").removeClass("show");
+            }
+            //$(".table-responsive").unblock();
+            //$(':button').unblock();
+            //$(':button').prop('disabled', false);
             //$("button[type='submit']").prop('disabled',false);
         }.bind(this));
 
