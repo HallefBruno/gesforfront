@@ -1,8 +1,6 @@
 
 /* global Swal */
 
-"use strict";
-
 var parametros = {
     columns: [
         {data: "nome", sortable: true},

@@ -111,7 +111,7 @@ function structureMenu() {
                 'class':'btn btn-success',
                 'icon': "<i class='fa fa-file'></i>",
                 'event':'eventContructionPage(this)',
-                'url': 'pages/estado/MenuCadastro.html'
+                'url': 'pages/cidade/Pesquisar.html'
             },
             {
                 'name': 'Bairro',
