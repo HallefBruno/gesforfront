@@ -66,8 +66,15 @@ $(document).ready(function() {
     });
     
     validar();
-
+    pagePesquisar();
 });
+
+function pagePesquisar() {
+    $("#btnPagePesquisar").on("click", function () {
+        $("#pages").find("div").empty();
+        $("#pages").find("div").load("pages/cidade/Pesquisar.html");
+    });
+}
 
 function validar() {
     $("#form-cidade").validate({

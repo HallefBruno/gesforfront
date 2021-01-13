@@ -66,6 +66,7 @@ $(function () {
     });
     
     vaidation();
+    novo();
 });
 
 function vaidation() {
@@ -105,6 +106,18 @@ function vaidation() {
         unhighlight: function (element) {
             $(element).removeClass("is-invalid");
         }
+    });
+}
+
+function novo() {
+    $("body").on("click","#linkNovo", function() {
+        $("#pages").find("div").empty();
+        $("#pages").find("div").load("pages/cidade/Novo.html");
+    });
+    
+    $("#btnNovo").on("click", function() {
+        $("#pages").find("div").empty();
+        $("#pages").find("div").load("pages/cidade/Novo.html");
     });
 }
 
