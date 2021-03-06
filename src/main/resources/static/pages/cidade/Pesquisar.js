@@ -1,5 +1,3 @@
-
-
 $(function () {
 
     var estado;
@@ -12,11 +10,9 @@ $(function () {
             {data: "estado.nome", sortable: false}
         ]
     };
-    
 
     setDefaultsDataTable(parametros);
-    
-    
+
     $("#estados").on("select2:select", function (e) {
         var data = e.params.data;
         if(data.uf !== undefined || data.uf !== null) {
@@ -32,7 +28,9 @@ $(function () {
                 nomeEstado: function() { 
                     return estado; 
                 },
-                nomeCidade: function() { return $('#cidade').val(); }
+                nomeCidade: function() { 
+                    return $('#cidade').val(); 
+                }
             }
         }
     });
@@ -78,7 +76,7 @@ function vaidation() {
                 maxlength: 25
             },
             estados: {
-                required: true
+                required: false
             }
         },
         messages: {
