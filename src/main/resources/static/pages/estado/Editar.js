@@ -1,5 +1,3 @@
-"use strict";
-
 $(function () {
     
     var page = $("#pages");
