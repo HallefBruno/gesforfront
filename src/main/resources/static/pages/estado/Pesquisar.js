@@ -16,7 +16,7 @@ $(function () {
     
     setDefaultsDataTable(parametros);
     
-    var table = $('#tbestados').DataTable({
+    $('#tbestados').DataTable({
         ajax: {
             url: localStorage.getItem('currentUri')+"/estados/todos/"+filtros.toString(),
             method: "get"
@@ -26,7 +26,7 @@ $(function () {
     $.validator.setDefaults({
         submitHandler: function () {
             filtros[0] = $("#nome").val();
-            table.ajax.url(localStorage.getItem('currentUri')+"/estados/todos/"+filtros.toString()).load();
+            $('#tbestados').DataTable().ajax.url(localStorage.getItem('currentUri')+"/estados/todos/"+filtros.toString()).load();
         }
     });
     
@@ -46,7 +46,7 @@ $(function () {
                     method: "DELETE",
                     url: localStorage.getItem('currentUri') + "/estados/excluir/" + $(this).data("excluir"),
                     success: function () {
-                        table.ajax.reload();
+                        $('#tbestados').DataTable().ajax.reload();
                         Swal.fire('Excluído! ', ' Seu registro foi excluído.', 'success');
                     }
                 });

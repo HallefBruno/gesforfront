@@ -61,24 +61,42 @@ $(function () {
         
     });
     
-    var estado = {
+    var optionalEstado = {
         text: $("#estado-nome").val(),
-        id: $("#estado-id").val()
+        id: $("#estado-id").val(),
+        uf:$("#estado-uf").val()
     };
-    var option = new Option(estado.text, estado.id, true, true);
-    comboEstado.append(option).trigger('change');
+    
+    var estado = {};
+    var cidade = {};
+    
+    var option = new Option(optionalEstado.text, optionalEstado.id, true, true);
+    comboEstado.append(option).trigger("change");
 
     comboEstado.trigger({
-        type: 'select2:select',
+        type: "select2:select",
         params: {
-            data: estado
+            data: optionalEstado
         }
     });
-
+    
+    estado = {
+        id:optionalEstado.id,
+        nome:optionalEstado.text,
+        uf:optionalEstado.uf
+    };
+    
+    cidade = {
+        id:$("#id").val(),
+        estado:estado,
+        nome:$("#nome").val()
+    };
+    
     comboEstado.on("select2:select", function (e) {
         var data = e.params.data;
         if(data.uf !== undefined || data.uf !== null) {
             cidade = {
+                id:$("#id").val(),
                 estado: {
                     id:data.id,
                     nome:data.text,

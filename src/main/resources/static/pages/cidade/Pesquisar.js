@@ -1,3 +1,5 @@
+/* global Swal */
+
 $(function () {
 
     var estado;
@@ -19,23 +21,24 @@ $(function () {
             estado = data.text;
         }
     });
-    
-    var table = $('#tbcidades').DataTable({
+
+    $('#tbcidades').DataTable({
         ajax: {
-            url: url+"/cidades/todos/",
+            url: url + "/cidades/todos/",
             method: "get",
             data: {
-                nomeEstado: function() { 
-                    return estado; 
+                nomeEstado: function () {
+                    return estado;
                 },
-                nomeCidade: function() { 
-                    return $('#cidade').val(); 
+                nomeCidade: function () {
+                    return $('#cidade').val();
                 }
             }
         }
     });
     
-    getData(url+"/estados/todos").then(function(data) {
+
+    $.get(url+"/estados/todos",function(data) {
         var estado;
         $.each(data, function (i, values) {
             estado = {
@@ -54,12 +57,36 @@ $(function () {
             templateResult: styleEstado,
             data: estados
         });
+    });
+    
+    $("table").on("click", "#btn-excluir", function () {
+
+        Swal.fire({
+            title: 'Você tem certeza?',
+            text: "Você não poderá reverter isso!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, delete isso!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: "DELETE",
+                    url: localStorage.getItem('currentUri') + "/cidades/excluir/" + $(this).data("excluir"),
+                    success: function () {
+                        $("#tbcidades").DataTable().ajax.reload();
+                        Swal.fire('Excluído! ', ' Seu registro foi excluído.', 'success');
+                    }
+                });
+            }
+        });
 
     });
 
     $.validator.setDefaults({
         submitHandler: function () {
-            table.ajax.url(localStorage.getItem('currentUri')+"/cidades/todos").load();
+            $("#tbcidades").DataTable().ajax.url(localStorage.getItem('currentUri')+"/cidades/todos").load();
         }
     });
     
@@ -125,9 +152,4 @@ function styleEstado(estado) {
     }
     var html = $("<span>"+estado.text+"</span><span class='text-right badge badge-primary'>"+estado.uf+"</span>");
     return html;
-};
-
-async function getData(url) {
-   var jqXHR = await $.get(url);
-   return jqXHR;
 }
