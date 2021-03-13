@@ -1,3 +1,5 @@
+/* global Message */
+
 $(document).ready(function() {
     
     var url = localStorage.getItem('currentUri');
@@ -5,7 +7,7 @@ $(document).ready(function() {
     var cidade;
     var estados = [];
     
-    getData(url+"/estados/todos").then(function(data) {
+    $.get(url+"/estados/todos", function(data) {
         var estado;
         $.each(data, function (i, values) {
             estado = {
@@ -70,10 +72,7 @@ $(document).ready(function() {
 });
 
 function pagePesquisar() {
-    $("#btnPagePesquisar").on("click", function () {
-        $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/cidade/Pesquisar.html");
-    });
+    loadPageHtml("#btnPagePesquisar","pages/cidade/Pesquisar.html");
 }
 
 function validar() {
@@ -125,11 +124,7 @@ function styleEstado(estado) {
     return html;
 };
 
-async function getData(url) {
-   var jqXHR = await $.get(url);
-   return jqXHR;
-}
-
-//    $.post(url).then(function(data) {
-//        modal.find('.modal-title').text(data.company);
-//    });
+//async function getData(url) {
+//   var jqXHR = await $.get(url);
+//   return jqXHR;
+//}

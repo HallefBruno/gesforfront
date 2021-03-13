@@ -1,35 +1,29 @@
 
 /* global Swal */
-
-var parametros = {
-    columns: [
-        {data: "nome", sortable: true},
-        {data: "uf", sortable: false}
-    ]
-};
-
-var filtros = [
-    $("#nome").val()
-];
-
 $(function () {
     
+    var parametros = {
+        columns: [
+            {data: "nome", sortable: true},
+            {data: "uf", sortable: false}
+        ]
+    };
     setDefaultsDataTable(parametros);
-    
-    $('#tbestados').DataTable({
+
+    var url = localStorage.getItem("currentUri");
+
+    $("#tbestados").DataTable({
         ajax: {
-            url: localStorage.getItem('currentUri')+"/estados/todos/"+filtros.toString(),
-            method: "get"
+            url: url +"/estados/todos/",
+            method: "get",
+            data: {
+                nomeEstado: function () {
+                    return $("#nome").val();
+                }
+            }
         }
     });
 
-    $.validator.setDefaults({
-        submitHandler: function () {
-            filtros[0] = $("#nome").val();
-            $('#tbestados').DataTable().ajax.url(localStorage.getItem('currentUri')+"/estados/todos/"+filtros.toString()).load();
-        }
-    });
-    
     $("table").on("click", "#btn-excluir", function () {
 
         Swal.fire({
@@ -44,7 +38,7 @@ $(function () {
             if (result.isConfirmed) {
                 $.ajax({
                     method: "DELETE",
-                    url: localStorage.getItem('currentUri') + "/estados/excluir/" + $(this).data("excluir"),
+                    url: url + "/estados/excluir/" + $(this).data("excluir"),
                     success: function () {
                         $('#tbestados').DataTable().ajax.reload();
                         Swal.fire('Excluído! ', ' Seu registro foi excluído.', 'success');
@@ -54,7 +48,18 @@ $(function () {
         });
 
     });
-
+    
+    $("table").on("click", "#btn-editar", function () {
+        loadPageHtml(null,"pages/estado/Editar.html");
+        localStorage.setItem("estadoId", $(this).data("editar"));
+    });
+    
+    $.validator.setDefaults({
+        submitHandler: function () {
+            $("#tbestados").DataTable().ajax.url(url+"/estados/todos/").load();
+        }
+    });
+    
     vaidation();
     novo();
 });
@@ -64,21 +69,18 @@ function vaidation() {
     $("#form-pesquisa").validate({
         rules: {
             nome: {
-                required: true,
                 minlength: 2,
                 maxlength: 25
             }
         },
         messages: {
             nome: {
-                required: "Nome obrigatório",
                 minlength: "Tamanho mínimo para o nome é 2 caracter",
                 maxlength: "Tamanho máximo para no nome é 50 caracter"
             }
         },
         errorElement: "em",
         errorPlacement: function (error, element) {
-
             error.addClass("invalid-feedback");
             if (element.prop("type") === "checkbox") {
                 error.insertAfter(element.next("label"));
@@ -97,12 +99,7 @@ function vaidation() {
 
 function novo() {
     $("body").on("click","#linkNovo", function() {
-        $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/estado/Novo.html");
+        loadPageHtml(null,"pages/estado/Novo.html");
     });
-    
-    $("#btnNovo").on("click", function() {
-        $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/estado/Novo.html");
-    });
+    loadPageHtml("#btnNovo","pages/estado/Novo.html");
 }

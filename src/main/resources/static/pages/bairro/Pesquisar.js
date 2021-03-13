@@ -4,7 +4,7 @@ $(document).ready(function() {
     
     var cidade;
     var cidades = [];
-    var url = localStorage.getItem('currentUri');
+    var url = localStorage.getItem("currentUri");
     
     var parametros = {
         columns: [
@@ -76,13 +76,18 @@ $(document).ready(function() {
                     method: "DELETE",
                     url: localStorage.getItem('currentUri') + "/bairros/excluir/" + $(this).data("excluir"),
                     success: function () {
-                        $("#tbcidades").DataTable().ajax.reload();
+                        $("#tbbairros").DataTable().ajax.reload();
                         Swal.fire('Excluído! ', ' Seu registro foi excluído.', 'success');
                     }
                 });
             }
         });
 
+    });
+    
+    $("table").on("click", "#btn-editar", function () {
+        loadPageHtml(null,"pages/bairro/Editar.html");
+        localStorage.setItem("bairroId", $(this).data("editar"));
     });
 
     $.validator.setDefaults({
@@ -138,14 +143,9 @@ function vaidation() {
 
 function novo() {
     $("body").on("click","#linkNovo", function() {
-        $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/bairro/Novo.html");
+        loadPageHtml(null,"pages/bairro/Novo.html");
     });
-    
-    $("#btnNovo").on("click", function() {
-        $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/bairro/Novo.html");
-    });
+    loadPageHtml("#btnNovo","pages/bairro/Novo.html");
 }
 
 function styleEstado(cidade) {

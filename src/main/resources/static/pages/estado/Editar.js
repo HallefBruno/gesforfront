@@ -1,39 +1,24 @@
+/* global Message */
+
 $(function () {
-    
-    var page = $("#pages");
-    var body = $("body");
 
-    $("table").on("click","#btn-editar", function () {
-        page.find("div").empty();
-        page.find("div").load("pages/estado/Editar.html");
-        
-        var id = $(this).data("editar");
-        var url = localStorage.getItem('currentUri')+"/estados/buscar/"+id;
+    var url = localStorage.getItem("currentUri");
+    var id = localStorage.getItem("estadoId");
+    
+    $.get(url+"/estados/buscar/"+id, function(data) {
+        if ($("#nome").length) {
+            $("#id").val(data.id);
+            $("#nome").val(data.nome);
+            $("#uf").val(data.uf);
+        } else {
+            var warning = new Message.Warning();
+            warning.show("houve um probleminha na renderização dos componentes da tela que você iria trabalhar, pesso que tente editar novamente!","I");
+            console.log("Ops! Elemento não existe no DOM");
+        }
+    });
 
-        $.get(url, function(data) {
-            if (body.find("#nome").length) {
-                body.find("#id").val(data.id);
-                body.find("#nome").val(data.nome);
-                body.find("#uf").val(data.uf);
-            } else {
-                var warning = new Message.Warning();
-                warning.show("houve um probleminha na renderização dos componentes da tela que você iria trabalhar, pesso que tente editar novamente!","I");
-                console.log("Ops! Elemento não existe no DOM");
-            }
-        });
-        
-    });
-    
-    body.find("#btnPagePesquisar").on("click", function () {
-        page.find("div").empty();
-        page.find("div").load("pages/estado/Pesquisar.html");
-    });
-    
     $.validator.setDefaults({
         submitHandler: function () {
-
-            var retrievedObject = localStorage.getItem('currentUri');
-
             var estado = {
                 id: $("#id").val(),
                 nome: $("#nome").val(),
@@ -42,7 +27,7 @@ $(function () {
 
             $.ajax({
                 method: "PUT",
-                url: retrievedObject + "/estados/alterar/"+estado.id,
+                url: url + "/estados/alterar/"+estado.id,
                 data: JSON.stringify(estado),
                 contentType: "application/json",
                 dataType: "json",
@@ -56,11 +41,10 @@ $(function () {
         }
     });
     
+    loadPageHtml("#btnPagePesquisar", "pages/estado/Pesquisar.html");
     validar();
     
 });
-
-
 
 function validar() {
     $("#form-estado").validate({

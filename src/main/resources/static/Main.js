@@ -89,6 +89,18 @@ function eventSubmenu() {
     contentDivMenu = "";
 }
 
+function loadPageHtml(idComponent,pathPage) {
+    if(idComponent === null) {
+        $("#pages").find("div").empty();
+        $("#pages").find("div").load(pathPage);
+    } else {
+        $(idComponent).on("click", function () {
+            $("#pages").find("div").empty();
+            $("#pages").find("div").load(pathPage);
+        });
+    }
+}
+
 function structureMenu() {
 
     let menus = {

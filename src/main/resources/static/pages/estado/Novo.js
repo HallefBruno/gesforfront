@@ -77,10 +77,7 @@ function validar() {
 }
 
 function pagePesquisar() {
-    $("#btnPagePesquisar").on("click", function () {
-        $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/estado/Pesquisar.html");
-    });
+    loadPageHtml("#btnPagePesquisar","pages/estado/Pesquisar.html");
 }
 
 //    $.validator.setDefaults({

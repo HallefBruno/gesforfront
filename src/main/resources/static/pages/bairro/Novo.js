@@ -63,15 +63,9 @@ $(document).ready(function() {
     });
     
     validar();
-    pagePesquisar();
+    loadPageHtml("#btnPagePesquisar","pages/bairro/Pesquisar.html");
 });
 
-function pagePesquisar() {
-    $("#btnPagePesquisar").on("click", function () {
-        $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/bairro/Pesquisar.html");
-    });
-}
 
 function validar() {
     $("#form-bairro").validate({

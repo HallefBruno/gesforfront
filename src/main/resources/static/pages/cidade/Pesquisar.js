@@ -4,12 +4,12 @@ $(function () {
 
     var estado;
     var estados = [];
-    var url = localStorage.getItem('currentUri');
+    var url = localStorage.getItem("currentUri");
     
     var parametros = {
         columns: [
-            {data: "nome", sortable: false},
-            {data: "estado.nome", sortable: false}
+            {data: "estado.nome", sortable: false},
+            {data: "nome", sortable: false}
         ]
     };
 
@@ -22,7 +22,7 @@ $(function () {
         }
     });
 
-    $('#tbcidades').DataTable({
+    $("#tbcidades").DataTable({
         ajax: {
             url: url + "/cidades/todos/",
             method: "get",
@@ -73,7 +73,7 @@ $(function () {
             if (result.isConfirmed) {
                 $.ajax({
                     method: "DELETE",
-                    url: localStorage.getItem('currentUri') + "/cidades/excluir/" + $(this).data("excluir"),
+                    url: url+"/cidades/excluir/" + $(this).data("excluir"),
                     success: function () {
                         $("#tbcidades").DataTable().ajax.reload();
                         Swal.fire('Excluído! ', ' Seu registro foi excluído.', 'success');
@@ -81,12 +81,16 @@ $(function () {
                 });
             }
         });
-
+    });
+    
+    $("table").on("click", "#btn-editar", function () {
+        loadPageHtml(null,"pages/cidade/Editar.html");
+        localStorage.setItem("cidadeId", $(this).data("editar"));
     });
 
     $.validator.setDefaults({
         submitHandler: function () {
-            $("#tbcidades").DataTable().ajax.url(localStorage.getItem('currentUri')+"/cidades/todos").load();
+            $("#tbcidades").DataTable().ajax.url(url+"/cidades/todos").load();
         }
     });
     
@@ -136,14 +140,9 @@ function vaidation() {
 
 function novo() {
     $("body").on("click","#linkNovo", function() {
-        $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/cidade/Novo.html");
+        loadPageHtml(null,"pages/cidade/Novo.html");
     });
-    
-    $("#btnNovo").on("click", function() {
-        $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/cidade/Novo.html");
-    });
+    loadPageHtml("#btnNovo","pages/cidade/Novo.html");
 }
 
 function styleEstado(estado) {

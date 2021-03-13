@@ -116,9 +116,12 @@ Listener.Handler = (function () {
                     message.show(jqXHR.responseJSON.errors[0],"N");
                 }
             } else if (jqXHR.status === 404) {
-                if (jqXHR.responseJSON !== null) {
+                if (jqXHR.responseJSON !== undefined && jqXHR.responseJSON.errors !== undefined) {
                     var message = new Message.Warning();
-                    message.show(jqXHR.responseJSON.errors[0]+"\nRecurso não encontrado!", "I");
+                    message.show(jqXHR.responseJSON.errors[0] + "\nRecurso não encontrado!", "I");
+                } else {
+                    var message = new Message.Warning();
+                    message.show("Recurso não encontrado: "+jqXHR.responseJSON.path,"I");
                 }
             } else if (jqXHR.status === 500) {
                 if(jqXHR.responseJSON !== null) {
