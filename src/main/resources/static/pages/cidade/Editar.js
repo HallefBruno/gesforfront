@@ -3,33 +3,23 @@
 $(function () {
 
     var path = localStorage.getItem("currentUri");
-
-    loadPageHtml("#btnPagePesquisar", "pages/cidade/Pesquisar.html");
-
     var cidadeId = localStorage.getItem("cidadeId");
 
     $.get(path + "/cidades/buscar/" + cidadeId, function (data) {
-        if ($("#nome").length) {
+        $("#id").val(data.id);
+        $("#nome").val(data.nome);
 
-            $("#id").val(data.id);
-            $("#nome").val(data.nome);
+        $("#estado-id").val(data.estado.id);
+        $("#estado-nome").val(data.estado.nome);
+        $("#estado-uf").val(data.estado.uf);
 
-            $("#estado-id").val(data.estado.id);
-            $("#estado-nome").val(data.estado.nome);
-            $("#estado-uf").val(data.estado.uf);
-            
-            cidade = {
-                id: data.id,
-                estado: {
-                    id: data.estado.id
-                }
-            };
-            
-        } else {
-            var warning = new Message.Warning();
-            warning.show("houve um probleminha na renderização dos componentes da tela que você iria trabalhar, pesso que tente editar novamente!", "I");
-            console.log("Ops! Elemento não existe no DOM");
-        }
+        cidade = {
+            id: data.id,
+            estado: {
+                id: data.estado.id
+            }
+        };
+
     });
 
     $.get(path + "/estados/todos", function (data) {
@@ -53,15 +43,18 @@ $(function () {
             data: estados
         });
         
-        if ($("#estados").find("option[value='" + $("#estado-id").val() + "']").length) {
-            $("#estados").val($("#estado-id").val()).trigger("change");
+        if ($("#estado-id").val() === "") {
+            $("#btnEstadoAtual").css("pointer-events","");
+            $("#btnEstadoAtual").prop("disabled",false);
         }
-
+        $("#estados").val($("#estado-id").val()).trigger("change");
+        
     });
 
     $("#estados").on("select2:select", function (e) {
         var data = e.params.data;
         if (data.uf !== undefined || data.uf !== null) {
+            $("#estado-id").val(data.id);
             cidade = {
                 id: $("#id").val(),
                 estado: {
@@ -89,11 +82,14 @@ $(function () {
             });
         }
     });
+    
+    loadPageHtml("#btnPagePesquisar", "pages/cidade/Pesquisar.html");
     validar();
+    setEstado();
 });
 
 function validar() {
-    $("#form-cidade").validate({
+    $("#form-editar-cidade").validate({
         rules: {
             nome: {
                 required: true,
@@ -142,6 +138,11 @@ function styleEstado(estado) {
     return html;
 }
 
+function setEstado() {
+    $("#btnEstadoAtual").click(function () {
+        $("#estados").val($("#estado-id").val()).trigger("change");
+    });
+}
 
 //var optionalEstado = {
 //        text: $("#estado-nome").val(),

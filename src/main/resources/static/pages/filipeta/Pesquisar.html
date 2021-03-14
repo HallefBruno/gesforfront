@@ -2,32 +2,31 @@
 
 <html>
     <head>
-        <title>Pesquisar cidade</title>
+        <title>Pesquisar filipeta</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <div class="container shadow p-3 mb-5 bg-white rounded" style="height: 800px; margin-top: 20px;">
             <div class="card" style="height: 770px;">
-                <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Pesquisa de cidade</h5>
+                <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Pesquisa de filipeta</h5>
                 <div class="card-body">
                     <div class="container">
-                        <form id="form-pesquisa">
+                        <form id="form-pesquisa-filipeta">
                             
                             <div class="form-row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="cidade">Nome</label>
-                                        <input type="text" name="cidade" class="form-control-flash form-control" id="cidade" autocomplete="off"/>
+                                        <label for="numero">Número</label>
+                                        <input type="text" name="numero" class="form-control-flash form-control" id="numero" autocomplete="off"/>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="estados">Estado</label>
-                                        <select id="estados" name="estados" class="combo-update form-control" >
+                                        <label for="portarias">Portaria</label>
+                                        <select id="portarias" name="portarias" class="combo-update form-control" >
                                             <option></option>
                                         </select>
-                                        <span></span>
                                     </div>
                                 </div>
                             </div>
@@ -45,11 +44,11 @@
                             </div>
                             
                             <div style="margin-top: 10px;" class="table-responsive">
-                                <table id="tbcidades" class="table table-bordered" style="width:100%;">
+                                <table id="tbfilipetas" class="table table-bordered" style="width:100%;">
                                     <thead>
                                         <tr>
-                                            <th>Estado</th>
-                                            <th>Cidade</th>
+                                            <th>Portaria</th>
+                                            <th>Filipeta número</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -66,6 +65,6 @@
     <script src="vendor/js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="vendor/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
     <script src="util/FlashDataTableConfig.js" type="text/javascript"></script>
-    <script src="pages/cidade/Pesquisar.js" type="text/javascript"></script>
-    <script src="pages/cidade/Detalhes.js" type="text/javascript"></script>
+    <script src="pages/filipeta/Pesquisar.js" type="text/javascript"></script>
+    <script src="pages/filipeta/Detalhes.js" type="text/javascript"></script>
 </html>

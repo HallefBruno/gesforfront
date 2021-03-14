@@ -18,13 +18,21 @@
                             <input type="hidden" name="cidade-nome" id="cidade-nome" />
                             <input type="hidden" name="estado-uf" id="estado-uf" />
                             <div class="form-row">
-                                <div class="col-6">
+                                <div class="col-5 col-sm-5 col-md-5" >
                                     <div class="form-group">
-                                        <label for="cidades">Estado</label>
+                                        <label for="cidades">Cidade</label>
                                         <select id="cidades" name="cidades" class="combo-update form-control" >
                                             <option></option>
                                         </select>
                                     </div>
+                                </div>
+
+                                <div class="col-1 col-sm-1 col-md-1">
+                                    <span style="margin-top: 32px;" class="d-inline-block" data-placement="top" tabindex="0" data-toggle="tooltip" title="Buscar cidade atual">
+                                        <button style=" width: 78px; pointer-events: none;" type="button" id="btnEstadoAtual" class="btn btn-warning" disabled>
+                                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
                             

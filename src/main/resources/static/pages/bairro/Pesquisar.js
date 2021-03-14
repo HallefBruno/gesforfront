@@ -2,6 +2,7 @@
 
 $(document).ready(function() {
     
+    var atualPage = $(this);
     var cidade;
     var cidades = [];
     var url = localStorage.getItem("currentUri");
@@ -23,13 +24,13 @@ $(document).ready(function() {
         }
     });
 
-    $('#tbbairros').DataTable({
+    atualPage.find("#form-pesquisa").find("#tbbairros").DataTable({
         ajax: {
             url: url + "/bairros/todos/",
             method: "get",
             data: {
                 nomeBairro: function () {
-                    return $('#cidade').val();
+                    return $('#bairro').val();
                 },
                 nomeCidade: function () {
                     return cidade;

@@ -2,38 +2,37 @@
 
 $(document).ready(function() {
     
-    var url = localStorage.getItem('currentUri');
+    var url = localStorage.getItem("currentUri");
     
-    var bairro;
-    var cidades = [];
+    var filipeta = {};
+    var portarias = [];
     
-    $.get(url+"/cidades/todos", function(data) {
-        var cidade;
+    $.get(url+"/portarias/todos", function(data) {
+        var portaria;
         $.each(data, function (i, values) {
-            cidade = {
+            portaria = {
                 id: values.id,
-                text: values.nome,
-                uf:values.estado.uf
+                text: values.nome
             };
-            cidades.push(cidade);
+            portarias.push(portaria);
         });
         
-        $("#cidades").select2({
+        $("#portarias").select2({
             theme: "bootstrap4",
-            placeholder:"Selecione a cidade",
+            placeholder:"Selecione a portaria",
             allowClear: true,
             language: "pt-BR",
-            templateResult: styleCidade,
-            data: cidades
+            templateResult: stylePortaria,
+            data: portarias
         });
 
     });
     
-    $("#cidades").on("select2:select", function (e) {
+    $("#portarias").on("select2:select", function (e) {
         var data = e.params.data;
-        if(data.uf !== undefined || data.uf !== null) {
-            bairro = {
-                cidade: {
+        if(data.nome !== undefined || data.nome !== null) {
+            filipeta = {
+                portaria: {
                     id:data.id
                 }
             };
@@ -43,13 +42,15 @@ $(document).ready(function() {
     
     $.validator.setDefaults({
         submitHandler: function () {
-            var message = new Message.Success();
-            bairro["nome"] = $("#nome").val();
             
+            var message = new Message.Success();
+
+            filipeta["numero"] = $("#numero").val();
+
             $.ajax({
                 method: "POST",
-                url: url + "/bairros/salvar",
-                data: JSON.stringify(bairro),
+                url: url + "/filipetas/salvar",
+                data: JSON.stringify(filipeta),
                 contentType: "application/json",
                 dataType: "json",
                 statusCode: {
@@ -63,30 +64,33 @@ $(document).ready(function() {
     });
     
     validar();
-    loadPageHtml("#btnPagePesquisar","pages/bairro/Pesquisar.html");
+    pagePesquisar();
 });
 
+function pagePesquisar() {
+    loadPageHtml("#btnPagePesquisar","pages/filipeta/Pesquisar.html");
+}
 
 function validar() {
-    $("#form-bairro").validate({
+    $("#form-novo-filipeta").validate({
         rules: {
-            nome: {
+            numero: {
                 required: true,
                 minlength: 3,
                 maxlength: 100
             },
-            cidades: {
+            portarias: {
                 required: true
             }
         },
         messages: {
-            nome: {
+            numero: {
                 required: "Nome obrigatório",
                 minlength: "Tamanho mínimo para o nome é 3 caracter",
                 maxlength: "Tamanho máximo para no nome é 100 caracter"
             },
-            cidades: {
-                required: "Cidade obrigatória"
+            portarias: {
+                required: "Portaria obrigatória"
             }
         },
         errorElement: "em",
@@ -108,10 +112,10 @@ function validar() {
     });
 }
 
-function styleCidade(cidade) {
-    if (!cidade.id) {
-        return cidade.text;
+function stylePortaria(portaria) {
+    if (!portaria.id) {
+        return portaria.text;
     }
-    var html = $("<span>"+cidade.text+"</span><span class='text-right badge badge-primary'>"+cidade.uf+"</span>");
+    var html = $("<span class='badge badge-primary'>"+portaria.text+"</span>");
     return html;
 };

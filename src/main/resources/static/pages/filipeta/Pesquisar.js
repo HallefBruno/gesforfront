@@ -2,60 +2,59 @@
 
 $(function () {
 
-    var estado;
-    var estados = [];
+    var filipeta;
+    var portarias = [];
     var url = localStorage.getItem("currentUri");
     
     var parametros = {
         columns: [
-            {data: "estado.nome", sortable: false},
-            {data: "nome", sortable: false}
+            {data: "portaria.nome", sortable: false},
+            {data: "numero", sortable: false}
         ]
     };
 
     setDefaultsDataTable(parametros);
 
-    $("#estados").on("select2:select", function (e) {
+    $("#portarias").on("select2:select", function (e) {
         var data = e.params.data;
-        if(data.uf !== undefined || data.uf !== null) {
-            estado = data.text;
+        if(data.nome !== undefined || data.nome !== null) {
+            filipeta = data.text;
         }
     });
 
-    $("#tbcidades").DataTable({
+    $("#tbfilipetas").DataTable({
         ajax: {
-            url: url + "/cidades/todos/",
+            url: url + "/filipetas/todos/",
             method: "get",
             data: {
-                nomeEstado: function () {
-                    return estado;
+                numero: function () {
+                    return $("#numero").val();
                 },
-                nomeCidade: function () {
-                    return $('#cidade').val();
+                nomePortaria: function () {
+                    return filipeta;
                 }
             }
         }
     });
     
 
-    $.get(url+"/estados/todos",function(data) {
-        var estado;
+    $.get(url+"/portarias/todos",function(data) {
+        var portaria;
         $.each(data, function (i, values) {
-            estado = {
+            portaria = {
                 id: values.id,
-                text: values.nome,
-                uf: values.uf
+                text: values.nome
             };
-            estados.push(estado);
+            portarias.push(portaria);
         });
         
-        $("#estados").select2({
+        $("#portarias").select2({
             theme: "bootstrap4",
-            placeholder:"Selecione o estado",
+            placeholder:"Selecione a portaria",
             allowClear: true,
             language: "pt-BR",
-            templateResult: styleEstado,
-            data: estados
+            templateResult: stylePortaria,
+            data: portarias
         });
     });
     
@@ -73,9 +72,9 @@ $(function () {
             if (result.isConfirmed) {
                 $.ajax({
                     method: "DELETE",
-                    url: url+"/cidades/excluir/" + $(this).data("excluir"),
+                    url: url+"/filipetas/excluir/" + $(this).data("excluir"),
                     success: function () {
-                        $("#tbcidades").DataTable().ajax.reload();
+                        $("tbfilipetas").DataTable().ajax.reload();
                         Swal.fire('Excluído! ', ' Seu registro foi excluído.', 'success');
                     }
                 });
@@ -84,13 +83,13 @@ $(function () {
     });
     
     $("table").on("click", "#btn-editar", function () {
-        loadPageHtml(null,"pages/cidade/Editar.html");
-        localStorage.setItem("cidadeId", $(this).data("editar"));
+        loadPageHtml(null,"pages/filipeta/Editar.html");
+        localStorage.setItem("filipetaId", $(this).data("editar"));
     });
 
     $.validator.setDefaults({
         submitHandler: function () {
-            $("#tbcidades").DataTable().ajax.url(url+"/cidades/todos").load();
+            $("#tbfilipetas").DataTable().ajax.url(url+"/filipetas/todos").load();
         }
     });
     
@@ -100,23 +99,24 @@ $(function () {
 
 function vaidation() {
     
-    $("#form-pesquisa").validate({
+    $("#form-pesquisa-filipeta").validate({
         rules: {
-            cidade: {
-                minlength: 2,
-                maxlength: 25
+            numero: {
+                minlength: 3,
+                maxlength: 100,
+                required: false
             },
-            estados: {
+            portarias: {
                 required: false
             }
         },
         messages: {
-            cidade: {
-                minlength: "Tamanho mínimo para o nome é 2 caracter",
-                maxlength: "Tamanho máximo para no nome é 50 caracter"
+            numero: {
+                minlength: "Tamanho mínimo para o número é 3 caracter",
+                maxlength: "Tamanho máximo para no número é 100 caracter"
             },
-            estados: {
-                required: "Estado obrigatório"
+            portarias: {
+                required: "Portaria obrigatória"
             }
         },
         errorElement: "em",
@@ -140,15 +140,15 @@ function vaidation() {
 
 function novo() {
     $("body").on("click","#linkNovo", function() {
-        loadPageHtml(null,"pages/cidade/Novo.html");
+        loadPageHtml(null,"pages/filipeta/Novo.html");
     });
-    loadPageHtml("#btnNovo","pages/cidade/Novo.html");
+    loadPageHtml("#btnNovo","pages/filipeta/Novo.html");
 }
 
-function styleEstado(estado) {
-    if (!estado.id) {
-        return estado.text;
+function stylePortaria(portaria) {
+    if (!portaria.id) {
+        return portaria.text;
     }
-    var html = $("<span>"+estado.text+"</span><span class='text-right badge badge-primary'>"+estado.uf+"</span>");
+    var html = $("<span class='badge badge-primary'>"+portaria.text+"</span>");
     return html;
 }
