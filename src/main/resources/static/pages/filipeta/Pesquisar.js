@@ -74,7 +74,7 @@ $(function () {
                     method: "DELETE",
                     url: url+"/filipetas/excluir/" + $(this).data("excluir"),
                     success: function () {
-                        $("tbfilipetas").DataTable().ajax.reload();
+                        $("#tbfilipetas").DataTable().ajax.reload();
                         Swal.fire('Excluído! ', ' Seu registro foi excluído.', 'success');
                     }
                 });

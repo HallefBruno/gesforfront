@@ -126,6 +126,16 @@ function structureMenu() {
                 'event':'eventContructionPage(this)',
                 'url': 'pages/filipeta/Pesquisar.html'
             },
+            
+            {
+                'name': 'Cadastro de morador',
+                'title': 'Cadastro de morador',
+                'type': 'Página',
+                'class':'btn btn-success',
+                'icon': "<i class='fa fa-file'></i>",
+                'event':'eventContructionPage(this)',
+                'url': 'pages/morador/Novo.html'
+            },
 //            {
 //                'name': 'Cidade',
 //                'title': 'Cadastro de cidade',
