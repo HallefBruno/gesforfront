@@ -1,4 +1,5 @@
 /* global Message, TYPE */
+"use strict";
 
 var Listener = Listener || {};
 
@@ -8,7 +9,7 @@ Listener.Handler = (function () {
 
     Handler.prototype.execute = function () {
         
-        let nativeSkeleton =
+        var nativeSkeleton =
         "<div class='ph-item'>"+
             "<div class='ph-col-12'>"+
                 "<div class='ph-row'>"+
@@ -30,21 +31,25 @@ Listener.Handler = (function () {
                 "<div class='ph-picture2'></div>"+
             "</div>"+
         "</div>";
-        
+
         $(document).ajaxSend(function (event, jqXHR, settings) {
             if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
-                $(".table-responsive").block({message: null});
-                $("button[type='submit']").prop('disabled',true);
-                $("button[type='submit']").block({message: null});
+                $("div.loading").addClass("show");
             }
+            //$(".table-responsive").block({message: null});
+            //$("button[type='submit']").prop('disabled',true);
+            //$(':button').prop('disabled', true);
+            //$(':button').block({message: null});
         }.bind(this));
-
+        
         $(document).ajaxComplete(function (event, jqXHR, settings) {
             if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
-                $(".table-responsive").unblock();
-                $("button[type='submit']").unblock();
-                $("button[type='submit']").prop('disabled',false);
+                $("div.loading").removeClass("show");
             }
+            //$(".table-responsive").unblock();
+            //$(':button').unblock();
+            //$(':button').prop('disabled', false);
+            //$("button[type='submit']").prop('disabled',false);
         }.bind(this));
 
         $(document).ajaxError(function (event, jqXHR, settings) {
@@ -110,6 +115,14 @@ Listener.Handler = (function () {
                     var message = new Message.Warning();
                     message.show(jqXHR.responseJSON.errors[0],"N");
                 }
+            } else if (jqXHR.status === 404) {
+                if (jqXHR.responseJSON !== undefined && jqXHR.responseJSON.errors !== undefined) {
+                    var message = new Message.Warning();
+                    message.show(jqXHR.responseJSON.errors[0] + "\nRecurso não encontrado!", "I");
+                } else {
+                    var message = new Message.Warning();
+                    message.show("Recurso não encontrado: "+jqXHR.responseJSON.path,"I");
+                }
             } else if (jqXHR.status === 500) {
                 if(jqXHR.responseJSON !== null) {
                     var message = new Message.Warning();
@@ -130,3 +143,52 @@ $(function () {
     var listener = new Listener.Handler();
     listener.execute();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+//let nativeSkeleton =
+//        "<div class='ph-item'>"+
+//            "<div class='ph-col-12'>"+
+//                "<div class='ph-row'>"+
+//                    "<div class='ph-col-6 big'></div>"+
+//                    "<div class='ph-col-4 empty big'></div>"+
+//                    "<div class='ph-col-2 big'></div>"+
+//                    "<div class='ph-col-4 big'></div>"+
+//                    "<div class='ph-col-8 empty big'></div>"+
+//                    "<div class='ph-col-6 big'></div>"+
+//                    "<div class='ph-col-4 empty big'></div>"+
+//                    "<div class='ph-col-12 big'></div>"+
+//                "</div>"+
+//                "<div class='ph-row'>"+
+//                    "<div class='ph-col-12 empty big'></div>"+
+//                    "<div class='ph-col-12 empty big'></div>"+
+//                    "<div class='ph-col-12 empty big'></div>"+
+//                    "<div class='ph-col-12 empty big'></div>"+
+//                "</div>"+
+//                "<div class='ph-picture2'></div>"+
+//            "</div>"+
+//        "</div>";
+//        
+//        var uri = localStorage.getItem("currentUri");
+//        
+//        if(uri===null) {
+//            
+//            var message = new Message.Warning();
+//            message.show("Algo ocasionou um mal funcionamento, regarregue a página!", "I");
+//
+//            var form = $(event.target.forms);
+//            $(form).empty();
+//            $(form).append(nativeSkeleton);
+//
+//            return;
+//        }

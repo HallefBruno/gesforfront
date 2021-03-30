@@ -7,7 +7,7 @@ $(function () {
             var message = new Message.Success();
             var retrievedObject = localStorage.getItem('currentUri');
 
-            let estado = {
+            var estado = {
                 nome: $("#nome").val(),
                 uf: $("#uf").val()
             };
@@ -30,33 +30,6 @@ $(function () {
     pagePesquisar();
 
 });
-
-function salvar() {
-    
-    $.validator.setDefaults({
-        submitHandler: function () {
-            
-            var message = new Message.Success();
-            var retrievedObject = localStorage.getItem('targetUrl');
-            
-            let estado = {
-                nome: $("#nome").val(),
-                uf: $("#uf").val()
-            };
-            
-            $.ajax({
-                method: "POST",
-                url: retrievedObject+"/estados/salvar",
-                data: JSON.stringify(estado),
-                contentType: "application/json",
-                dataType: "json",
-                success: function (data) {
-                    message.show("Registro salvo com sucesso!");
-                }
-            });
-        }
-    });    
-}
 
 function validar() {
     $("#form-estado").validate({
@@ -94,23 +67,17 @@ function validar() {
                 error.insertAfter(element);
             }
         },
-        highlight: function (element, errorClass, validClass) {
+        highlight: function (element) {
             $(element).addClass("is-invalid").removeClass("is-valid");
         },
-        unhighlight: function (element, errorClass, validClass) {
+        unhighlight: function (element) {
             $(element).removeClass("is-invalid");
-            //$(element).addClass("is-valid").removeClass("is-invalid");
         }
     });
 }
 
 function pagePesquisar() {
-    $("#btnPesquisar").on("click", function () {
-        $(".loading").addClass("show");
-        $("#pages").find("div").empty();
-        $("#pages").find("div").load("pages/estado/Pesquisar.html");
-        $(".loading").removeClass("show");
-    });
+    loadPageHtml("#btnPagePesquisar","pages/estado/Pesquisar.html");
 }
 
 //    $.validator.setDefaults({
@@ -238,4 +205,29 @@ function pagePesquisar() {
 //            }
 //        }
 //    });
-    
+    //function salvar() {
+//    
+//    $.validator.setDefaults({
+//        submitHandler: function () {
+//            
+//            var message = new Message.Success();
+//            var retrievedObject = localStorage.getItem('targetUrl');
+//            
+//            let estado = {
+//                nome: $("#nome").val(),
+//                uf: $("#uf").val()
+//            };
+//            
+//            $.ajax({
+//                method: "POST",
+//                url: retrievedObject+"/estados/salvar",
+//                data: JSON.stringify(estado),
+//                contentType: "application/json",
+//                dataType: "json",
+//                success: function (data) {
+//                    message.show("Registro salvo com sucesso!");
+//                }
+//            });
+//        }
+//    });    
+//}

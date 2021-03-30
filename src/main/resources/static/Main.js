@@ -89,6 +89,18 @@ function eventSubmenu() {
     contentDivMenu = "";
 }
 
+function loadPageHtml(idComponent,pathPage) {
+    if(idComponent === null) {
+        $("#pages").find("div").empty();
+        $("#pages").find("div").load(pathPage);
+    } else {
+        $(idComponent).on("click", function () {
+            $("#pages").find("div").empty();
+            $("#pages").find("div").load(pathPage);
+        });
+    }
+}
+
 function structureMenu() {
 
     let menus = {
@@ -96,60 +108,109 @@ function structureMenu() {
         'cadastros': [
 
             {
-                'name': 'Estado',
-                'title': 'Cadastro de estado',
-                'type': 'Página',
-                'class':'btn btn-success',
-                'icon': "<i class='fa fa-file'></i>",
-                'event':'eventContructionPage(this)',
-                'url': 'pages/estado/Pesquisar.html'
-            },
-            {
-                'name': 'Cidade',
-                'title': 'Cadastro de cidade',
-                'type': 'Página',
-                'class':'btn btn-success',
-                'icon': "<i class='fa fa-file'></i>",
-                'event':'eventContructionPage(this)',
-                'url': 'pages/estado/MenuCadastro.html'
-            },
-            {
-                'name': 'Bairro',
-                'title': 'Cadastro de bairro',
-                'type': 'Página',
-                'class':'btn btn-success',
-                'icon': "<i class='fa fa-file'></i>",
-                'event':'eventContructionPage(this)',
-                'url': 'pages/estado/MenuCadastro.html'
-            },
-
-            {
                 'name': 'Portaria',
                 'title': 'Cadastro de portaria',
+                'type': 'Página',
+                'class':'btn btn-success',
+                'icon': "<i class='fa fa-file'></i>",
+                'event':'eventContructionPage(this)',
+                'url': 'pages/portaria/Pesquisar.html'
+            },
+            
+            {
+                'name': 'Filipeta',
+                'title': 'Cadastro de filipeta',
+                'type': 'Página',
+                'class':'btn btn-success',
+                'icon': "<i class='fa fa-file'></i>",
+                'event':'eventContructionPage(this)',
+                'url': 'pages/filipeta/Pesquisar.html'
+            },
+            
+            {
+                'name': 'Cadastro de morador',
+                'title': 'Cadastro de morador',
+                'type': 'Página',
+                'class':'btn btn-success',
+                'icon': "<i class='fa fa-file'></i>",
+                'event':'eventContructionPage(this)',
+                'url': 'pages/morador/Novo.html'
+            },
+//            {
+//                'name': 'Cidade',
+//                'title': 'Cadastro de cidade',
+//                'type': 'Página',
+//                'class':'btn btn-success',
+//                'icon': "<i class='fa fa-file'></i>",
+//                'event':'eventContructionPage(this)',
+//                'url': 'pages/cidade/Pesquisar.html'
+//            },
+//            {
+//                'name': 'Bairro',
+//                'title': 'Cadastro de bairro',
+//                'type': 'Página',
+//                'class':'btn btn-success',
+//                'icon': "<i class='fa fa-file'></i>",
+//                'event':'eventContructionPage(this)',
+//                'url': 'pages/bairro/Pesquisar.html'
+//            },
+
+            {
+                'name': 'Cadastros básicos',
+                'title': 'Cadastros básicos',
                 'type': 'Menu',
                 'class':'btn btn-info',
                 'icon': "<i class='fa fa-bars' aria-hidden='true'></i>",
                 'event':'eventSubmenu(this)',
                 'url': 'pages/estado/MenuCadastro.html',
                 'submenu': [
+                    
                     {
-                        'name':'Morador',
-                        'title':'Cadastro de morador',
-                        'type':'Página',
-                        'class':'btn btn-success',
+                        'name': 'Estado',
+                        'title': 'Cadastro de estado',
+                        'type': 'Página',
+                        'class': 'btn btn-success',
                         'icon': "<i class='fa fa-file'></i>",
-                        'event':'eventContructionPage(this)',
-                        'url':'pages/estado/MenuCadastro.html'
+                        'event': 'eventContructionPage(this)',
+                        'url': 'pages/estado/Pesquisar.html'
                     },
                     {
-                        'name':'Morador',
-                        'title':'Cadastro de morador',
-                        'type':'Página',
-                        'class':'btn btn-success',
+                        'name': 'Cidade',
+                        'title': 'Cadastro de cidade',
+                        'type': 'Página',
+                        'class': 'btn btn-success',
                         'icon': "<i class='fa fa-file'></i>",
-                        'event':'eventContructionPage(this)',
-                        'url':'pages/estado/MenuCadastro.html'
+                        'event': 'eventContructionPage(this)',
+                        'url': 'pages/cidade/Pesquisar.html'
+                    },
+                    {
+                        'name': 'Bairro',
+                        'title': 'Cadastro de bairro',
+                        'type': 'Página',
+                        'class': 'btn btn-success',
+                        'icon': "<i class='fa fa-file'></i>",
+                        'event': 'eventContructionPage(this)',
+                        'url': 'pages/bairro/Pesquisar.html'
                     }
+                    
+//                    {
+//                        'name':'Morador',
+//                        'title':'Cadastro de morador',
+//                        'type':'Página',
+//                        'class':'btn btn-success',
+//                        'icon': "<i class='fa fa-file'></i>",
+//                        'event':'eventContructionPage(this)',
+//                        'url':'pages/estado/MenuCadastro.html'
+//                    },
+//                    {
+//                        'name':'Morador',
+//                        'title':'Cadastro de morador',
+//                        'type':'Página',
+//                        'class':'btn btn-success',
+//                        'icon': "<i class='fa fa-file'></i>",
+//                        'event':'eventContructionPage(this)',
+//                        'url':'pages/estado/MenuCadastro.html'
+//                    }
                 ]
             }
         ]

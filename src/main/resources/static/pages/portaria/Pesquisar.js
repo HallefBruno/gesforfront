@@ -1,30 +1,29 @@
-
 /* global Swal */
-$(function () {
+
+$(document).ready(function() {
     
     var parametros = {
         columns: [
-            {data: "nome", sortable: true},
-            {data: "uf", sortable: false}
+            {data: "nome", sortable: true}
         ]
     };
     setDefaultsDataTable(parametros);
 
     var url = localStorage.getItem("currentUri");
 
-    $("#tbestados").DataTable({
+    $("#tbportarias").DataTable({
         ajax: {
-            url: url +"/estados/todos/",
+            url: url +"/portarias/todos/",
             method: "get",
             data: {
-                nomeEstado: function () {
+                nomePortaria: function () {
                     return $("#nome").val();
                 }
             }
         }
     });
-
-    $("table").on("click", "#btn-excluir", function () {
+    
+    $("#tbportarias").on("click", "#btn-excluir", function () {
 
         Swal.fire({
             title: 'Você tem certeza?',
@@ -38,9 +37,9 @@ $(function () {
             if (result.isConfirmed) {
                 $.ajax({
                     method: "DELETE",
-                    url: url + "/estados/excluir/" + $(this).data("excluir"),
+                    url: url + "/portarias/excluir/" + $(this).data("excluir"),
                     success: function () {
-                        $('#tbestados').DataTable().ajax.reload();
+                        $("#tbportarias").DataTable().ajax.reload();
                         Swal.fire('Excluído! ', ' Seu registro foi excluído.', 'success');
                     }
                 });
@@ -49,14 +48,14 @@ $(function () {
 
     });
     
-    $("table").on("click", "#btn-editar", function () {
-        loadPageHtml(null,"pages/estado/Editar.html");
-        localStorage.setItem("estadoId", $(this).data("editar"));
+    $("#tbportarias").on("click", "#btn-editar", function () {
+        loadPageHtml(null,"pages/portaria/Editar.html");
+        localStorage.setItem("portariaId", $(this).data("editar"));
     });
     
     $.validator.setDefaults({
         submitHandler: function () {
-            $("#tbestados").DataTable().ajax.url(url+"/estados/todos/").load();
+            $("#tbportarias").DataTable().ajax.url(url + "/portarias/todos/").load();
         }
     });
     
@@ -66,7 +65,7 @@ $(function () {
 
 function vaidation() {
     
-    $("#form-pesquisa").validate({
+    $("#form-pesquisa-portaria").validate({
         rules: {
             nome: {
                 minlength: 2,
@@ -99,7 +98,7 @@ function vaidation() {
 
 function novo() {
     $("body").on("click","#linkNovo", function() {
-        loadPageHtml(null,"pages/estado/Novo.html");
+        loadPageHtml(null,"pages/portaria/Novo.html");
     });
-    loadPageHtml("#btnNovo","pages/estado/Novo.html");
+    loadPageHtml("#btnNovo","pages/portaria/Novo.html");
 }

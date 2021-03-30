@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Cadastro de estado</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container shadow p-3 mb-5 bg-white rounded" style="height: 500px; margin-top: 20px;">
+            <div class="card" style="height: 400px;">
+                <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Cadastro de estado</h5>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
+                        <form id="form-estado">
+                            <div class="form-row">
+                                <div class="col-5">
+                                    <div class="form-group">
+                                        <label for="nome">Nome</label>
+                                        <input type="text" name="nome" class="form-control form-control-flash" id="nome" autocomplete="off"/>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="uf">UF</label>
+                                        <input type="text" name="uf" class="form-control form-control-flash" id="uf" autocomplete="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-6">
+                                    <button type="submit" id="btnSalvar" class="btn btn-primary">
+                                        <i class="fa fa-floppy-o"></i> Salvar
+                                    </button>
+                                    <button type="button" id="btnPagePesquisar" class="btn btn-light">
+                                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Pesquisar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="pages/estado/Novo.js" type="text/javascript"></script>
+    </body>
+</html>

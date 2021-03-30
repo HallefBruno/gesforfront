@@ -1,0 +1,303 @@
+<html>
+    <head>
+        <title>Cadastro de morador</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="container shadow p-3 mb-5 bg-white rounded" style="height: 920px; margin-top: 20px;">
+            <div class="card" style="height: 880px;">
+                <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Cadastro de morador</h5>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
+                        <form>
+                            <div class="row" >
+                                <div class="nome col-sm-3 form-group">
+                                    <label class="control-label" for="nome">Nome</label> 
+                                    <input style="text-transform: uppercase" type="text" autocomplete class="form-control-flash" id="nome" name="nome">
+                                </div>
+
+                                <div class="cpf col-sm-3 form-group ">
+                                    <label class="control-label" for="cpf">CPF</label> 
+                                    <input type="text" autocomplete class="form-control-flash js-cpf" id="cpf" name="cpf">
+                                </div>
+
+                                <div class="rg col-sm-3 form-group">
+                                    <label class="control-label" for="rg">RG</label> 
+                                    <input style="text-transform: uppercase" type="text" maxlength="12" minlength="5" autocomplete="" class="form-control-flash" id="rg" name="rg">
+                                </div>
+
+                                <div class="orgaoEmissor col-sm-3 form-group ">
+                                    <label class="control-label" for="emissor">Orgão emissor</label> 
+                                    <input style="text-transform: uppercase" type="text" autocomplete="" maxlength="8" minlength="3" class="form-control-flash emissor" id="emissor" name="emissor">
+                                </div>
+
+                                <div class="dataNascimento col-sm-3 form-group ">
+                                    <label class="control-label" for="dataNascimento">Data nascimento</label> 
+                                    <input type="date" autocomplete class="form-control-flash" id="dataNascimento" name="dataNascimento">
+                                </div>
+
+                                <div class="naturalidade col-sm-3 form-group">
+                                    <label class="control-label" for="natural">Natural</label> 
+                                    <input style="text-transform: uppercase" type="text" autocomplete="" class="form-control-flash" id="natural" name="natural">
+                                </div>
+
+                                <div class="estadoCivil col-sm-3 form-group ">
+                                    <label class="control-label" for="estadoCivil">Estado civil</label> 
+                                    <select id="estadosCivil" name="estadosCivil" class="form-control">
+                                        <option/>
+                                    </select>
+                                    <input type="hidden" id="combo-civil-value" />
+                                </div>
+                                
+                                <div class="col-sm-3">
+                                    <label class="control-label" >Sexo</label>
+                                    <div class="form-group">
+                                        <div class="radio radio-inline radio-info">
+                                            <input id="sexo" data-width="240"  data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="numeroCasa col-sm-3 form-group ">
+                                    <label class="control-label" for="casa">Residência</label> 
+                                    <input style="text-transform: uppercase" type="text" autocomplete class="form-control-flash casa" id="casa" name="casa">
+                                </div>
+
+                                <div class="qtdMoradores col-sm-3 form-group ">
+                                    <label class="control-label" for="qtdMorador">Qtd Moradores</label> 
+                                    <input type="text" maxlength="1" autocomplete class="form-control-flash qtd-morador" id="qtdMorador" name="qtdMorador">
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label class="control-label" >Animal domestico</label>
+                                    <div class="form-group">
+                                        <div class="radio radio-inline radio-info">
+                                            <input id="animalDomentico" data-width="150"  data-onstyle="outline-primary" data-on="<i class='fa fa-thumbs-o-up'></i> Sim" data-offstyle="outline-secondary" data-off="<i class='fa fa-thumbs-o-down'></i> Não" type="checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="telefones col-sm-3  form-group">
+                                    <label for="telefones" class="control-label">Telefone/Telefones</label>
+                                    <div style="display: flex;">
+                                        <!--<input type="text" autocomplete class="form-control js-phone-number" id="telefone" name="telefone">-->
+                                        <select id="telefones" name="telefones" class="form-control select-telefones" >
+                                            <option/>
+                                        </select>
+                                        <div class="btnAdd" style="margin: 0 0 0 5px;">
+                                            <button style="display: none" title="Remover telefone selecionado" type="button" class="btn btn-danger btn-remove-tel">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                            <button title="Clique para salvar" id="btn-open-modal-telefone" type="button" class="btn btn btn-outline-primary"> <!--data-toggle="modal" data-target="#modaltelefoneResident"-->
+                                                <i class="fa fa-plus-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div style="margin-bottom: 15px;" ></div>
+
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <div class="card">
+                                        <div class="card-header"><b>Carros</b></div>
+                                        <div class="card-body">
+                                            <div class="feed-fabricante">
+                                                <label class="control-label" for="marcas">Digite as inicias da marca do veículo</label>
+                                                <select class="form-control" id="marcas" name="marcas">
+                                                    <option value="-1" label="Marca" >Marca</option>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" name="id-fabri-carro" id="id-fabri-carro" />
+                                            <input type="hidden" name="fabri-carro" id="fabri-carro" />
+
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="feed-cor form-group col-sm-6">
+                                                    <label class="control-label" for="cor">Cor</label>
+                                                    <select class="form-control" id="cor" name="cor">
+                                                        <option value="-1" label="-- Cor --" disabled="" selected=""></option>
+                                                        <option class="label label-info" style="background-color: #FFFFFF;color:black" label="Branca" id="Branca" value="Branca">Branca</option>
+                                                        <option class="label label-info" style="background-color: #bebfbd" label="Prata" id="Prata" value="Prata">Prata</option>
+                                                        <option class="label label-info" style="background-color: #000000" label="Preta" id="Preta" value="Preta">Preta</option>
+                                                        <option class="label label-info" style="background-color: #C0C0C0" label="Cinza" id="Cinza" value="Cinza">Cinza</option>
+                                                        <option class="label label-info" style="background-color: #FF0000" label="Vermelha" id="Vermelha" value="Vermelha">Vermelha</option>
+                                                        <option class="label label-info" style="background-color: #4F4F2F" label="Verde" id="Verde" value="Verde">Verde</option>
+                                                        <option class="label label-info" style="background-color: #0000FF" label="Azul" id="Azul" value="Azul">Azul</option>
+                                                        <option class="label label-info" style="background-color: #FFFF00" label="Amarela" id="Amarela" value="Amarela">Amarela</option>
+                                                        <option class="label label-info" style="background-color: #A62A2A" label="Marrom" id="Marrom" value="Marrom">Marrom</option>
+                                                        <option class="label label-info" style="background-color: #FFFFFF;color:black" label="Outra" id="Outra" value="Outra">Outra</option>
+                                                    </select>
+                                                    <input type="hidden" id="cor-carro-value"/>
+                                                </div>
+
+                                                <div class="feed-placa form-group col-sm-6">
+                                                    <label class="control-label" for="placa">Placa</label>
+                                                    <input minlength="8" min="8" style="text-transform: uppercase" class="form-control-flash js-placa-car" id="placa-carro" name="placa"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="feed-modelo form-group col-sm-12">
+                                                    <label class="control-label" for="modelos">Selecione o modelo</label>
+                                                    <div style="display: flex">
+                                                        <select class="form-control" id="modelos" name="modelos" >
+                                                        </select>
+                                                        <input type="hidden" name="id-modelo-carro" id="id-modelo-carro" />
+                                                        <input type="hidden" name="modelo-carro" id="modelo-carro" />
+                                                        <div id="divBtnAddCarro" style="margin: 0 0 0 5px;">
+                                                            <button title="Adicionar carro" type="button" class="btn btn-outline-primary add-carro" >
+                                                                <i class="fa fa-plus-circle"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading"><b>Carros</b></div>
+                                                        <div class="panel-body">
+                                                            <div style="padding-top: 20px; height: 140px;" class="table-responsive">
+                                                                <table class="table table-bordered tbl-add-carro">
+                                                                    <thead>
+                                                                        <tr style="background-color: #f5f5f5">
+                                                                            <th>Fabricante</th>
+                                                                            <th>Modelo</th>
+                                                                            <th>Placa</th>
+                                                                            <th>Cor</th>
+                                                                            <th class="text-center" style="width: 60px;">Ação</th>
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td colspan="7" >Nenhum adicionado</td>
+                                                                        </tr>
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <div class="card mb-3">
+                                        <div class="card-header"><b>Motos</b></div>
+                                        <div class="card-body">
+                                            <div class="feed-fabricante-moto">
+                                                <label class="control-label" for="marcasMoto">Digite as iniciais da marca da moto</label>
+                                                <select class="form-control" id="marcasMoto" name="marcasMoto">
+                                                    <option value="-1" label="Marca" >Marca</option>
+                                                </select>
+                                                <input type="hidden" name="id-fabri-moto" id="id-fabri-moto" />
+                                                <input type="hidden" name="fabri-moto" id="fabri-moto" />
+                                            </div>
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="feed-cor-moto form-group col-sm-6">
+                                                    <label class="control-label" for="cor-moto">Cor</label>
+                                                    <select class="form-control" id="cor-moto" name="cor-moto">
+                                                        <option value="-1" label="-- Cor --" disabled="" selected=""></option>
+                                                        <option class="label label-info" style="background-color: #FFFFFF; color:black" label="Branca" id="Branca" value="Branca">Branca</option>
+                                                        <option class="label label-info" style="background-color: #bebfbd" label="Prata" id="Prata" value="Prata">Prata</option>
+                                                        <option class="label label-info" style="background-color: #000000" label="Preta" id="Preta" value="Preta">Preta</option>
+                                                        <option class="label label-info" style="background-color: #C0C0C0" label="Cinza" id="Cinza" value="Cinza">Cinza</option>
+                                                        <option class="label label-info" style="background-color: #FF0000" label="Vermelha" id="Vermelha" value="Vermelha">Vermelha</option>
+                                                        <option class="label label-info" style="background-color: #4F4F2F" label="Verde" id="Verde" value="Verde">Verde</option>
+                                                        <option class="label label-info" style="background-color: #0000FF" label="Azul" id="Azul" value="Azul">Azul</option>
+                                                        <option class="label label-info" style="background-color: #FFFF00" label="Amarela" id="Amarela" value="Amarela">Amarela</option>
+                                                        <option class="label label-info" style="background-color: #A62A2A" label="Marrom" id="Marrom" value="Marrom">Marrom</option>
+                                                        <option class="label label-info" style="background-color: #FFFFFF;color:black" label="Outra" id="Outra" value="Outra">Outra</option>
+                                                    </select>
+                                                    <input type="hidden" id="cor-moto-value"/>
+                                                </div>
+
+                                                <div class="feed-placa-moto form-group col-sm-6">
+                                                    <label class="control-label" for="placa-moto">Placa</label>
+                                                    <input style="text-transform: uppercase" class="form-control-flash js-placa-car" id="placa-moto" name="placa-moto"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="feed-modelo-moto form-group col-sm-12">
+                                                    <label class="control-label" for="modelosMoto">Selecione a moto</label>
+                                                    <div style="display: flex">
+                                                        <select class="form-control" id="modelosMoto" name="modelosMoto" >
+                                                        </select>
+                                                        <input type="hidden" name="id-modelo-moto" id="id-modelo-moto" />
+                                                        <input type="hidden" name="modelo-moto" id="modelo-moto" />
+                                                        <div id="divBtnAddMoto" style="margin: 0 0 0 5px;">
+                                                            <button title="Adicionar moto" type="button" class="btn btn-outline-primary add-moto" >
+                                                                <i class="fa fa-plus-circle"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading"><b>Motos</b></div>
+                                                        <div class="panel-body">
+                                                            <div style="padding-top: 20px; height: 140px;" class="table-responsive">
+                                                                <table class="table table-bordered tbl-add-moto">
+                                                                    <thead>
+                                                                        <tr style="background-color: #f5f5f5">
+                                                                            <th>Fabricante</th>
+                                                                            <th>Modelo</th>
+                                                                            <th>Placa</th>
+                                                                            <th>Cor</th>
+                                                                            <th class="text-center" style="width: 60px;">Ação</th>
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td colspan="7">Nenhum adicionado</td>
+                                                                        </tr>
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var outImage = "imgFundo";
+            function preview(obj) {
+                if (FileReader) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(obj.files[0]);
+                    reader.onload = function (e) {
+                        var image = new Image();
+                        image.src = e.target.result;
+                        image.onload = function () {
+                            document.getElementById(outImage).src = image.src;
+                        };
+                    };
+                }
+            }
+        </script>
+ 
+        <script src="pages/morador/Novo.js" type="text/javascript"></script>
+        <script src="pages/morador/Telefone.js" type="text/javascript"></script>
+        
+    </body>
+</html>

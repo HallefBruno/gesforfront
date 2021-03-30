@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalTelefone" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Telefones</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        
+                        <div class="col-sm-12  form-group">
+                            <label for="numeroTelefone" class="control-label">Número</label>
+                            <div style="display: flex;">
+                                <input id="numeroTelefone" type="text" class="form-control-flash" />
+                                <div class="btnAdd" style="margin: 0 0 0 5px;">
+                                    <button title="Clique para salvar" id="btnSalvarNumero" type="button" class="btn btn btn-outline-primary">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>     
+
+                    <div style="display: none;" class="alert alert-danger tel-adicionado" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span>Já foi adicionado!</span>
+                    </div>
+
+                    <div style="padding-top: 30px;" class="table-responsive">
+                        <table class="table table-bordered" id="tblNumeroTelefone" border="1">
+                            
+                            <thead>
+                                <tr>
+                                    <th style="width: 200px">Telefone</th>
+                                    <th class="text-center" style="width: 10px">Remover</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="" >Nenhum telefone adicionado</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
