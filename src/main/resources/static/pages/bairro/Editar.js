@@ -111,7 +111,7 @@ function validation() {
                 required: "Bairro obrigatório"
             },
             cidades: {
-                required: "Estado obrigatório"
+                required: "Cidade obrigatório"
             }
         },
         errorElement: "em",

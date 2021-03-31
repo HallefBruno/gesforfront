@@ -1,5 +1,4 @@
 $(function () {
-    
     $("form").after("<div id='addTelefone'></div>");
     $("#addTelefone").load("pages/morador/ModalTelefone.html");
     var listaTelefones = [];
@@ -12,13 +11,15 @@ $(function () {
         $("#modalTelefone").modal("show");
         $("#modalTelefone").on("shown.bs.modal", function () {
             $("#numeroTelefone").trigger("focus");
+            $("#numeroTelefone").val("");
         });
+        mascaraTelefone();
     });
     
     
     $("#addTelefone").on("click","#btnSalvarNumero", function () {
-        
-        if($("#numeroTelefone").val() !== "" || $("#numeroTelefone").val() !== null) {
+
+        if($("#numeroTelefone").val() !== undefined && $("#numeroTelefone").val().length !== 0 && $("#numeroTelefone").val() !== null) {
             row = {
                 id:index,
                 numero:$("#numeroTelefone").val() 
@@ -29,15 +30,17 @@ $(function () {
             
             listaTelefones.push(telefone);
             data.push(row);
-            index++;
             popularTabela(data);
+            popularSelectTelefone(data);
+            index++;
+        } else {
+            $('.alert').show();
         }
-        popularSelectTelefone(data);
     });
     
     $("#addTelefone").on("click","#btnRemove", function () {
         var value = $(this).data("numero");
-        
+        index--;
         data = data.filter(item => item.numero !== value);
         listaTelefones = listaTelefones.filter(item => item.numero !== value);
 
@@ -53,7 +56,7 @@ $(function () {
         $("#modalTelefone").find("#numeroTelefone").val("");
         $("#modalTelefone").modal("dispose");
     });
-    
+
 });
 
 function popularTabela(data) {
@@ -94,4 +97,52 @@ function popularSelectTelefone(listaTelefones) {
     });
     
     //$(".select-telefones").trigger("change");
+}
+
+function mascaraTelefone() {
+    var maskPhone = function (val) {
+        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+    },
+    novoDigito = {
+        onKeyPress: function (val, e, field, options) {
+            field.mask(maskPhone.apply({}, arguments), options);
+        }
+    };
+    $("#numeroTelefone").mask(maskPhone, novoDigito);
+}
+
+
+function validation() {
+    
+    $("#modalTelefone").find("#form-modal-telefone").validate({
+        rules: {
+            numeroTelefone: {
+                minlength: 12,
+                maxlength: 12,
+                required: true
+            }
+        },
+        messages: {
+            numeroTelefone: {
+                minlength: "Tamanho mínimo para o telefone é 12caracter",
+                maxlength: "Tamanho máximo para o telefone é 12 caracter",
+                required: "Telefone obrigatório"
+            }
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            error.addClass("invalid-feedback");
+            if(element.is("select")) {
+                error.insertAfter(element.next("span"));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element) {
+            $(element).removeClass("is-invalid");
+        }
+    });
 }

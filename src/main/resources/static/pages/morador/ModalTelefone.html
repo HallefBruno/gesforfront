@@ -8,8 +8,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            
             <div class="modal-body">
-                <form>
+                
+                <div class="container">
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <strong>Número de telefone é obrigatório!</strong>
+                        <button type="button" class="close" onclick="$('.alert').hide()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <form id="form-modal-telefone">
                     <div class="row">
                         
                         <div class="col-sm-12  form-group">
