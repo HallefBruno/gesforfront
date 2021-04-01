@@ -5,8 +5,7 @@ $(function () {
     var telefone = {};
     var data = [];
     var row = {};
-    var index = 0;
-    
+
     $("form").on("click","#btn-open-modal-telefone", function () {
         $("#modalTelefone").modal("show");
         $("#modalTelefone").on("shown.bs.modal", function () {
@@ -14,6 +13,7 @@ $(function () {
             $("#numeroTelefone").val("");
         });
         mascaraTelefone();
+        $(".alert-modal-telefone").hide();
     });
     
     
@@ -21,40 +21,43 @@ $(function () {
 
         if($("#numeroTelefone").val() !== undefined && $("#numeroTelefone").val().length !== 0 && $("#numeroTelefone").val() !== null) {
             row = {
-                id:index,
-                numero:$("#numeroTelefone").val() 
+                numero: $("#numeroTelefone").val()
             };
             telefone = {
                 numero: $("#numeroTelefone").val()
             };
             
-            listaTelefones.push(telefone);
-            data.push(row);
-            popularTabela(data);
-            popularSelectTelefone(data);
-            index++;
-        } else {
-            $('.alert').show();
-        }
+            if(containsObject(telefone,listaTelefones)) {
+                $("#strong-modal-alert").html("");
+                $("#strong-modal-alert").html("Este número de telefone já foi incluido!");
+                $(".alert-modal-telefone").show();
+            } else {
+                listaTelefones.push(telefone);
+                popularTabela(listaTelefones);
+                popularSelectTelefone(listaTelefones);
+                $(".alert-modal-telefone").hide();
+            }
+            return;
+        } 
+        $("#strong-modal-alert").html("");
+        $("#strong-modal-alert").html("Número de telefone é obrigatório!");
+        $(".alert-modal-telefone").show();
     });
     
     $("#addTelefone").on("click","#btnRemove", function () {
         var value = $(this).data("numero");
-        index--;
-        data = data.filter(item => item.numero !== value);
         listaTelefones = listaTelefones.filter(item => item.numero !== value);
-
-        popularTabela(data);
+        popularTabela(listaTelefones);
         $(".select-telefones").html("");
         $(".select-telefones").append("<option value=''>Telefone</option>");
         popularSelectTelefone(data);
 
     });
 
-
     $("#modalTelefone").on("hidden.bs.modal", function () {
         $("#modalTelefone").find("#numeroTelefone").val("");
         $("#modalTelefone").modal("dispose");
+        $(".alert-modal-telefone").hide();
     });
 
 });
@@ -145,4 +148,13 @@ function validation() {
             $(element).removeClass("is-invalid");
         }
     });
+}
+
+function containsObject(obj, list) {
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].numero === obj.numero) {
+            return true;
+        }
+    }
+    return false;
 }
