@@ -109,33 +109,52 @@
                             <div style="margin-bottom: 15px;" ></div>
 
                             <div class="row">
-                                <div class="form-group col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="card">
-                                        <div class="card-header"><b>Carros</b></div>
+                                        <div class="card-header"><b>Automóveis</b></div>
                                         <div class="card-body">
-                                            <div class="feed-fabricante">
-                                                <label class="control-label" for="fabricante-carro">Digite as inicias da marca do veículo</label>
-                                                <select class="form-control" id="fabricante-carro" name="fabricante-carro">
-                                                    <option/>
-                                                </select>
-                                            </div>
-                                            <input type="hidden" name="id-fabri-carro" id="id-fabri-carro" />
-                                            <input type="hidden" name="fabri-carro" id="fabri-carro" />
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label class="control-label" for="fabricante">Digite as inicias da Marca ou Fabricante</label>
+                                                    <select class="form-control" id="fabricante" name="fabricante">
+                                                        <option/>
+                                                    </select>
+                                                </div>
+                                                <input type="hidden" name="fabricante-id" id="fabricante-id" />
 
+                                                <div class="col-sm-6">
+                                                    <div class="form-row">
+                                                        <div class="col-10">
+                                                            <label class="control-label" for="select-automoveis">Digite as inicias do Automovel (Carro ou Moto)</label>
+                                                            <select class="form-control" id="select-automoveis" name="select-automoveis">
+                                                                <option/>   
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-2" style="margin-top: 8px;">
+                                                            <fieldset style="font-size: 12px;" class="border form-group">
+                                                                <legend style="font-size: 12px;" class="control-label">Legenda</legend>
+                                                                <span style="font-size: 12px;" >Carro: <i style="color: blue;" class="fa fa-circle" aria-hidden="true"></i></span>
+                                                                <span style="font-size: 12px;" >Moto: <i style="color: green;" class="fa fa-circle" aria-hidden="true"></i></span>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="id-automovel" id="id-automovel" />
+                                            </div>
                                             <div class="row" style="margin-top: 10px;">
                                                 <div class="feed-cor form-group col-sm-6">
                                                     <label class="control-label" for="cor">Cor</label>
                                                     <select class="form-control" id="cor" name="cor">
                                                         <option value="-1" label="-- Cor --" disabled="" selected=""></option>
-                                                        <option class="label label-info" style="background-color: #FFFFFF;color:black" label="Branca" id="Branca" value="Branca">Branca</option>
-                                                        <option class="label label-info" style="background-color: #bebfbd" label="Prata" id="Prata" value="Prata">Prata</option>
-                                                        <option class="label label-info" style="background-color: #000000" label="Preta" id="Preta" value="Preta">Preta</option>
-                                                        <option class="label label-info" style="background-color: #C0C0C0" label="Cinza" id="Cinza" value="Cinza">Cinza</option>
-                                                        <option class="label label-info" style="background-color: #FF0000" label="Vermelha" id="Vermelha" value="Vermelha">Vermelha</option>
-                                                        <option class="label label-info" style="background-color: #4F4F2F" label="Verde" id="Verde" value="Verde">Verde</option>
-                                                        <option class="label label-info" style="background-color: #0000FF" label="Azul" id="Azul" value="Azul">Azul</option>
-                                                        <option class="label label-info" style="background-color: #FFFF00" label="Amarela" id="Amarela" value="Amarela">Amarela</option>
-                                                        <option class="label label-info" style="background-color: #A62A2A" label="Marrom" id="Marrom" value="Marrom">Marrom</option>
+                                                        <option class="label label-info" style="background-color: #FFFFFF; color: #000000" label="Branca" id="Branca" value="Branca">Branca</option>
+                                                        <option class="label label-info" style="background-color: #bebfbd; color: #FFFFFF" label="Prata" id="Prata" value="Prata">Prata</option>
+                                                        <option class="label label-info" style="background-color: #000000; color: #FFFFFF" label="Preta" id="Preta" value="Preta">Preta</option>
+                                                        <option class="label label-info" style="background-color: #C0C0C0; color: #FFFFFF" label="Cinza" id="Cinza" value="Cinza">Cinza</option>
+                                                        <option class="label label-info" style="background-color: #FF0000; color: #FFFFFF" label="Vermelha" id="Vermelha" value="Vermelha">Vermelha</option>
+                                                        <option class="label label-info" style="background-color: #4F4F2F; color: #FFFFFF" label="Verde" id="Verde" value="Verde">Verde</option>
+                                                        <option class="label label-info" style="background-color: #0000FF; color: #FFFFFF" label="Azul" id="Azul" value="Azul">Azul</option>
+                                                        <option class="label label-info" style="background-color: #FFFF00; color: #000000" label="Amarela" id="Amarela" value="Amarela">Amarela</option>
+                                                        <option class="label label-info" style="background-color: #A62A2A; color: #FFFFFF" label="Marrom" id="Marrom" value="Marrom">Marrom</option>
                                                         <option class="label label-info" style="background-color: #FFFFFF;color:black" label="Outra" id="Outra" value="Outra">Outra</option>
                                                     </select>
                                                     <input type="hidden" id="cor-carro-value"/>
@@ -143,26 +162,12 @@
 
                                                 <div class="feed-placa form-group col-sm-6">
                                                     <label class="control-label" for="placa">Placa</label>
-                                                    <input minlength="8" min="8" style="text-transform: uppercase" class="form-control-flash js-placa-car" id="placa-carro" name="placa"/>
+                                                    <input minlength="8" min="8" style="text-transform: uppercase" class="form-control-flash js-placa-car" id="placa" name="placa"/>
                                                 </div>
                                             </div>
 
                                             <div class="row">
-                                                <div class="feed-modelo form-group col-sm-12">
-                                                    <label class="control-label" for="modelos">Selecione o modelo</label>
-                                                    <div style="display: flex">
-                                                        <select class="form-control" id="modelos" name="modelos" >
-                                                        </select>
-                                                        <input type="hidden" name="id-modelo-carro" id="id-modelo-carro" />
-                                                        <input type="hidden" name="modelo-carro" id="modelo-carro" />
-                                                        <div id="divBtnAddCarro" style="margin: 0 0 0 5px;">
-                                                            <button title="Adicionar carro" type="button" class="btn btn-outline-primary add-carro" >
-                                                                <i class="fa fa-plus-circle"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
+                                               
                                                 <div class="col-sm-12">
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading"><b>Carros</b></div>
@@ -182,91 +187,6 @@
                                                                     <tbody>
                                                                         <tr>
                                                                             <td colspan="7" >Nenhum adicionado</td>
-                                                                        </tr>
-                                                                    </tbody>
-
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-6">
-                                    <div class="card mb-3">
-                                        <div class="card-header"><b>Motos</b></div>
-                                        <div class="card-body">
-                                            <div class="feed-fabricante-moto">
-                                                <label class="control-label" for="marcasMoto">Digite as iniciais da marca da moto</label>
-                                                <select class="form-control" id="marcasMoto" name="marcasMoto">
-                                                    <option value="-1" label="Marca" >Marca</option>
-                                                </select>
-                                                <input type="hidden" name="id-fabri-moto" id="id-fabri-moto" />
-                                                <input type="hidden" name="fabri-moto" id="fabri-moto" />
-                                            </div>
-                                            <div class="row" style="margin-top: 10px;">
-                                                <div class="feed-cor-moto form-group col-sm-6">
-                                                    <label class="control-label" for="cor-moto">Cor</label>
-                                                    <select class="form-control" id="cor-moto" name="cor-moto">
-                                                        <option value="-1" label="-- Cor --" disabled="" selected=""></option>
-                                                        <option class="label label-info" style="background-color: #FFFFFF; color:black" label="Branca" id="Branca" value="Branca">Branca</option>
-                                                        <option class="label label-info" style="background-color: #bebfbd" label="Prata" id="Prata" value="Prata">Prata</option>
-                                                        <option class="label label-info" style="background-color: #000000" label="Preta" id="Preta" value="Preta">Preta</option>
-                                                        <option class="label label-info" style="background-color: #C0C0C0" label="Cinza" id="Cinza" value="Cinza">Cinza</option>
-                                                        <option class="label label-info" style="background-color: #FF0000" label="Vermelha" id="Vermelha" value="Vermelha">Vermelha</option>
-                                                        <option class="label label-info" style="background-color: #4F4F2F" label="Verde" id="Verde" value="Verde">Verde</option>
-                                                        <option class="label label-info" style="background-color: #0000FF" label="Azul" id="Azul" value="Azul">Azul</option>
-                                                        <option class="label label-info" style="background-color: #FFFF00" label="Amarela" id="Amarela" value="Amarela">Amarela</option>
-                                                        <option class="label label-info" style="background-color: #A62A2A" label="Marrom" id="Marrom" value="Marrom">Marrom</option>
-                                                        <option class="label label-info" style="background-color: #FFFFFF;color:black" label="Outra" id="Outra" value="Outra">Outra</option>
-                                                    </select>
-                                                    <input type="hidden" id="cor-moto-value"/>
-                                                </div>
-
-                                                <div class="feed-placa-moto form-group col-sm-6">
-                                                    <label class="control-label" for="placa-moto">Placa</label>
-                                                    <input style="text-transform: uppercase" class="form-control-flash js-placa-car" id="placa-moto" name="placa-moto"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="feed-modelo-moto form-group col-sm-12">
-                                                    <label class="control-label" for="modelosMoto">Selecione a moto</label>
-                                                    <div style="display: flex">
-                                                        <select class="form-control" id="modelosMoto" name="modelosMoto" >
-                                                        </select>
-                                                        <input type="hidden" name="id-modelo-moto" id="id-modelo-moto" />
-                                                        <input type="hidden" name="modelo-moto" id="modelo-moto" />
-                                                        <div id="divBtnAddMoto" style="margin: 0 0 0 5px;">
-                                                            <button title="Adicionar moto" type="button" class="btn btn-outline-primary add-moto" >
-                                                                <i class="fa fa-plus-circle"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading"><b>Motos</b></div>
-                                                        <div class="panel-body">
-                                                            <div style="padding-top: 20px; height: 140px;" class="table-responsive">
-                                                                <table class="table table-bordered tbl-add-moto">
-                                                                    <thead>
-                                                                        <tr style="background-color: #f5f5f5">
-                                                                            <th>Fabricante</th>
-                                                                            <th>Modelo</th>
-                                                                            <th>Placa</th>
-                                                                            <th>Cor</th>
-                                                                            <th class="text-center" style="width: 60px;">Ação</th>
-                                                                        </tr>
-                                                                    </thead>
-
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td colspan="7">Nenhum adicionado</td>
                                                                         </tr>
                                                                     </tbody>
 

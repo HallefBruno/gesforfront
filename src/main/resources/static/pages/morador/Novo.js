@@ -58,12 +58,23 @@ $(document).ready(function () {
             fabricantes.push(fabricante);
         });
 
-        $("#fabricante-carro").select2({
+        $("#fabricante").select2({
             theme: "bootstrap4",
             placeholder: "Selecione o fabricante",
             allowClear: true,
             language: "pt-BR",
             data: fabricantes
+        });
+        
+        $("#fabricante").on("select2:selecting",function (e) {
+            var fabricanteId = e.params.args.data.id;
+            $("#fabricante-id").val(fabricanteId);
+            $("#select-automoveis").val(null).trigger("change");
+            $("#select-automoveis").prop("disabled",false);
+        });
+        
+        $("#fabricante").on("select2:unselecting", function () {
+            $("#select-automoveis").prop("disabled",true);
         });
         
     });
@@ -118,6 +129,86 @@ function init() {
     $("#placa-moto").mask(mercoSulMaskBehavior, mercoSulOptions);
     
     getStorage64("telefones");
+    
+    automoveis();
 }
+
+
+function automoveis() {
+    
+    $("#select-automoveis").prop("disabled",true);
+    
+    $("#select-automoveis").select2({
+        theme: "bootstrap4",
+        placeholder: "Automóveis",
+        allowClear: true,
+        language: "pt-BR",
+        multiple: false,
+        closeOnSelect: true,
+        minimumInputLength: 1,
+        ajax: {
+            url: "http://127.0.0.1:8082/flashapi/morador/automoveis",
+            dataType: "json",
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term,
+                    fabricanteId:$("#fabricante-id").val(),
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 0;
+                return {
+                    results: data.items,
+                    pagination: {
+                        more: (params.page * 10) < data.totalItens
+                    }
+                };
+            },
+            cache: true
+        },
+        
+        templateResult:styleSelectAutomoveis,
+        
+        escapeMarkup: function (markup) {
+            window.console.debug(markup);
+            return markup;
+        },
+        templateSelection: function (automovel) {
+            window.console.warn(automovel.loading);
+            var tipo = automovel.tipo;
+            var html = "";
+            if (tipo === "C") {
+                tipo = "Carro";
+                html = $("<span>" + automovel.text + "</span><span style='margin-top:9px;' class='text-right badge badge-primary'>" + tipo + "</span>");
+            } else {
+                tipo = "Moto";
+                html = $("<span>" + automovel.text + "</span><span style='margin-top:9px;' class='text-right badge badge-success'>" + tipo + "</span>");
+            }
+            
+            return html;
+        }
+    });
+}
+
+function styleSelectAutomoveis(automovel) {
+    window.console.warn(automovel.loading);
+    var tipo = automovel.tipo;
+    var html = "";
+    if (tipo === "C") {
+        tipo = "Carro";
+        html = $("<span>" + automovel.text + "</span><span class='text-right badge badge-primary'>" + tipo + "</span>");
+    } else {
+        tipo = "Moto";
+        html = $("<span>" + automovel.text + "</span><span class='text-right badge badge-success'>" + tipo + "</span>");
+    }
+    return html;
+}
+
+
+
+
+
 
 //$('.money').mask('#.##0,00', {reverse: true});
