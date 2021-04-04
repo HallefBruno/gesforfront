@@ -45,7 +45,7 @@
 
                                 <div class="estadoCivil col-sm-3 form-group ">
                                     <label class="control-label" for="estadoCivil">Estado civil</label> 
-                                    <select id="estadosCivil" name="estadosCivil" class="form-control">
+                                    <select id="select-estado-civil" name="select-estado-civil" class="form-control">
                                         <option/>
                                     </select>
                                     <input type="hidden" id="combo-civil-value" />
@@ -60,13 +60,23 @@
                                     </div>
                                 </div>
 
-                                <div class="numeroCasa col-sm-3 form-group ">
-                                    <label class="control-label" for="casa">Residência</label> 
-                                    <input style="text-transform: uppercase" type="text" autocomplete class="form-control-flash casa" id="casa" name="casa">
+                                <div class="numeroCasa col-sm-5 form-group ">
+                                    
+                                    <div class="form-row">
+                                        <div class="col form-group">
+                                            <label class="control-label" for="residencia">Residência</label>
+                                            <input id="residencia" name="residencia" type="text" class="form-control-flash" placeholder="Ex: casa 2 ou apto 101">
+                                        </div>
+                                        <div class="col" style="margin-top: 33px;">
+                                            <select id="select-tipo-residencia" name="select-tipo-residencia" class="form-control">
+                                                <option/>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="qtdMoradores col-sm-3 form-group ">
-                                    <label class="control-label" for="qtdMorador">Qtd Moradores</label> 
+                                <div class="qtdMoradores col-sm-1 form-group ">
+                                    <label class="control-label" for="qtdMorador">Qtd M</label> 
                                     <input type="text" maxlength="1" autocomplete class="form-control-flash qtd-morador" id="qtdMorador" name="qtdMorador">
                                 </div>
 
@@ -87,10 +97,7 @@
                                             <option/>
                                         </select>
                                         <div class="btnAdd" style="margin: 0 0 0 5px;">
-                                            <button style="display: none" title="Remover telefone selecionado" type="button" class="btn btn-danger btn-remove-tel">
-                                                <i class="fa fa-trash-o"></i>
-                                            </button>
-                                            <button title="Clique para salvar" id="btn-open-modal-telefone" type="button" class="btn btn btn-outline-primary"> <!--data-toggle="modal" data-target="#modaltelefoneResident"-->
+                                            <button title="Clique para adicionar novo" id="btn-open-modal-telefone" type="button" class="btn btn btn-outline-primary"> <!--data-toggle="modal" data-target="#modaltelefoneResident"-->
                                                 <i class="fa fa-plus-circle"></i>
                                             </button>
                                         </div>
@@ -107,9 +114,9 @@
                                         <div class="card-header"><b>Carros</b></div>
                                         <div class="card-body">
                                             <div class="feed-fabricante">
-                                                <label class="control-label" for="marcas">Digite as inicias da marca do veículo</label>
-                                                <select class="form-control" id="marcas" name="marcas">
-                                                    <option value="-1" label="Marca" >Marca</option>
+                                                <label class="control-label" for="fabricante-carro">Digite as inicias da marca do veículo</label>
+                                                <select class="form-control" id="fabricante-carro" name="fabricante-carro">
+                                                    <option/>
                                                 </select>
                                             </div>
                                             <input type="hidden" name="id-fabri-carro" id="id-fabri-carro" />
@@ -295,9 +302,8 @@
                 }
             }
         </script>
- 
-        <!--<script src="pages/morador/Novo.js" type="text/javascript"></script>-->
-        <script src="pages/morador/Telefone.js" type="text/javascript"></script>
         
+        <script src="pages/morador/Novo.js" type="text/javascript"></script>
+        <script src="pages/morador/Telefone.js" type="text/javascript"></script>
     </body>
 </html>

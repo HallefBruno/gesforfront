@@ -27,21 +27,25 @@ $(function () {
                 numero: $("#numeroTelefone").val()
             };
             
-            if(containsObject(telefone,listaTelefones)) {
+            if (containsObject(telefone, listaTelefones)) {
                 $("#strong-modal-alert").html("");
                 $("#strong-modal-alert").html("Este número de telefone já foi incluido!");
                 $(".alert-modal-telefone").show();
-            } else {
-                listaTelefones.push(telefone);
-                popularTabela(listaTelefones);
-                popularSelectTelefone(listaTelefones);
-                $(".alert-modal-telefone").hide();
+                $("#numeroTelefone").trigger("focus");
+                return;
             }
+            
+            listaTelefones.push(telefone);
+            popularTabela(listaTelefones);
+            popularSelectTelefone(listaTelefones);
+            criaAtualizaStorage64("telefones",listaTelefones);
+            $(".alert-modal-telefone").hide();
             return;
         } 
         $("#strong-modal-alert").html("");
         $("#strong-modal-alert").html("Número de telefone é obrigatório!");
         $(".alert-modal-telefone").show();
+        $("#numeroTelefone").trigger("focus");
     });
     
     $("#addTelefone").on("click","#btnRemove", function () {
@@ -51,13 +55,17 @@ $(function () {
         $(".select-telefones").html("");
         $(".select-telefones").append("<option value=''>Telefone</option>");
         popularSelectTelefone(data);
-
+        if(listaTelefones.length > 0) {
+            criaAtualizaStorage64("telefones",listaTelefones);
+        } else {
+            removeItemStorage("telefones");
+        }
     });
-
-    $("#modalTelefone").on("hidden.bs.modal", function () {
+    //hide.bs.modal hidden.bs.modal
+    $("#modalTelefone").on("hidden.bs.modal ", function () {
+        $(".alert-modal-telefone").hide();
         $("#modalTelefone").find("#numeroTelefone").val("");
         $("#modalTelefone").modal("dispose");
-        $(".alert-modal-telefone").hide();
     });
 
 });
@@ -113,7 +121,6 @@ function mascaraTelefone() {
     };
     $("#numeroTelefone").mask(maskPhone, novoDigito);
 }
-
 
 function validation() {
     
