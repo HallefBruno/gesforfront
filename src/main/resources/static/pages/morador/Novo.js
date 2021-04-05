@@ -162,8 +162,7 @@ function camposObrigatorioAutomovel() {
             },
             
             placa: {
-                required: true,
-                minlength: 7
+                required: true
             }
         },
         messages: {
@@ -177,8 +176,7 @@ function camposObrigatorioAutomovel() {
                 required: ""
             },
             placa: {
-                required: "",
-                minlength: "Tamanho mínimo para o placa é 7 caracter"
+                required: ""
             }
         },
         errorElement: "em",
