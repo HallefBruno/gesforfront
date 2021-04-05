@@ -1,6 +1,34 @@
 $(document).ready(function () {
-    init();
+    events();
+    mascaras();
+    poluarSelectCadastro();
+    populaSelectAutomoveis();
+    camposObrigatorioAutomovel();
+});
+
+function storage() {
+    getStorage64("telefones");
+}
+
+function events() {
+    $("#btn-add-novo-automovel").click(function () {
+        if ($("#form-automoveis").valid()) {
+            alert('hello - valid form');
+        }
+    });
+}
+
+
+function poluarSelectCadastro() {
+    
     var url = localStorage.getItem("currentUri");
+    
+    $(".select-telefones").select2({
+        theme: "bootstrap4",
+        placeholder: "Telefone",
+        allowClear: true,
+        language: "pt-BR"
+    });
     
     $.get(url + "/morador/estado-civil", function (data) {
 
@@ -69,27 +97,18 @@ $(document).ready(function () {
         $("#fabricante").on("select2:selecting",function (e) {
             var fabricanteId = e.params.args.data.id;
             $("#fabricante-id").val(fabricanteId);
-            $("#select-automoveis").val(null).trigger("change");
-            $("#select-automoveis").prop("disabled",false);
+            $("#automoveis").val(null).trigger("change");
+            $("#automoveis").prop("disabled",false);
         });
         
         $("#fabricante").on("select2:unselecting", function () {
-            $("#select-automoveis").prop("disabled",true);
+            $("#automoveis").prop("disabled",true);
         });
         
     });
-    
-});
+}
 
-function init() {
-    
-    $(".select-telefones").select2({
-        theme: "bootstrap4",
-        placeholder: "Telefone",
-        allowClear: true,
-        language: "pt-BR"
-    });
-    
+function mascaras() {
     $("#animalDomentico").bootstrapToggle("off", true);
     
     $("#sexo").bootstrapToggle("on", true);
@@ -125,18 +144,71 @@ function init() {
     $("#telefone").mask(maskPhone, novoDigito);
     $("#dataNascimento").mask("00/00/0000");
     $("#placa").mask(mercoSulMaskBehavior, mercoSulOptions);
-    
-    getStorage64("telefones");
-    
-    automoveis();
+}
+
+function camposObrigatorioAutomovel() {
+    $("#form-automoveis").validate({
+        rules: {
+            fabricante: {
+                required: true
+            },
+            
+            automoveis: {
+                required: true
+            },
+            
+            cor: {
+                required: true
+            },
+            
+            placa: {
+                required: true,
+                minlength: 7
+            }
+        },
+        messages: {
+            fabricante: {
+                required: ""
+            },
+            automoveis: {
+                required: ""
+            },
+            cor: {
+                required: ""
+            },
+            placa: {
+                required: "",
+                minlength: "Tamanho mínimo para o placa é 7 caracter"
+            }
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+
+            error.addClass("invalid-feedback");
+
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.next("label"));
+            } else if(element.prop("type") === "select-one") {
+                error.insertBefore(element);
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element) {
+            $(element).removeClass("is-invalid");
+        }
+    });
 }
 
 
-function automoveis() {
+function populaSelectAutomoveis() {
+    var url = localStorage.getItem("currentUri");
+    $("#automoveis").prop("disabled",true);
     
-    $("#select-automoveis").prop("disabled",true);
-    
-    $("#select-automoveis").select2({
+    $("#automoveis").select2({
         theme: "bootstrap4",
         placeholder: "Automóveis",
         allowClear: true,
@@ -145,7 +217,7 @@ function automoveis() {
         closeOnSelect: true,
         minimumInputLength: 1,
         ajax: {
-            url: "http://127.0.0.1:8082/flashapi/morador/automoveis",
+            url: url+"/morador/automoveis",
             dataType: "json",
             delay: 250,
             data: function (params) {
