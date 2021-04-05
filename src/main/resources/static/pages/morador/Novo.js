@@ -103,19 +103,18 @@ function init() {
             field.mask(maskPhone.apply({}, arguments), options);
         }
     };
-    
-    
+
     var mercoSulMaskBehavior = function (val) {
-        var myMask = 'AAA0A00';
+        var mask = 'AAA0A00';
         var mercosul = /([A-Za-z]{3}[0-9]{1}[A-Za-z]{1})/;
         var normal = /([A-Za-z]{3}[0-9]{2})/;
         var replaced = val.replace(/[^\w]/g, '');
         if (normal.exec(replaced)) {
-            myMask = 'AAA-0000';
+            mask = 'AAA-0000';
         } else if (mercosul.exec(replaced)) {
-            myMask = 'AAA-0A00';
+            mask = 'AAA-0A00';
         }
-        return myMask;
+        return mask;
     },
     mercoSulOptions = {
         onKeyPress: function (val, e, field, options) {
@@ -125,8 +124,7 @@ function init() {
     
     $("#telefone").mask(maskPhone, novoDigito);
     $("#dataNascimento").mask("00/00/0000");
-    $("#placa-carro").mask(mercoSulMaskBehavior, mercoSulOptions);
-    $("#placa-moto").mask(mercoSulMaskBehavior, mercoSulOptions);
+    $("#placa").mask(mercoSulMaskBehavior, mercoSulOptions);
     
     getStorage64("telefones");
     
@@ -172,40 +170,39 @@ function automoveis() {
         templateResult:styleSelectAutomoveis,
         
         escapeMarkup: function (markup) {
-            window.console.debug(markup);
             return markup;
         },
         templateSelection: function (automovel) {
-            window.console.warn(automovel.loading);
             var tipo = automovel.tipo;
             var html = "";
             if (tipo === "C") {
                 tipo = "Carro";
-                html = $("<span>" + automovel.text + "</span><span style='margin-top:9px;' class='text-right badge badge-primary'>" + tipo + "</span>");
-            } else {
+                html = $("<span>" + automovel.text + "</span><span style='margin-top:11px;' class='text-right badge badge-primary'>" + tipo + "</span>");
+            } else if(tipo === "M") {
                 tipo = "Moto";
-                html = $("<span>" + automovel.text + "</span><span style='margin-top:9px;' class='text-right badge badge-success'>" + tipo + "</span>");
+                html = $("<span>" + automovel.text + "</span><span style='margin-top:11px;' class='text-right badge badge-success'>" + tipo + "</span>");
+            } else {
+                html = $("<span>" + automovel.text + "</span>");
             }
-            
             return html;
         }
     });
 }
 
 function styleSelectAutomoveis(automovel) {
-    window.console.warn(automovel.loading);
     var tipo = automovel.tipo;
     var html = "";
     if (tipo === "C") {
         tipo = "Carro";
         html = $("<span>" + automovel.text + "</span><span class='text-right badge badge-primary'>" + tipo + "</span>");
-    } else {
+    } else if(tipo === "M") {
         tipo = "Moto";
         html = $("<span>" + automovel.text + "</span><span class='text-right badge badge-success'>" + tipo + "</span>");
+    } else {
+        html = $("<span>" + automovel.text + "</span>");
     }
     return html;
 }
-
 
 
 
