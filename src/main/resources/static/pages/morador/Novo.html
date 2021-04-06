@@ -118,9 +118,9 @@
                                                     <select class="form-control" id="fabricante" name="fabricante">
                                                         <option/>
                                                     </select>
+                                                    <input type="hidden" name="fabricante-id" id="fabricante-id" />
                                                 </div>
-                                                <input type="hidden" name="fabricante-id" id="fabricante-id" />
-
+                                                
                                                 <div class="col-sm-6">
                                                     <div class="form-row">
                                                         <div class="col-10">
@@ -128,6 +128,7 @@
                                                             <select class="form-control" id="automoveis" name="automoveis">
                                                                 <option/>   
                                                             </select>
+                                                            <input type="hidden" name="tipo" id="tipo" />
                                                         </div>
                                                         <div class="col-2" style="margin-top: 8px;">
                                                             <fieldset style="font-size: 12px;" class="border form-group">
@@ -161,7 +162,7 @@
 
                                                 <div class="feed-placa form-group col-sm-6">
                                                     <label class="control-label" for="placa">Placa</label>
-                                                    <input minlength="8" min="8" style="text-transform: uppercase" class="form-control form-control-flash" id="placa" name="placa"/>
+                                                    <input style="text-transform: uppercase" class="form-control form-control-flash" id="placa" name="placa"/>
                                                 </div>
                                             </div>
 
@@ -171,21 +172,27 @@
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading"><button type="button" id="btn-add-novo-automovel" class="btn btn btn-outline-primary">Adicionar</button></div>
                                                         <div class="panel-body">
-                                                            <div style="padding-top: 20px; height: 140px;" class="table-responsive">
-                                                                <table class="table table-bordered tbl-add-carro">
+                                                            <div style="padding-top: 20px; height: 200px;" class="table-responsive">
+                                                                <table class="table table-bordered tbl-add-automovel">
                                                                     <thead>
                                                                         <tr style="background-color: #f5f5f5">
                                                                             <th>Fabricante</th>
                                                                             <th>Modelo</th>
                                                                             <th>Placa</th>
                                                                             <th>Cor</th>
+                                                                            <th class="text-center" style="width: 60px;">Tipo</th>
                                                                             <th class="text-center" style="width: 60px;">Ação</th>
                                                                         </tr>
                                                                     </thead>
 
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td colspan="7"><span class="badge badge-dark">Nenhum adicionado</span></td>
+                                                                            <td><span class="badge badge-dark">Nenhum adicionado</span></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
                                                                         </tr>
                                                                     </tbody>
 
