@@ -1,5 +1,8 @@
 /* global Message */
-
+var automovelGrid = {};
+var automoveisGrid = [];
+var automovel = {};
+var automoveis = [];
 $(document).ready(function () {
     var message = new Message.Warning();
     events(message);
@@ -7,14 +10,143 @@ $(document).ready(function () {
     poluarSelectCadastro();
     populaSelectAutomoveis();
     camposObrigatorioAutomovel();
+    camposObrigatoriosMorador();
 });
-
-function storage() {
-    getStorage64("telefones");
-}
 
 function events(message) {
     addAutomovelGrid(message);
+    salvarMorador(message);
+}
+
+function salvarMorador(message) {
+    
+    var url = localStorage.getItem("currentUri");
+    
+    var morador = {
+        nome:$("#nome").val(),
+        cpf:$("#cpf").val(),
+        rg:$("#rg").val(),
+        orgaoEmissor:$("#orgaoEmissor").val(),
+        dataNascimento:$("#dataNascimento").val(),
+        naturalidade:$("#natural").val(),
+        estadoCivil:$("#estado-civil").val(),
+        sexo: $("#sexo").prop("checked") === true ? "Masculino" : "Feminino",
+        residencia:$("#residencia").val(),
+        qdtMoradores:$("#qtdMorador").val(),
+        tipoMoradia:$("#tipo-residencia").val(),
+        animalDomestico: $("#animalDomentico").prop("checked"),
+        telefones:getStorage64("telefones"),
+        automoveis:automoveis 
+    };
+    
+    $("#btnSalvar").click(function () {
+        if ($("#form-principal").valid()) {
+            $.ajax({
+                method: "POST",
+                url: url + "/morador/salvar",
+                data: JSON.stringify(morador),
+                contentType: "application/json",
+                dataType: "json",
+                statusCode: {
+                    201: function (data) {
+                        removeItemStorage("telefones");
+                        message.show("Registro salvo com sucesso!");
+                    }
+                }
+            });
+        }
+    });
+    
+}
+
+function addAutomovelGrid(message) {
+    
+    var tblAutomovels = $(".tbl-add-automovel").DataTable({
+        
+        "paginate": false,
+        "lengthChange": false,
+        "info": false,
+        "autoWidth": false,
+        "filter": false,
+        language: {
+            url: "vendor/internationalisation/pt_br.json"
+        },
+        columnDefs: [
+            {
+                targets: [4, 5],
+                className: 'text-center'
+            }
+        ]
+    });
+
+    
+    var htmltipo = "";
+
+    $("#btn-add-novo-automovel").click(function () {
+        if ($("#form-automoveis").valid()) {
+
+            $("#tr-msg").css("display", "none");
+
+            automovelGrid = {
+                id: $("#automoveis option:selected").filter(':selected').val(),
+                nome: $("#automoveis option:selected").filter(':selected').text(),
+                fabricante: {
+                    id: $("#fabricante option:selected").filter(':selected').val(),
+                    nome: $("#fabricante option:selected").filter(':selected').text()
+                },
+                tipoAutomovel: $("#tipo").val(),
+                cor: $("#cor option:selected").filter(':selected').val(),
+                placa: $("#placa").val()
+            };
+            
+            automovel = {
+                id: automovelGrid.id,
+                nome: automovelGrid.nome,
+                fabricante: {
+                    id: automovelGrid.fabricante.id,
+                    nome: automovelGrid.fabricante.nome
+                },
+                tipoAutomovel: automovelGrid.tipoAutomovel
+            };
+            
+            automoveis.push(automovel);
+
+            if(automovelExist(automoveisGrid, automovelGrid.placa)) {
+                message.show("Esse automovel já foi adicionado","N");
+                return;
+            }
+            
+            automoveisGrid.push(automovelGrid);
+            if (automovelGrid.tipoAutomovel === "Carro") {
+                htmltipo = "<span class='text-center badge badge-primary'>" + automovelGrid.tipoAutomovel + "</span>";
+            } else if (automovelGrid.tipoAutomovel === "Moto") {
+                htmltipo = "<span class='text-center badge badge-success'>" + automovelGrid.tipoAutomovel + "</span>";
+            }
+
+            tblAutomovels.row.add([
+                automovelGrid.fabricante.nome,
+                automovelGrid.nome,
+                automovelGrid.placa,
+                automovelGrid.cor,
+                htmltipo,
+                "<button id='btn-remover' data-key='" + automovelGrid.placa + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>"
+            ]).draw(false);
+
+        }
+    });
+    
+    tblAutomovels.on("click","#btn-remover", function () {
+        tblAutomovels.row($(this).parents("tr")).remove().draw();
+        var placa = $(this).data("key");
+        for(var i=0; i<automoveisGrid.length; i++) {
+            if(automoveisGrid[i].placa === placa) {
+                automoveisGrid.splice(i,1);
+            }
+        }
+        if(automoveisGrid.length === 0) {
+            $("#tr-msg").css("display", "block");
+        }
+    });
 }
 
 
@@ -22,7 +154,7 @@ function poluarSelectCadastro() {
     
     var url = localStorage.getItem("currentUri");
     
-    $(".select-telefones").select2({
+    $("#telefones").select2({
         theme: "bootstrap4",
         placeholder: "Telefone",
         allowClear: true,
@@ -41,12 +173,16 @@ function poluarSelectCadastro() {
             estadosCivil.push(estadoCivil);
         });
 
-        $("#select-estado-civil").select2({
+        $("#estadoCivil").select2({
             theme: "bootstrap4",
             placeholder: "Selecione o estado civil",
             allowClear: true,
             language: "pt-BR",
             data: estadosCivil
+        });
+        
+        $("#estadoCivil").on("select2:selecting", function (e) {
+            $("#estado-civil").val(e.params.args.data.text);
         });
         
     });
@@ -63,12 +199,16 @@ function poluarSelectCadastro() {
             tiposResidencias.push(tipoResidencia);
         });
 
-        $("#select-tipo-residencia").select2({
+        $("#tiposResidencia").select2({
             theme: "bootstrap4",
             placeholder: "Selecione tipo residência",
             allowClear: true,
             language: "pt-BR",
             data: tiposResidencias
+        });
+        
+        $("#tiposResidencia").on("select2:selecting", function (e) {
+            $("#tipo-residencia").val(e.params.args.data.text);
         });
         
     });
@@ -145,89 +285,6 @@ function mascaras() {
     $("#placa").mask(mercoSulMaskBehavior, mercoSulOptions);
 }
 
-function addAutomovelGrid(message) {
-    
-    var tblAutomovels = $(".tbl-add-automovel").DataTable({
-        
-        "paginate": false,
-        "lengthChange": false,
-        "info": false,
-        "autoWidth": false,
-        "filter": false,
-        language: {
-            url: "vendor/internationalisation/pt_br.json"
-        },
-        columnDefs: [
-            {
-                targets: [4, 5],
-                className: 'text-center'
-            }
-        ]
-    });
-
-    var automovelGrid = {};
-    var automoveisGrid = [];
-    var htmltipo = "";
-
-    $("#btn-add-novo-automovel").click(function () {
-        if ($("#form-automoveis").valid()) {
-
-            $("#tr-msg").css("display", "none");
-
-            automovelGrid = {
-                id: $("#automoveis option:selected").filter(':selected').val(),
-                nome: $("#automoveis option:selected").filter(':selected').text(),
-                fabricante: {
-                    id: $("#fabricante option:selected").filter(':selected').val(),
-                    nome: $("#fabricante option:selected").filter(':selected').text()
-                },
-                tipoAutomovel: $("#tipo").val(),
-                cor: $("#cor option:selected").filter(':selected').val(),
-                placa: $("#placa").val()
-            };
-
-            if(automovelExist(automoveisGrid, automovelGrid.placa)) {
-                message.show("Esse automovel já foi adicionado","N");
-                return;
-            }
-            
-            automoveisGrid.push(automovelGrid);
-            if (automovelGrid.tipoAutomovel === "Carro") {
-                htmltipo = "<span class='text-center badge badge-primary'>" + automovelGrid.tipoAutomovel + "</span>";
-            } else if (automovelGrid.tipoAutomovel === "Moto") {
-                htmltipo = "<span class='text-center badge badge-success'>" + automovelGrid.tipoAutomovel + "</span>";
-            }
-
-            tblAutomovels.row.add([
-                automovelGrid.fabricante.nome,
-                automovelGrid.nome,
-                automovelGrid.placa,
-                automovelGrid.cor,
-                htmltipo,
-                "<button id='btn-remover' data-key='" + automovelGrid.placa + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>"
-            ]).draw(false);
-
-        }
-    });
-    
-    tblAutomovels.on("click","#btn-remover", function () {
-        tblAutomovels.row($(this).parents("tr")).remove().draw();
-        var placa = $(this).data("key");
-        
-        console.log(placa);
-        console.log(automoveisGrid,"antes");
-        
-        for(var i=0; i<automoveisGrid.length; i++) {
-            if(automoveisGrid[i].placa === placa) {
-                automoveisGrid.splice(i,1);
-            }
-        }
-        
-        //automoveisGrid = automoveisGrid.filter(automovel => Number(automovel.id) !== id);
-        console.log(automoveisGrid,"depois");
-    });
-}
-
 function automovelExist(array, placa) {
     return array.some(function (p) {
         return p.placa === placa;
@@ -268,6 +325,101 @@ function camposObrigatorioAutomovel() {
                 required: "",
                 minlength: "Mínimo oito caracter"
             }
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+
+            error.addClass("invalid-feedback");
+
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.next("label"));
+            } else if(element.prop("type") === "select-one") {
+                error.insertBefore(element);
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element) {
+            $(element).removeClass("is-invalid");
+        }
+    });
+}
+
+
+function camposObrigatoriosMorador() {
+    $("#form-principal").validate({
+        rules: {
+            nome: {
+                required: true
+            },
+            
+            cpf: {
+                required: true
+            },
+            
+            rg: {
+                required: true
+            },
+            
+            orgaoEmissor: {
+                required: true
+            },
+            dataNascimento: {
+                required: true
+            },
+            natural: {
+                required: true
+            },
+            estadoCivil: {
+                required: true
+            },
+            tiposResidencia: {
+                required: true
+            },
+            qtdMorador : {
+                required: true
+            },
+            telefones: {
+                required: true
+            }
+        },
+        messages: {
+           nome: {
+                required: ""
+            },
+            
+            cpf: {
+                required: ""
+            },
+            
+            rg: {
+                required: ""
+            },
+            
+            orgaoEmissor: {
+                required: ""
+            },
+            dataNascimento: {
+                required: ""
+            },
+            natural: {
+                required: ""
+            },
+            estadoCivil: {
+                required: ""
+            },
+            tiposResidencia: {
+                required: ""
+            },
+            qtdMorador : {
+                required: ""
+            },
+            telefones: {
+                required: ""
+            } 
         },
         errorElement: "em",
         errorPlacement: function (error, element) {
@@ -364,9 +516,3 @@ function styleSelectAutomoveis(automovel) {
     }
     return html;
 }
-
-
-
-
-
-//$('.money').mask('#.##0,00', {reverse: true});

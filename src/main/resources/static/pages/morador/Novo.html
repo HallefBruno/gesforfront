@@ -5,13 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div class="container shadow p-3 mb-5 bg-white rounded" style="height: 950px; margin-top: 20px;">
-            <div class="card" style="height: 910px;">
+        <div class="container shadow p-3 mb-5 bg-white rounded" style="height: 1000px; margin-top: 20px;">
+            <div class="card" style="height: 970px;">
                 <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Cadastro de morador</h5>
                 <div class="card-body">
                     <div class="container">
                         <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
-                        <form>
+                        <form id="form-principal">
                             <div class="row" >
                                 <div class="nome col-sm-3 form-group">
                                     <label class="control-label" for="nome">Nome</label> 
@@ -45,10 +45,10 @@
 
                                 <div class="estadoCivil col-sm-3 form-group ">
                                     <label class="control-label" for="estadoCivil">Estado civil</label> 
-                                    <select id="select-estado-civil" name="select-estado-civil" class="form-control">
+                                    <select id="estadoCivil" name="estadoCivil" class="form-control">
                                         <option/>
                                     </select>
-                                    <input type="hidden" id="combo-civil-value" />
+                                    <input type="hidden" id="estado-civil" />
                                 </div>
                                 
                                 <div class="col-sm-3">
@@ -68,9 +68,10 @@
                                             <input id="residencia" name="residencia" type="text" class="form-control-flash" placeholder="Ex: casa 2 ou apto 101">
                                         </div>
                                         <div class="col" style="margin-top: 33px;">
-                                            <select id="select-tipo-residencia" name="select-tipo-residencia" class="form-control">
+                                            <select id="tiposResidencia" name="tiposResidencia" class="form-control">
                                                 <option/>
                                             </select>
+                                            <input type="hidden" id="tipo-residencia" />
                                         </div>
                                     </div>
                                 </div>
@@ -89,11 +90,11 @@
                                     </div>
                                 </div>
 
-                                <div class="telefones col-sm-3  form-group">
+                                <div class="col-sm-3  form-group">
                                     <label for="telefones" class="control-label">Telefone/Telefones</label>
                                     <div style="display: flex;">
                                         <!--<input type="text" autocomplete class="form-control js-phone-number" id="telefone" name="telefone">-->
-                                        <select id="telefones" name="telefones" class="form-control select-telefones" >
+                                        <select id="telefones" name="telefones" class="form-control" >
                                             <option/>
                                         </select>
                                         <div class="btnAdd" style="margin: 0 0 0 5px;">
@@ -195,7 +196,6 @@
                                                                             <td></td>
                                                                         </tr>
                                                                     </tbody>
-
                                                                 </table>
                                                             </div>
                                                         </div>
@@ -207,6 +207,16 @@
                                 </div>
                             </div>
                         </form>
+                        <div style="margin-top: 10px;" class="form-row">
+                            <div class="col-6">
+                                <button type="submit" id="btnSalvar" class="btn btn-primary">
+                                    <i class="fa fa-floppy-o"></i> Salvar
+                                </button>
+                                <button type="button" id="btnPagePesquisar" class="btn btn-light">
+                                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Pesquisar
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
