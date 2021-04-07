@@ -52,8 +52,8 @@ $(function () {
         var value = $(this).data("numero");
         listaTelefones = listaTelefones.filter(item => item.numero !== value);
         popularTabela(listaTelefones);
-        $(".select-telefones").html("");
-        $(".select-telefones").append("<option value=''>Telefone</option>");
+        $("#telefones").html("");
+        $("#telefones").append("<option value=''>Telefone</option>");
         popularSelectTelefone(data);
         if(listaTelefones.length > 0) {
             criaAtualizaStorage64("telefones",listaTelefones);
@@ -99,7 +99,7 @@ function popularSelectTelefone(listaTelefones) {
         telefones.push(numero);
     });
     
-    $(".select-telefones").select2({
+    $("#telefones").select2({
         theme: "bootstrap4",
         placeholder: "Telefone",
         allowClear: true,
@@ -107,7 +107,7 @@ function popularSelectTelefone(listaTelefones) {
         data: telefones
     });
     
-    //$(".select-telefones").trigger("change");
+    //$("#telefones").trigger("change");
 }
 
 function mascaraTelefone() {

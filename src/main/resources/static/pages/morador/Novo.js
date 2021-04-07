@@ -22,6 +22,8 @@ function salvarMorador(message) {
     
     var url = localStorage.getItem("currentUri");
     
+    
+    
     var morador = {
         nome:$("#nome").val(),
         cpf:$("#cpf").val(),
@@ -29,17 +31,20 @@ function salvarMorador(message) {
         orgaoEmissor:$("#orgaoEmissor").val(),
         dataNascimento:$("#dataNascimento").val(),
         naturalidade:$("#natural").val(),
-        estadoCivil:$("#estado-civil").val(),
+        estadoCivil:$("#estadoCivil :selected").val(),
         sexo: $("#sexo").prop("checked") === true ? "Masculino" : "Feminino",
         residencia:$("#residencia").val(),
         qdtMoradores:$("#qtdMorador").val(),
         tipoMoradia:$("#tipo-residencia").val(),
         animalDomestico: $("#animalDomentico").prop("checked"),
-        telefones:getStorage64("telefones"),
+        telefones:JSON.parse(getStorage64("telefones")),
         automoveis:automoveis 
     };
     
     $("#btnSalvar").click(function () {
+        
+       //alert($("#estadoCivil :selected").val());
+        window.console.log(morador);
         if ($("#form-principal").valid()) {
             $.ajax({
                 method: "POST",
@@ -181,9 +186,10 @@ function poluarSelectCadastro() {
             data: estadosCivil
         });
         
-        $("#estadoCivil").on("select2:selecting", function (e) {
-            $("#estado-civil").val(e.params.args.data.text);
-        });
+//        $("#estadoCivil").on("select2:selecting", function (e) {
+//            alert($("#estado-civil").val(e.params.args.data.id),$("#estado-civil").val(e.params.args.data.text));
+//            $("#estado-civil").val(e.params.args.data.id);
+//        });
         
     });
 
@@ -281,7 +287,6 @@ function mascaras() {
     };
     
     $("#telefone").mask(maskPhone, novoDigito);
-    $("#dataNascimento").mask("00/00/0000");
     $("#placa").mask(mercoSulMaskBehavior, mercoSulOptions);
 }
 
@@ -364,7 +369,7 @@ function camposObrigatoriosMorador() {
                 required: true
             },
             
-            orgaoEmissor: {
+            emissor: {
                 required: true
             },
             dataNascimento: {
@@ -376,6 +381,10 @@ function camposObrigatoriosMorador() {
             estadoCivil: {
                 required: true
             },
+            residencia: {
+                required: true
+            },
+            
             tiposResidencia: {
                 required: true
             },
@@ -399,7 +408,7 @@ function camposObrigatoriosMorador() {
                 required: ""
             },
             
-            orgaoEmissor: {
+            emissor: {
                 required: ""
             },
             dataNascimento: {
@@ -409,6 +418,9 @@ function camposObrigatoriosMorador() {
                 required: ""
             },
             estadoCivil: {
+                required: ""
+            },
+            residencia: {
                 required: ""
             },
             tiposResidencia: {

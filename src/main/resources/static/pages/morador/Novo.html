@@ -13,37 +13,37 @@
                         <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
                         <form id="form-principal">
                             <div class="row" >
-                                <div class="nome col-sm-3 form-group">
+                                <div class=" col-sm-3 form-group">
                                     <label class="control-label" for="nome">Nome</label> 
-                                    <input style="text-transform: uppercase" type="text" autocomplete class="form-control-flash" id="nome" name="nome">
+                                    <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="nome" name="nome">
                                 </div>
 
-                                <div class="cpf col-sm-3 form-group ">
+                                <div class=" col-sm-3 form-group ">
                                     <label class="control-label" for="cpf">CPF</label> 
-                                    <input type="text" autocomplete class="form-control-flash js-cpf" id="cpf" name="cpf">
+                                    <input type="text" autocomplete class="form-control form-control-flash" id="cpf" name="cpf">
                                 </div>
 
-                                <div class="rg col-sm-3 form-group">
+                                <div class=" col-sm-3 form-group">
                                     <label class="control-label" for="rg">RG</label> 
-                                    <input style="text-transform: uppercase" type="text" maxlength="12" minlength="5" autocomplete="" class="form-control-flash" id="rg" name="rg">
+                                    <input style="text-transform: uppercase" type="text" maxlength="12" minlength="5" autocomplete="" class="form-control form-control-flash" id="rg" name="rg">
                                 </div>
 
-                                <div class="orgaoEmissor col-sm-3 form-group ">
+                                <div class=" col-sm-3 form-group ">
                                     <label class="control-label" for="emissor">Orgão emissor</label> 
-                                    <input style="text-transform: uppercase" type="text" autocomplete="" maxlength="8" minlength="3" class="form-control-flash emissor" id="emissor" name="emissor">
+                                    <input style="text-transform: uppercase" type="text" autocomplete="" maxlength="8" minlength="3" class="form-control form-control-flash" id="emissor" name="emissor">
                                 </div>
 
-                                <div class="dataNascimento col-sm-3 form-group ">
+                                <div class=" col-sm-3 form-group ">
                                     <label class="control-label" for="dataNascimento">Data nascimento</label> 
-                                    <input type="date" autocomplete class="form-control-flash" id="dataNascimento" name="dataNascimento">
+                                    <input type="date" autocomplete class="form-control form-control-flash" id="dataNascimento" name="dataNascimento">
                                 </div>
 
-                                <div class="naturalidade col-sm-3 form-group">
+                                <div class=" col-sm-3 form-group">
                                     <label class="control-label" for="natural">Natural</label> 
-                                    <input style="text-transform: uppercase" type="text" autocomplete="" class="form-control-flash" id="natural" name="natural">
+                                    <input style="text-transform: uppercase" type="text" autocomplete="" class="form-control form-control-flash" id="natural" name="natural">
                                 </div>
 
-                                <div class="estadoCivil col-sm-3 form-group ">
+                                <div class=" col-sm-3 form-group ">
                                     <label class="control-label" for="estadoCivil">Estado civil</label> 
                                     <select id="estadoCivil" name="estadoCivil" class="form-control">
                                         <option/>
@@ -55,17 +55,17 @@
                                     <label class="control-label" >Sexo</label>
                                     <div class="form-group">
                                         <div class="radio radio-inline radio-info">
-                                            <input id="sexo" data-width="240"  data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
+                                            <input id="sexo" data-width="240" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="numeroCasa col-sm-5 form-group ">
+                                <div class="col-sm-5">
                                     
                                     <div class="form-row">
                                         <div class="col form-group">
                                             <label class="control-label" for="residencia">Residência</label>
-                                            <input id="residencia" name="residencia" type="text" class="form-control-flash" placeholder="Ex: casa 2 ou apto 101">
+                                            <input id="residencia" name="residencia" type="text" class="form-control form-control-flash" placeholder="Ex: casa 2 ou apto 101">
                                         </div>
                                         <div class="col" style="margin-top: 33px;">
                                             <select id="tiposResidencia" name="tiposResidencia" class="form-control">
@@ -78,7 +78,7 @@
 
                                 <div class="qtdMoradores col-sm-1 form-group ">
                                     <label class="control-label" for="qtdMorador">Qtd M</label> 
-                                    <input type="text" maxlength="1" autocomplete class="form-control-flash qtd-morador" id="qtdMorador" name="qtdMorador">
+                                    <input type="text" maxlength="1" autocomplete class="form-control form-control-flash" id="qtdMorador" name="qtdMorador">
                                 </div>
 
                                 <div class="col-sm-3">
@@ -89,21 +89,36 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-sm-3  form-group">
-                                    <label for="telefones" class="control-label">Telefone/Telefones</label>
-                                    <div style="display: flex;">
-                                        <!--<input type="text" autocomplete class="form-control js-phone-number" id="telefone" name="telefone">-->
-                                        <select id="telefones" name="telefones" class="form-control" >
-                                            <option/>
-                                        </select>
-                                        <div class="btnAdd" style="margin: 0 0 0 5px;">
-                                            <button title="Clique para adicionar novo" id="btn-open-modal-telefone" type="button" class="btn btn btn-outline-primary"> <!--data-toggle="modal" data-target="#modaltelefoneResident"-->
+                                
+                                <div class="col-sm-3 form-group">
+                                    <div class="form-row">
+                                        <div class="col-10">
+                                            <label for="telefones" class="control-label">Telefone/Telefones</label>
+                                            <select id="telefones" name="telefones" class="form-control" >
+                                                <option/>
+                                            </select>
+                                        </div>
+                                        <div class="col-2" style="margin-top: 32px;">
+                                            <button title="Clique para adicionar novo" id="btn-open-modal-telefone" type="button" class="btn btn btn-outline-primary"> 
                                                 <i class="fa fa-plus-circle"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
+                                
+<!--                                <div class="col-sm-3">
+                                    <label for="telefones" class="control-label">Telefone/Telefones</label>
+                                    <div style="display: flex;">
+                                        <select id="telefones" name="telefones" class="form-control" >
+                                            <option/>
+                                        </select>
+                                        <div class="btnAdd" style="margin: 0 0 0 5px;">
+                                            <button title="Clique para adicionar novo" id="btn-open-modal-telefone" type="button" class="btn btn btn-outline-primary"> data-toggle="modal" data-target="#modaltelefoneResident"
+                                                <i class="fa fa-plus-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>-->
                             </div>
                         </form>
                         <div style="margin-bottom: 15px;" ></div>
