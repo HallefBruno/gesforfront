@@ -21,29 +21,26 @@ function events(message) {
 function salvarMorador(message) {
     
     var url = localStorage.getItem("currentUri");
-    
-    
-    
-    var morador = {
-        nome:$("#nome").val(),
-        cpf:$("#cpf").val(),
-        rg:$("#rg").val(),
-        orgaoEmissor:$("#orgaoEmissor").val(),
-        dataNascimento:$("#dataNascimento").val(),
-        naturalidade:$("#natural").val(),
-        estadoCivil:$("#estadoCivil :selected").val(),
-        sexo: $("#sexo").prop("checked") === true ? "Masculino" : "Feminino",
-        residencia:$("#residencia").val(),
-        qdtMoradores:$("#qtdMorador").val(),
-        tipoMoradia:$("#tipo-residencia").val(),
-        animalDomestico: $("#animalDomentico").prop("checked"),
-        telefones:JSON.parse(getStorage64("telefones")),
-        automoveis:automoveis 
-    };
-    
+
     $("#btnSalvar").click(function () {
+        window.console.warn($("#cpf").val().replace(/[^\w\s]/gi, ''));
+        var morador = {
+            nome: $("#nome").val(),
+            cpf: removeCaracterEspecial($("#cpf").val()),
+            rg: $("#rg").val(),
+            orgaoEmissor: $("#emissor").val(),
+            dataNascimento: $("#dataNascimento").val(),
+            naturalidade: $("#natural").val(),
+            estadoCivil: $("#estadoCivil :selected").val(),
+            sexo: $("#sexo").prop("checked") === true ? "Masculino" : "Feminino",
+            residencia: $("#residencia").val(),
+            qdtMoradores: $("#qtdMorador").val(),
+            tipoMoradia: $("#tiposResidencia :selected").val(),
+            animalDomestico: $("#animalDomentico").prop("checked"),
+            telefones: JSON.parse(getStorage64("telefones")),
+            automoveis: automoveis
+        };
         
-       //alert($("#estadoCivil :selected").val());
         window.console.log(morador);
         if ($("#form-principal").valid()) {
             $.ajax({
@@ -185,12 +182,7 @@ function poluarSelectCadastro() {
             language: "pt-BR",
             data: estadosCivil
         });
-        
-//        $("#estadoCivil").on("select2:selecting", function (e) {
-//            alert($("#estado-civil").val(e.params.args.data.id),$("#estado-civil").val(e.params.args.data.text));
-//            $("#estado-civil").val(e.params.args.data.id);
-//        });
-        
+
     });
 
     $.get(url + "/morador/tipo-residencia", function (data) {
