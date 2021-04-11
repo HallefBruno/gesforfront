@@ -223,9 +223,7 @@ function clearCanvasMyChart() {
     $(".dashboard-myChart").find("div").empty();
 }
 
-
 function storageURL() {
-    
     $.getJSON("urls", function (data) {
         var local = $(location).attr("href");
         var targetUrl;
@@ -235,6 +233,6 @@ function storageURL() {
         } else {
             targetUrl = data.urlExternalBack;
         }
-        localStorage.setItem('currentUri', targetUrl);
+        localStorage.setItem("currentUri", targetUrl);
     });
 }

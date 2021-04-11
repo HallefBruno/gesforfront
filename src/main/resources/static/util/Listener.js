@@ -1,6 +1,4 @@
-/* global Message, TYPE */
-"use strict";
-
+/* global Message, TYPE, removeAllLocalStorage */
 var Listener = Listener || {};
 
 Listener.Handler = (function () {
@@ -52,6 +50,8 @@ Listener.Handler = (function () {
             //$("button[type='submit']").prop('disabled',false);
         }.bind(this));
 
+        removeAllLocalStorage();
+        
         $(document).ajaxError(function (event, jqXHR, settings) {
             if (jqXHR.status === 0) {
                 var message = new Message.Error();

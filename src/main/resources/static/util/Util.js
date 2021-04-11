@@ -1,7 +1,3 @@
-function removeCaracterEspecial(value) {
-    return value = value.replace(/[^\w\s]/gi, '').trim();
-}
-
 function criaAtualizaStorage64(key,value) {
     var encoded = btoa(JSON.stringify(value));
     localStorage.setItem(key,encoded);
@@ -24,4 +20,5 @@ function removeItemStorage(key) {
 
 function removeAllLocalStorage() {
     window.localStorage.clear();
+    storageURL();
 }

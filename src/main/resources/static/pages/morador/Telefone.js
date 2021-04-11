@@ -24,7 +24,7 @@ $(function () {
                 numero: $("#numeroTelefone").val()
             };
             telefone = {
-                numero: removeCaracterEspecial($("#numeroTelefone").val())
+                numero: $("#numeroTelefone").val()
             };
             
             if (containsObject(telefone, listaTelefones)) {

@@ -25,7 +25,7 @@ function salvarMorador(message) {
     $("#btnSalvar").click(function () {
         var morador = {
             nome: $("#nome").val(),
-            cpf: removeCaracterEspecial($("#cpf").val()),
+            cpf: $("#cpf").val(),
             rg: $("#rg").val(),
             orgaoEmissor: $("#emissor").val(),
             dataNascimento: $("#dataNascimento").val(),
@@ -50,7 +50,6 @@ function salvarMorador(message) {
                 dataType: "json",
                 statusCode: {
                     201: function (data) {
-                        removeItemStorage("telefones");
                         message.show("Registro salvo com sucesso!");
                     }
                 }
