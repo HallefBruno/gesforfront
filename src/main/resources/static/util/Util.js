@@ -1,5 +1,5 @@
 function removeCaracterEspecial(value) {
-    return value = value.replace(/[^\w\s]/gi, '');
+    return value = value.replace(/[^\w\s]/gi, '').trim();
 }
 
 function criaAtualizaStorage64(key,value) {
