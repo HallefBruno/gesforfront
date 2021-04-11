@@ -23,7 +23,6 @@ function salvarMorador(message) {
     var url = localStorage.getItem("currentUri");
 
     $("#btnSalvar").click(function () {
-        window.console.warn($("#cpf").val().replace(/[^\w\s]/gi, ''));
         var morador = {
             nome: $("#nome").val(),
             cpf: removeCaracterEspecial($("#cpf").val()),

@@ -13,10 +13,8 @@ function getStorage(key) {
 
 function getStorage64(key) {
     var atual = localStorage.getItem(key);
-    console.log(atual+" atual ");
     var stringJson = JSON.stringify(atob(atual));
     var objectJson = JSON.parse(stringJson);
-    console.log(objectJson+" json ");
     return objectJson;
 }
 
