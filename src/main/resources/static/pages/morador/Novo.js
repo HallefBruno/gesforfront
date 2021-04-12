@@ -4,8 +4,7 @@ var automoveisGrid = [];
 var automovel = {};
 var automoveis = [];
 $(document).ready(function () {
-    var message = new Message.Warning();
-    events(message);
+    events();
     mascaras();
     poluarSelectCadastro();
     populaSelectAutomoveis();
@@ -13,16 +12,17 @@ $(document).ready(function () {
     camposObrigatoriosMorador();
 });
 
-function events(message) {
-    addAutomovelGrid(message);
-    salvarMorador(message);
+function events() {
+    addAutomovelGrid();
+    salvarMorador();
 }
 
-function salvarMorador(message) {
+function salvarMorador() {
     
     var url = localStorage.getItem("currentUri");
 
     $("#btnSalvar").click(function () {
+        alert("OK");
         var morador = {
             nome: $("#nome").val(),
             cpf: $("#cpf").val(),
@@ -50,6 +50,7 @@ function salvarMorador(message) {
                 dataType: "json",
                 statusCode: {
                     201: function (data) {
+                        var message = new Message.Success();
                         message.show("Registro salvo com sucesso!");
                     }
                 }
@@ -59,7 +60,9 @@ function salvarMorador(message) {
     
 }
 
-function addAutomovelGrid(message) {
+function addAutomovelGrid() {
+    
+    var message = new Message.Warning();
     
     var tblAutomovels = $(".tbl-add-automovel").DataTable({
         
@@ -423,7 +426,8 @@ function camposObrigatoriosMorador() {
                 required: ""
             } 
         },
-        errorElement: "em",
+        errorElement: "div",
+        //errorLabelContainer: ".alert-erro-novo-morador",
         errorPlacement: function (error, element) {
 
             error.addClass("invalid-feedback");
