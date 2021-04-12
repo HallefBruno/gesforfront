@@ -10,6 +10,7 @@ $(document).ready(function () {
     populaSelectAutomoveis();
     camposObrigatorioAutomovel();
     camposObrigatoriosMorador();
+    $(".alert-erro-novo-morador").hide();
 });
 
 function events() {
@@ -22,7 +23,6 @@ function salvarMorador() {
     var url = localStorage.getItem("currentUri");
 
     $("#btnSalvar").click(function () {
-        alert("OK");
         var morador = {
             nome: $("#nome").val(),
             cpf: $("#cpf").val(),
@@ -426,7 +426,7 @@ function camposObrigatoriosMorador() {
                 required: ""
             } 
         },
-        errorElement: "div",
+        errorElement: "em",
         //errorLabelContainer: ".alert-erro-novo-morador",
         errorPlacement: function (error, element) {
 
