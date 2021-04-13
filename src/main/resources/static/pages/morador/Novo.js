@@ -4,13 +4,13 @@ var automoveisGrid = [];
 var automovel = {};
 var automoveis = [];
 $(document).ready(function () {
+    $(".alert-erro-novo-morador").hide();
     events();
     mascaras();
     poluarSelectCadastro();
     populaSelectAutomoveis();
     camposObrigatorioAutomovel();
     camposObrigatoriosMorador();
-    $(".alert-erro-novo-morador").hide();
 });
 
 function events() {
@@ -23,25 +23,23 @@ function salvarMorador() {
     var url = localStorage.getItem("currentUri");
 
     $("#btnSalvar").click(function () {
-        var morador = {
-            nome: $("#nome").val(),
-            cpf: $("#cpf").val(),
-            rg: $("#rg").val(),
-            orgaoEmissor: $("#emissor").val(),
-            dataNascimento: $("#dataNascimento").val(),
-            naturalidade: $("#natural").val(),
-            estadoCivil: $("#estadoCivil :selected").val(),
-            sexo: $("#sexo").prop("checked") === true ? "Masculino" : "Feminino",
-            residencia: $("#residencia").val(),
-            qdtMoradores: $("#qtdMorador").val(),
-            tipoMoradia: $("#tiposResidencia :selected").val(),
-            animalDomestico: $("#animalDomentico").prop("checked"),
-            telefones: JSON.parse(getStorage64("telefones")),
-            automoveis: automoveis
-        };
-        
-        window.console.log(morador);
         if ($("#form-principal").valid()) {
+            var morador = {
+                nome: $("#nome").val(),
+                cpf: $("#cpf").val(),
+                rg: $("#rg").val(),
+                orgaoEmissor: $("#emissor").val(),
+                dataNascimento: $("#dataNascimento").val(),
+                naturalidade: $("#natural").val(),
+                estadoCivil: $("#estadoCivil :selected").val(),
+                sexo: $("#sexo").prop("checked") === true ? "Masculino" : "Feminino",
+                residencia: $("#residencia").val(),
+                qdtMoradores: $("#qtdMorador").val(),
+                tipoMoradia: $("#tiposResidencia :selected").val(),
+                animalDomestico: $("#animalDomentico").prop("checked"),
+                telefones: JSON.parse(getStorage64("telefones")),
+                automoveis: automoveis
+            };
             $.ajax({
                 method: "POST",
                 url: url + "/morador/salvar",
@@ -351,33 +349,36 @@ function camposObrigatoriosMorador() {
     $("#form-principal").validate({
         rules: {
             nome: {
-                required: true
+                required: true,
+                rangelength: [3, 200]
             },
-            
             cpf: {
-                required: true
+                required: true,
+                minlength:11
             },
-            
             rg: {
-                required: true
+                required: true,
+                rangelength: [5, 11]
             },
-            
             emissor: {
-                required: true
+                required: true,
+                rangelength: [4, 11]
             },
             dataNascimento: {
-                required: true
+                required: true,
+                rangelength: [10,10]
             },
             natural: {
-                required: true
+                required: true,
+                rangelength: [3, 50]
             },
             estadoCivil: {
                 required: true
             },
             residencia: {
-                required: true
+                required: true,
+                rangelength: [3, 100]
             },
-            
             tiposResidencia: {
                 required: true
             },
@@ -390,62 +391,49 @@ function camposObrigatoriosMorador() {
         },
         messages: {
            nome: {
-                required: ""
+                required: "Nome obrigatório!",
+                rangelength:"Insira um nome entre {0} e {1} caracteres!" //jQuery.validator.format("Please enter a value between {0} and {1} characters long.")
             },
-            
             cpf: {
-                required: ""
+                required: "CPF obrigatório!",
+                rangelength: "Insira um cpf entre {0} e {1} caracteres!"
             },
-            
             rg: {
-                required: ""
+                required: "RG obrigatório!",
+                rangelength: "Insira um rg entre {0} e {1} caracteres!"
             },
-            
             emissor: {
-                required: ""
+                required: "Orgão emissor obrigatório!",
+                rangelength: "Insira um orgão emissor entre {0} e {1} caracteres!"
             },
             dataNascimento: {
-                required: ""
+                required: "Data nascimento obrigatória!",
+                rangelength: "Insira uma data entre {0} e {1} caracteres!"
             },
             natural: {
-                required: ""
+                required: "Naturalidade obrigatório!",
+                rangelength: "Insira um valor entre {0} e {1} caracteres!"
             },
             estadoCivil: {
-                required: ""
+                required: "Estado civil obrigatório!"
             },
             residencia: {
-                required: ""
+                required: "Endereço da residência obrigatório!",
+                rangelength: "Insira um valor entre {0} e {1} caracteres!"
             },
             tiposResidencia: {
-                required: ""
+                required: "Tipo de residência obrigatória!"
             },
-            qtdMorador : {
-                required: ""
+            qtdMorador: {
+                required: "Quantidade de morador obrigatório!"
             },
             telefones: {
-                required: ""
+                required: "Telefone pelo menos um obrigatório!"
             } 
         },
-        errorElement: "em",
-        //errorLabelContainer: ".alert-erro-novo-morador",
-        errorPlacement: function (error, element) {
-
-            error.addClass("invalid-feedback");
-
-            if (element.prop("type") === "checkbox") {
-                error.insertAfter(element.next("label"));
-            } else if(element.prop("type") === "select-one") {
-                error.insertBefore(element);
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        highlight: function (element) {
-            $(element).addClass("is-invalid").removeClass("is-valid");
-        },
-        unhighlight: function (element) {
-            $(element).removeClass("is-invalid");
-        }
+        errorContainer: ".alert-erro-novo-morador",
+        errorLabelContainer: ".alert-erro-novo-morador ul",
+        wrapper: "li"
     });
 }
 

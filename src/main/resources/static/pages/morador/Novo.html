@@ -5,18 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div class="container shadow p-3 mb-5 bg-white rounded" style="height: 1000px; margin-top: 20px;">
-            <div class="card" style="height: 970px;">
+        <div class="container shadow p-3 mb-5 bg-white rounded" style="height: 100%; margin-top: 20px;">
+            <div class="card" style="height: 100%;">
                 <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Cadastro de morador</h5>
                 <div class="card-body">
                     <div class="container">
                         <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
-                        <div class="alert-erro-novo-morador alert alert-danger alert-dismissible fade show">
-                            <strong id="strong-modal-alert"></strong>
-                            <button type="button" class="close" onclick="$('.alert-erro-novo-morador').hide()" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        
+                        <div class="alert-erro-novo-morador">
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <ul></ul>
+                                <button type="button" class="close" onclick="$('.alert-erro-novo-morador').hide()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         </div>
+                        
                         <form id="form-principal">
                             <div class="row" >
                                 <div class=" col-sm-3 form-group">
@@ -31,12 +35,12 @@
 
                                 <div class=" col-sm-3 form-group">
                                     <label class="control-label" for="rg">RG</label> 
-                                    <input style="text-transform: uppercase" type="text" maxlength="11" minlength="5" autocomplete="" class="form-control form-control-flash" id="rg" name="rg">
+                                    <input style="text-transform: uppercase" type="text" autocomplete="" class="form-control form-control-flash" id="rg" name="rg">
                                 </div>
 
                                 <div class=" col-sm-3 form-group ">
                                     <label class="control-label" for="emissor">Orgão emissor</label> 
-                                    <input style="text-transform: uppercase" type="text" autocomplete="" maxlength="8" minlength="3" class="form-control form-control-flash" id="emissor" name="emissor">
+                                    <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="emissor" name="emissor">
                                 </div>
 
                                 <div class=" col-sm-3 form-group ">
@@ -46,7 +50,7 @@
 
                                 <div class=" col-sm-3 form-group">
                                     <label class="control-label" for="natural">Natural</label> 
-                                    <input style="text-transform: uppercase" type="text" autocomplete="" class="form-control form-control-flash" id="natural" name="natural">
+                                    <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="natural" name="natural">
                                 </div>
 
                                 <div class=" col-sm-3 form-group ">
@@ -54,7 +58,6 @@
                                     <select id="estadoCivil" name="estadoCivil" class="form-control">
                                         <option/>
                                     </select>
-                                    <input type="hidden" id="estado-civil" />
                                 </div>
                                 
                                 <div class="col-sm-3">
@@ -71,7 +74,7 @@
                                     <div class="form-row">
                                         <div class="col form-group">
                                             <label class="control-label" for="residencia">Residência</label>
-                                            <input id="residencia" name="residencia" type="text" class="form-control form-control-flash" placeholder="Ex: casa 2 ou apto 101">
+                                            <input style="text-transform: uppercase" id="residencia" name="residencia" type="text" class="form-control form-control-flash" placeholder="Ex: casa 2 ou apto 101">
                                         </div>
                                         <div class="col" style="margin-top: 33px;">
                                             <select id="tiposResidencia" name="tiposResidencia" class="form-control">
