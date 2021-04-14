@@ -37,8 +37,6 @@ function setDefaultsDataTable(parametros) {
 }
 
 
-
-
 //function getDataTable(parametros) {
 //    
 //    var table;

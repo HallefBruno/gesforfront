@@ -50,6 +50,7 @@ function salvarMorador() {
                     201: function (data) {
                         var message = new Message.Success();
                         message.show("Registro salvo com sucesso!");
+                        loadPageHtml(null,"pages/morador/Novo.html");
                     }
                 }
             });
@@ -61,31 +62,46 @@ function salvarMorador() {
 function addAutomovelGrid() {
     
     var message = new Message.Warning();
-    
-    var tblAutomovels = $(".tbl-add-automovel").DataTable({
-        
-        "paginate": false,
-        "lengthChange": false,
-        "info": false,
-        "autoWidth": false,
-        "filter": false,
-        language: {
-            url: "vendor/internationalisation/pt_br.json"
-        },
-        columnDefs: [
-            {
-                targets: [4, 5],
-                className: 'text-center'
-            }
-        ]
-    });
-
-    
     var htmltipo = "";
-
+    
+//    $.extend( true, $.fn.dataTable.defaults, {
+//        "paginate": false,
+//        "lengthChange": false,
+//        "info": false,
+//        "autoWidth": false,
+//        "filter": false,
+//        language: {
+//            url: "vendor/internationalisation/pt_br.json"
+//        },
+//        columnDefs: [
+//            {
+//                targets: [4, 5],
+//                className: 'text-center'
+//            }
+//        ]
+//    });
+    
+//    var tblAutomovels = $(".tbl-add-automovel").DataTable({
+//
+//        "paginate": false,
+//        "lengthChange": false,
+//        "info": false,
+//        "autoWidth": false,
+//        "filter": false,
+//        language: {
+//            url: "vendor/internationalisation/pt_br.json"
+//        },
+//        columnDefs: [
+//            {
+//                targets: [4, 5],
+//                className: 'text-center'
+//            }
+//        ]
+//    });
+    console.log("Data table");
     $("#btn-add-novo-automovel").click(function () {
         if ($("#form-automoveis").valid()) {
-
+            
             $("#tr-msg").css("display", "none");
 
             automovelGrid = {
@@ -124,7 +140,7 @@ function addAutomovelGrid() {
                 htmltipo = "<span class='text-center badge badge-success'>" + automovelGrid.tipoAutomovel + "</span>";
             }
 
-            tblAutomovels.row.add([
+            $(".tbl-add-automovel").DataTable().row.add([
                 automovelGrid.fabricante.nome,
                 automovelGrid.nome,
                 automovelGrid.placa,
@@ -136,8 +152,8 @@ function addAutomovelGrid() {
         }
     });
     
-    tblAutomovels.on("click","#btn-remover", function () {
-        tblAutomovels.row($(this).parents("tr")).remove().draw();
+    $(".tbl-add-automovel").DataTable().on("click","#btn-remover", function () {
+        $(".tbl-add-automovel").DataTable().row($(this).parents("tr")).remove().draw();
         var placa = $(this).data("key");
         for(var i=0; i<automoveisGrid.length; i++) {
             if(automoveisGrid[i].placa === placa) {
