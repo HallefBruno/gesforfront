@@ -1,12 +1,10 @@
 /* global Message */
-var automovelGrid = {};
-var automoveisGrid = [];
-var automovel = {};
 var automoveis = [];
 $(document).ready(function () {
-    $(".alert-erro-novo-morador").hide();
+    automoveis = [];
+    
     events();
-    mascaras();
+    init();
     poluarSelectCadastro();
     populaSelectAutomoveis();
     camposObrigatorioAutomovel();
@@ -21,7 +19,7 @@ function events() {
 function salvarMorador() {
     
     var url = localStorage.getItem("currentUri");
-
+    
     $("#btnSalvar").click(function () {
         if ($("#form-principal").valid()) {
             var morador = {
@@ -49,11 +47,13 @@ function salvarMorador() {
                 statusCode: {
                     201: function (data) {
                         var message = new Message.Success();
+                        automoveis = [];
                         message.show("Registro salvo com sucesso!");
                         loadPageHtml(null,"pages/morador/Novo.html");
                     }
                 }
             });
+            console.log(morador);
         }
     });
     
@@ -63,48 +63,30 @@ function addAutomovelGrid() {
     
     var message = new Message.Warning();
     var htmltipo = "";
+    var automoveisGrid = [];
     
-//    $.extend( true, $.fn.dataTable.defaults, {
-//        "paginate": false,
-//        "lengthChange": false,
-//        "info": false,
-//        "autoWidth": false,
-//        "filter": false,
-//        language: {
-//            url: "vendor/internationalisation/pt_br.json"
-//        },
-//        columnDefs: [
-//            {
-//                targets: [4, 5],
-//                className: 'text-center'
-//            }
-//        ]
-//    });
-    
-//    var tblAutomovels = $(".tbl-add-automovel").DataTable({
-//
-//        "paginate": false,
-//        "lengthChange": false,
-//        "info": false,
-//        "autoWidth": false,
-//        "filter": false,
-//        language: {
-//            url: "vendor/internationalisation/pt_br.json"
-//        },
-//        columnDefs: [
-//            {
-//                targets: [4, 5],
-//                className: 'text-center'
-//            }
-//        ]
-//    });
+    $(".tbl-add-automovel").DataTable({
+
+        "paginate": false,
+        "lengthChange": false,
+        "info": false,
+        "autoWidth": false,
+        "filter": false,
+        language: {
+            url: "vendor/internationalisation/pt_br.json"
+        },
+        columnDefs: [
+            {
+                targets: [4, 5],
+                className: 'text-center'
+            }
+        ]
+    });
     console.log("Data table");
     $("#btn-add-novo-automovel").click(function () {
         if ($("#form-automoveis").valid()) {
-            
-            $("#tr-msg").css("display", "none");
 
-            automovelGrid = {
+            var automovelGrid = {
                 id: $("#automoveis option:selected").filter(':selected').val(),
                 nome: $("#automoveis option:selected").filter(':selected').text(),
                 fabricante: {
@@ -115,25 +97,23 @@ function addAutomovelGrid() {
                 cor: $("#cor option:selected").filter(':selected').val(),
                 placa: $("#placa").val()
             };
-            
-            automovel = {
-                id: automovelGrid.id,
-                nome: automovelGrid.nome,
-                fabricante: {
-                    id: automovelGrid.fabricante.id,
-                    nome: automovelGrid.fabricante.nome
+
+            var moradorAutomovel = {
+                automovel:{
+                   id:automovelGrid.id
                 },
-                tipoAutomovel: automovelGrid.tipoAutomovel
+                placa:automovelGrid.placa,
+                cor:automovelGrid.cor
             };
             
-            automoveis.push(automovel);
-
             if(automovelExist(automoveisGrid, automovelGrid.placa)) {
                 message.show("Esse automovel já foi adicionado","N");
                 return;
             }
             
+            automoveis.push(moradorAutomovel);
             automoveisGrid.push(automovelGrid);
+            
             if (automovelGrid.tipoAutomovel === "Carro") {
                 htmltipo = "<span class='text-center badge badge-primary'>" + automovelGrid.tipoAutomovel + "</span>";
             } else if (automovelGrid.tipoAutomovel === "Moto") {
@@ -158,10 +138,8 @@ function addAutomovelGrid() {
         for(var i=0; i<automoveisGrid.length; i++) {
             if(automoveisGrid[i].placa === placa) {
                 automoveisGrid.splice(i,1);
+                automoveis.splice(i,1);
             }
-        }
-        if(automoveisGrid.length === 0) {
-            $("#tr-msg").css("display", "block");
         }
     });
 }
@@ -260,7 +238,10 @@ function poluarSelectCadastro() {
     });
 }
 
-function mascaras() {
+function init() {
+    
+    $('[data-toggle="tooltip"]').tooltip();
+    
     $("#animalDomentico").bootstrapToggle("off", true);
     
     $("#sexo").bootstrapToggle("on", true);

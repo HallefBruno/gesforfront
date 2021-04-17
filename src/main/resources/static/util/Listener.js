@@ -34,31 +34,20 @@ Listener.Handler = (function () {
             if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
                 $("div.loading").addClass("show");
             }
-            //$(".table-responsive").block({message: null});
-            //$("button[type='submit']").prop('disabled',true);
-            //$(':button').prop('disabled', true);
-            //$(':button').block({message: null});
         }.bind(this));
         
         $(document).ajaxComplete(function (event, jqXHR, settings) {
             if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
                 $("div.loading").removeClass("show");
             }
-            //$(".table-responsive").unblock();
-            //$(':button').unblock();
-            //$(':button').prop('disabled', false);
-            //$("button[type='submit']").prop('disabled',false);
         }.bind(this));
-
-        removeAllLocalStorage();
         
         $(document).ajaxError(function (event, jqXHR, settings) {
             if (jqXHR.status === 0) {
                 var message = new Message.Error();
                 message.show("Falha de comicação com o serviço!");
-                var form = $(event.target.forms);
-                $(form).empty();
-                $(form).append(nativeSkeleton);
+                $("#pages").find("div").empty();
+                $("#pages").find("div").append(nativeSkeleton);
             } else if(jqXHR.status === 400) {
                 if(jqXHR.responseJSON !== null && jqXHR.responseJSON.errors) {
                     var message = new Message.Warning();
@@ -143,52 +132,12 @@ $(function () {
     var listener = new Listener.Handler();
     listener.execute();
 });
+//$(".table-responsive").block({message: null});
+//$("button[type='submit']").prop('disabled',true);
+//$(':button').prop('disabled', true);
+//$(':button').block({message: null});
+//var form = $(event.target.forms); //$(event.target.forms);
+//console.log(event.target.body);
+//$(form).empty();
+//$(form).append(nativeSkeleton);
 
-
-
-
-
-
-
-
-
-
-
-
-
-//let nativeSkeleton =
-//        "<div class='ph-item'>"+
-//            "<div class='ph-col-12'>"+
-//                "<div class='ph-row'>"+
-//                    "<div class='ph-col-6 big'></div>"+
-//                    "<div class='ph-col-4 empty big'></div>"+
-//                    "<div class='ph-col-2 big'></div>"+
-//                    "<div class='ph-col-4 big'></div>"+
-//                    "<div class='ph-col-8 empty big'></div>"+
-//                    "<div class='ph-col-6 big'></div>"+
-//                    "<div class='ph-col-4 empty big'></div>"+
-//                    "<div class='ph-col-12 big'></div>"+
-//                "</div>"+
-//                "<div class='ph-row'>"+
-//                    "<div class='ph-col-12 empty big'></div>"+
-//                    "<div class='ph-col-12 empty big'></div>"+
-//                    "<div class='ph-col-12 empty big'></div>"+
-//                    "<div class='ph-col-12 empty big'></div>"+
-//                "</div>"+
-//                "<div class='ph-picture2'></div>"+
-//            "</div>"+
-//        "</div>";
-//        
-//        var uri = localStorage.getItem("currentUri");
-//        
-//        if(uri===null) {
-//            
-//            var message = new Message.Warning();
-//            message.show("Algo ocasionou um mal funcionamento, regarregue a página!", "I");
-//
-//            var form = $(event.target.forms);
-//            $(form).empty();
-//            $(form).append(nativeSkeleton);
-//
-//            return;
-//        }

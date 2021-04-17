@@ -15,12 +15,9 @@ function constructionMenu() {
         htmlButtonsCadastro = "";
         htmlButtonsSubmenu = "";
         if ($("#pages").find("div").length <= 1 || contentDivMenu !== target.handleObj.selector) {
-            $(".loading").addClass("show");
             $("#pages").find("div").empty();
             clearCanvasMyChart();
-            
             contentDivMenu = target.handleObj.selector;
-            
             $.each(listMenus, function (index) {
                 let menus = listMenus[index];
                 if (menus.length) {
