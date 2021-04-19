@@ -85,9 +85,10 @@ $(document).ready(function() {
         }
     });
     
-    loadPageHtml("#btnPagePesquisar","pages/bairro/Pesquisar.html");
     validation();
     setCidade();
+    irParaPagePesquisar();
+    
 });
 
 
@@ -146,7 +147,11 @@ function setCidade() {
     });
 }
 
-
+function irParaPagePesquisar() {
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/bairro/Pesquisar.html");
+    });
+}
 
 
 

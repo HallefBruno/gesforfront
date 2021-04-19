@@ -84,7 +84,7 @@ $(function () {
     });
     
     $("table").on("click", "#btn-editar", function () {
-        loadPageHtml(null,"pages/cidade/Editar.html");
+        loadPageHtml("pages/cidade/Editar.html");
         localStorage.setItem("cidadeId", $(this).data("editar"));
     });
 
@@ -95,7 +95,7 @@ $(function () {
     });
     
     vaidation();
-    novo();
+    irParaPageNovo();
 });
 
 function vaidation() {
@@ -124,6 +124,7 @@ function vaidation() {
 
             error.addClass("invalid-feedback");
             if(element.is("select")) {
+                element.append("<span></span>");
                 error.insertAfter(element.next("span"));
             } else {
                 error.insertAfter(element);
@@ -138,11 +139,10 @@ function vaidation() {
     });
 }
 
-function novo() {
-    $("body").on("click","#linkNovo", function() {
-        loadPageHtml(null,"pages/cidade/Novo.html");
+function irParaPageNovo() {
+    $("#btnNovo").click(function() {
+        loadPageHtml("pages/cidade/Novo.html");
     });
-    loadPageHtml("#btnNovo","pages/cidade/Novo.html");
 }
 
 function styleEstado(estado) {

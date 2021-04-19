@@ -63,7 +63,7 @@ $(document).ready(function() {
     });
     
     validar();
-    loadPageHtml("#btnPagePesquisar","pages/bairro/Pesquisar.html");
+    irParaPagePesquisar();
 });
 
 
@@ -115,3 +115,9 @@ function styleCidade(cidade) {
     var html = $("<span>"+cidade.text+"</span><span class='text-right badge badge-primary'>"+cidade.uf+"</span>");
     return html;
 };
+
+function irParaPagePesquisar() {
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/bairro/Pesquisar.html");
+    });
+}

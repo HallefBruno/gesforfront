@@ -66,5 +66,7 @@ function validar() {
 }
 
 function pagePesquisar() {
-    loadPageHtml("#btnPagePesquisar","pages/portaria/Pesquisar.html");
+    $("#btnPagePesquisar").on("click", function() {
+        loadPageHtml("pages/portaria/Pesquisar.html");
+    });
 }

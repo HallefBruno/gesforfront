@@ -49,7 +49,7 @@ $(document).ready(function() {
     });
     
     $("#tbportarias").on("click", "#btn-editar", function () {
-        loadPageHtml(null,"pages/portaria/Editar.html");
+        loadPageHtml("pages/portaria/Editar.html");
         localStorage.setItem("portariaId", $(this).data("editar"));
     });
     
@@ -60,7 +60,7 @@ $(document).ready(function() {
     });
     
     vaidation();
-    novo();
+    irParaPageNovo();
 });
 
 function vaidation() {
@@ -96,9 +96,11 @@ function vaidation() {
     });
 }
 
-function novo() {
-    $("body").on("click","#linkNovo", function() {
-        loadPageHtml(null,"pages/portaria/Novo.html");
+function irParaPageNovo() {
+    $("#pages").on("click","#linkNovo", function() {
+        loadPageHtml("pages/portaria/Novo.html");
     });
-    loadPageHtml("#btnNovo","pages/portaria/Novo.html");
+    $("#btnNovo").click(function () {
+       loadPageHtml("pages/portaria/Novo.html"); 
+    });
 }

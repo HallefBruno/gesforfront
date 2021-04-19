@@ -87,7 +87,7 @@ $(document).ready(function() {
     });
     
     $("table").on("click", "#btn-editar", function () {
-        loadPageHtml(null,"pages/bairro/Editar.html");
+        loadPageHtml("pages/bairro/Editar.html");
         localStorage.setItem("bairroId", $(this).data("editar"));
     });
 
@@ -98,7 +98,7 @@ $(document).ready(function() {
     });
     
     vaidation();
-    novo();
+    irParaPageNovo();
 });
 
 function vaidation() {
@@ -142,11 +142,10 @@ function vaidation() {
 }
 
 
-function novo() {
-    $("body").on("click","#linkNovo", function() {
-        loadPageHtml(null,"pages/bairro/Novo.html");
+function irParaPageNovo() {
+    $("#btnNovo").click(function() {
+        loadPageHtml("pages/bairro/Novo.html");
     });
-    loadPageHtml("#btnNovo","pages/bairro/Novo.html");
 }
 
 function styleEstado(cidade) {

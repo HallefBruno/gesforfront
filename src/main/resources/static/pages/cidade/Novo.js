@@ -2,7 +2,7 @@
 
 $(document).ready(function() {
     
-    var url = localStorage.getItem('currentUri');
+    var url = localStorage.getItem("currentUri");
     
     var cidade;
     var estados = [];
@@ -68,12 +68,8 @@ $(document).ready(function() {
     });
     
     validar();
-    pagePesquisar();
+    irParaPagePesquisar();
 });
-
-function pagePesquisar() {
-    loadPageHtml("#btnPagePesquisar","pages/cidade/Pesquisar.html");
-}
 
 function validar() {
     $("#form-cidade").validate({
@@ -123,6 +119,12 @@ function styleEstado(estado) {
     var html = $("<span>"+estado.text+"</span><span class='text-right badge badge-primary'>"+estado.uf+"</span>");
     return html;
 };
+
+function irParaPagePesquisar() {
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/cidade/Pesquisar.html");
+    });
+}
 
 //async function getData(url) {
 //   var jqXHR = await $.get(url);

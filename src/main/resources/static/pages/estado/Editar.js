@@ -41,7 +41,7 @@ $(function () {
         }
     });
     
-    loadPageHtml("#btnPagePesquisar", "pages/estado/Pesquisar.html");
+    irParaPagePesquisar();
     validar();
     
 });
@@ -88,5 +88,11 @@ function validar() {
         unhighlight: function (element) {
             $(element).removeClass("is-invalid");
         }
+    });
+}
+
+function irParaPagePesquisar() {
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/estado/Pesquisar.html");
     });
 }

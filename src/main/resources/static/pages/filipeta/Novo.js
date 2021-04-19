@@ -68,7 +68,9 @@ $(document).ready(function() {
 });
 
 function pagePesquisar() {
-    loadPageHtml("#btnPagePesquisar","pages/filipeta/Pesquisar.html");
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/filipeta/Pesquisar.html");
+    });
 }
 
 function validar() {

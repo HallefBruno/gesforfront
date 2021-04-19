@@ -83,9 +83,9 @@ $(function () {
         }
     });
     
-    loadPageHtml("#btnPagePesquisar", "pages/cidade/Pesquisar.html");
     validar();
     setEstado();
+    irParaPagePesquisar();
 });
 
 function validar() {
@@ -141,6 +141,12 @@ function styleEstado(estado) {
 function setEstado() {
     $("#btnEstadoAtual").click(function () {
         $("#estados").val($("#estado-id").val()).trigger("change");
+    });
+}
+
+function irParaPagePesquisar() {
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/cidade/Pesquisar.html");
     });
 }
 

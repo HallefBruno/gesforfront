@@ -27,7 +27,7 @@ $(function () {
         }
     });
     validar();
-    pagePesquisar();
+    irParaPagePesquisar();
 
 });
 
@@ -76,8 +76,10 @@ function validar() {
     });
 }
 
-function pagePesquisar() {
-    loadPageHtml("#btnPagePesquisar","pages/estado/Pesquisar.html");
+function irParaPagePesquisar() {
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/estado/Pesquisar.html");
+    }); 
 }
 
 //    $.validator.setDefaults({

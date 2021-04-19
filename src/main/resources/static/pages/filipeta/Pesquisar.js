@@ -83,7 +83,7 @@ $(function () {
     });
     
     $("table").on("click", "#btn-editar", function () {
-        loadPageHtml(null,"pages/filipeta/Editar.html");
+        loadPageHtml("pages/filipeta/Editar.html");
         localStorage.setItem("filipetaId", $(this).data("editar"));
     });
 
@@ -94,7 +94,7 @@ $(function () {
     });
     
     vaidation();
-    novo();
+    irParaPageNovo();
 });
 
 function vaidation() {
@@ -138,11 +138,13 @@ function vaidation() {
     });
 }
 
-function novo() {
-    $("body").on("click","#linkNovo", function() {
-        loadPageHtml(null,"pages/filipeta/Novo.html");
+function irParaPageNovo() {
+    $("#pages").on("click","#linkNovo", function() {
+        loadPageHtml("pages/filipeta/Novo.html");
     });
-    loadPageHtml("#btnNovo","pages/filipeta/Novo.html");
+    $("#btnNovo").click(function () {
+       loadPageHtml("pages/filipeta/Novo.html"); 
+    });
 }
 
 function stylePortaria(portaria) {

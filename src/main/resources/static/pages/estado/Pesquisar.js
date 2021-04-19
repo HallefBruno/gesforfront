@@ -50,7 +50,7 @@ $(function () {
     });
     
     $("table").on("click", "#btn-editar", function () {
-        loadPageHtml(null,"pages/estado/Editar.html");
+        loadPageHtml("pages/estado/Editar.html");
         localStorage.setItem("estadoId", $(this).data("editar"));
     });
     
@@ -61,7 +61,7 @@ $(function () {
     });
     
     vaidation();
-    novo();
+    irParaPageNovo();
 });
 
 function vaidation() {
@@ -97,9 +97,8 @@ function vaidation() {
     });
 }
 
-function novo() {
-    $("body").on("click","#linkNovo", function() {
-        loadPageHtml(null,"pages/estado/Novo.html");
+function irParaPageNovo() {
+    $("#btnNovo").click(function () {
+        loadPageHtml("pages/estado/Novo.html");
     });
-    loadPageHtml("#btnNovo","pages/estado/Novo.html");
 }

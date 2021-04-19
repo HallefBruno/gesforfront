@@ -29,16 +29,33 @@ Listener.Handler = (function () {
                 "<div class='ph-picture2'></div>"+
             "</div>"+
         "</div>";
-
+        
+        switch (document.readyState) {
+            case "loading":
+                window.console.info("O documento esta carregando");
+                // O documento esta carregando
+                break;
+            case "interactive":
+                // O documento acabou de carregar. Nós podemos acessar os elementos do DOM.
+                // mas sub-recursos, como imagens, folhas de estilo e quadros, ainda estão sendo carregados.
+                window.console.info("A pagina carregada em partes");
+                break;
+            case "complete":
+                // A pagina carregou por completo.
+                window.console.info("A pagina carregou por completo");
+                break;
+        }
+        
+        
         $(document).ajaxSend(function (event, jqXHR, settings) {
             if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
-                $("div.loading").addClass("show");
+                $(".setblockUI").block({message:null});
             }
         }.bind(this));
         
         $(document).ajaxComplete(function (event, jqXHR, settings) {
             if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
-                $("div.loading").removeClass("show");
+                $(".setblockUI").unblock();
             }
         }.bind(this));
         
@@ -116,9 +133,9 @@ Listener.Handler = (function () {
                 if(jqXHR.responseJSON !== null) {
                     var message = new Message.Warning();
                     message.show(jqXHR.responseJSON.errors[0],"I");
-                    var form = $(event.target.forms);
-                    $(form).empty();
-                    $(form).append(nativeSkeleton);
+                    message.show("Falha de comicação com o serviço!");
+                    $("#pages").find("div").empty();
+                    $("#pages").find("div").append(nativeSkeleton);
                 }
             }
         }.bind(this));
@@ -140,4 +157,9 @@ $(function () {
 //console.log(event.target.body);
 //$(form).empty();
 //$(form).append(nativeSkeleton);
+//$("div.loading").addClass("show");
+//$(".table-responsive").block({message: null});
+//$("button[type='submit']").prop('disabled',true);
+//$(':button').prop('disabled', true);
+//$(':button').block({message: null});
 
