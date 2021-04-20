@@ -1,6 +1,6 @@
 <div class="container shadow p-3 mb-5 bg-white rounded" style="height: 100%; margin-top: 20px;">
     <div class="card" style="height: 100%;">
-        <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Cadastro de morador</h5>
+        <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Morador secundário</h5>
         <div class="card-body">
             <div class="container">
                 <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
@@ -16,100 +16,65 @@
 
                 <form id="form-principal">
                     <div class="row" >
-                        <div class=" col-sm-3 form-group">
+                        <div class=" col-sm-4 form-group">
                             <label class="control-label" for="nome">Nome</label> 
                             <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="nome" name="nome">
                         </div>
 
-                        <div class=" col-sm-3 form-group ">
-                            <label class="control-label" for="cpf">CPF</label> 
-                            <input type="text" autocomplete class="form-control form-control-flash" id="cpf" name="cpf">
+                        <div class=" col-sm-4 form-group ">
+                            <label class="control-label" for="cpfMoradorSecundario">CPF</label> 
+                            <input type="text" autocomplete class="form-control form-control-flash" id="cpfMoradorSecundario" name="cpfMoradorSecundario">
                         </div>
 
-                        <div class=" col-sm-3 form-group">
+                        <div class=" col-sm-4 form-group">
                             <label class="control-label" for="rg">RG</label> 
                             <input style="text-transform: uppercase" type="text" autocomplete="" class="form-control form-control-flash" id="rg" name="rg">
                         </div>
-
-                        <div class=" col-sm-3 form-group ">
+                    </div>
+                    <div class="row">
+                        <div class=" col-sm-2 form-group ">
                             <label class="control-label" for="emissor">Orgão emissor</label> 
                             <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="emissor" name="emissor">
                         </div>
 
-                        <div class=" col-sm-3 form-group ">
+                        <div class="col-sm-2 align-items-end">
+                            <label class="control-label" for="sexoMoradorSecundario" >Sexo</label>
+                            <div class="form-group">
+                                <div class="radio radio-inline radio-info"><!--data-width="240"-->
+                                    <input id="sexoMoradorSecundario" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" col-sm-4 form-group ">
                             <label class="control-label" for="dataNascimento">Data nascimento</label> 
                             <input type="date" autocomplete class="form-control form-control-flash" id="dataNascimento" name="dataNascimento">
                         </div>
 
-                        <div class=" col-sm-3 form-group">
+                        <div class=" col-sm-4 form-group">
                             <label class="control-label" for="natural">Natural</label> 
                             <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="natural" name="natural">
                         </div>
-
-                        <div class=" col-sm-3 form-group ">
+                    </div>
+                    
+                    <div class="row">
+                        <div class=" col-sm-4 form-group ">
                             <label class="control-label" for="estadoCivil">Estado civil</label>
                             <select id="estadoCivil" name="estadoCivil" class="form-control">
                                 <option/>
                             </select>
                         </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-row">
-                                <div class="col">
-                                    <label class="control-label" >Sexo</label>
-                                    <div class="form-group">
-                                        <div class="radio radio-inline radio-info"><!--data-width="240"-->
-                                            <input id="sexo" data-width="114" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div style="text-align: right" >
-                                        <label class="control-label">Animal<span data-toggle="tooltip" data-placement="top" title="Posssui animal domésticos?" style="margin-left: 10px; color: #444;" class="fa fa-info-circle"></span></label>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="radio radio-inline radio-info">
-                                            <input id="animalDomentico" data-width="90" data-onstyle="outline-primary" data-on="<i class='fa fa-thumbs-o-up'></i> Sim" data-offstyle="outline-secondary" data-off="<i class='fa fa-thumbs-o-down'></i> Não" type="checkbox">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        
+                        <div class=" col-sm-4 form-group ">
+                            <label class="control-label" for="grauParentesco">Grau parentesco</label>
+                            <select id="grauParentesco" name="grauParentesco" class="form-control">
+                                <option/>
+                            </select>
                         </div>
 
-                        <div class="col-sm-6">
-                            <div class="form-row">
-                                <div class="col form-group">
-                                    <label class="control-label" for="residencia">Residência</label>
-                                    <input style="text-transform: uppercase" id="residencia" name="residencia" type="text" class="form-control form-control-flash" placeholder="Ex: casa 2 ou apto 101">
-                                </div>
-                                <div class="col" style="margin-top: 31px;">
-                                    <select id="tiposResidencia" name="tiposResidencia" class="form-control">
-                                        <option/>
-                                    </select>
-                                    <input type="hidden" id="tipo-residencia" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="qtdMoradores col-sm-2 form-group ">
-                            <label class="control-label" for="qtdMorador">Qtd M</label> 
-                            <input type="text" maxlength="1" autocomplete class="form-control form-control-flash" id="qtdMorador" name="qtdMorador">
-                        </div>
-
-                        <div class="col-sm-4 form-group">
-                            <div class="form-row">
-                                <div class="col-10">
-                                    <label for="telefones" class="control-label">Telefone/Telefones</label>
-                                    <select id="telefones" name="telefones" class="form-control" >
-                                        <option/>
-                                    </select>
-                                </div>
-                                <div class="col-2" style="margin-top: 32px;">
-                                    <button title="Clique para adicionar novo" id="btn-open-modal-telefone" type="button" class="btn btn btn-outline-primary"> 
-                                        <i class="fa fa-plus-circle"></i>
-                                    </button>
-                                </div>
-                            </div>
+                        <div class=" col-sm-4 form-group">
+                            <label class="control-label" for="telefoneMoradorSecundario">Telefone</label> 
+                            <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="telefoneMoradorSecundario" name="telefoneMoradorSecundario">
                         </div>
                     </div>
                 </form>
@@ -154,7 +119,7 @@
                                         <input type="hidden" name="id-automovel" id="id-automovel" />
                                     </div>
                                     <div class="row" style="margin-top: 10px;">
-                                        <div class="feed-cor form-group col-sm-6">
+                                        <div class="form-group col-sm-6">
                                             <label class="control-label" for="cor">Cor</label>
                                             <select class="form-control" id="cor" name="cor">
                                                 <option value="-1" label="-- Cor --" disabled="" selected=""></option>
@@ -172,9 +137,9 @@
                                             <input type="hidden" id="cor-carro-value"/>
                                         </div>
 
-                                        <div class="feed-placa form-group col-sm-6">
-                                            <label class="control-label" for="placa">Placa</label>
-                                            <input style="text-transform: uppercase" class="form-control form-control-flash" id="placa" name="placa"/>
+                                        <div class="form-group col-sm-6">
+                                            <label class="control-label" for="placaMoradorSecundario">Placa</label>
+                                            <input style="text-transform: uppercase" class="form-control form-control-flash" id="placaMoradorSecundario" name="placaMoradorSecundario"/>
                                         </div>
                                     </div>
 
@@ -210,18 +175,11 @@
                         </div>
                     </div>
                 </form>
-                <div style="margin-top: 10px;" class="form-row">
-                    <div class="col-6">
-                        <button type="submit" id="btnSalvar" class="btn btn-primary">
-                            <i class="fa fa-floppy-o"></i> Salvar
-                        </button>
-                        <button type="button" id="btnPagePesquisar" class="btn btn-light">
-                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Pesquisar
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
-
+<script src="vendor/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="vendor/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+<script src="util/FlashDataTableConfig.js" type="text/javascript"></script>
+<script src="pages/morador/PanelMoradorSecundario.js" type="text/javascript"></script>

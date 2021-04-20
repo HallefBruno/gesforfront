@@ -16,7 +16,7 @@ $(function () {
     $("#tabMoradorSecundario").on("click", function (e) {
         e.preventDefault();
         $("#divMoradorSegundario").empty();
-        $("#divMoradorSegundario").load("pages/morador/PanelMoradorProprietario.html");
+        $("#divMoradorSegundario").load("pages/morador/PanelMoradorSecundario.html");
         $(this).tab("show");
     });
 });
