@@ -1,5 +1,5 @@
-let contentDivMenu = "";
-let htmlButtonsSubmenu = "";
+var conteudoDivMenu = "";
+var htmlButtonsSubmenu = "";
 
 $(function () {
     constructionMenu();
@@ -14,10 +14,10 @@ function constructionMenu() {
     $(".li-pages").on("click", function (target) {
         htmlButtonsCadastro = "";
         htmlButtonsSubmenu = "";
-        if ($("#pages").find("div").length <= 1 || contentDivMenu !== target.handleObj.selector) {
+        if ($("#pages").find("div").length <= 1 || conteudoDivMenu !== target.handleObj.selector) {
             $("#pages").find("div").empty();
             clearCanvasMyChart();
-            contentDivMenu = target.handleObj.selector;
+            conteudoDivMenu = target.handleObj.selector;
             $.each(listMenus, function (index) {
                 let menus = listMenus[index];
                 if (menus.length) {
@@ -74,13 +74,13 @@ function constructionMenu() {
 function eventContructionPage(target) {
     $("#pages").find("div").empty();
     $("#pages").find("div").load(target.dataset.url, function (target) {});
-    contentDivMenu = "";
+    conteudoDivMenu = "";
 }
 
 function eventSubmenu() {
     $("#pages").find("div").empty();
     $("#pages").find("div").html(htmlButtonsSubmenu);
-    contentDivMenu = "";
+    conteudoDivMenu = "";
 }
 
 function structureMenu() {

@@ -33,9 +33,8 @@ $(document).ready(function () {
         }
     });
     
-    loadPageHtml("#btnPagePesquisar", "pages/portaria/Pesquisar.html");
     validar();
-    
+    irParaPagePesquisar();
 });
 
 function validar() {
@@ -70,5 +69,11 @@ function validar() {
         unhighlight: function (element) {
             $(element).removeClass("is-invalid");
         }
+    });
+}
+
+function irParaPagePesquisar() {
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/portaria/Pesquisar.html");
     });
 }
