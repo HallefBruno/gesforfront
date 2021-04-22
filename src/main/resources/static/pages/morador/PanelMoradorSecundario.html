@@ -5,20 +5,20 @@
             <div class="container">
                 <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
 
-                <div style="display: none;" class="alert-erro-novo-morador">
+                <div style="display: none;" class="alert-erro-morador-secundario">
                     <div class="alert alert-danger alert-dismissible fade show">
                         <ul></ul>
-                        <button type="button" class="close" onclick="$('.alert-erro-novo-morador').hide()" aria-label="Close">
+                        <button type="button" class="close" onclick="$('.alert-erro-morador-secundario').hide()" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 </div>
 
-                <form id="form-principal">
+                <form id="formPrincipalMoradorSecundario">
                     <div class="row" >
                         <div class=" col-sm-4 form-group">
-                            <label class="control-label" for="nome">Nome</label> 
-                            <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="nome" name="nome">
+                            <label class="control-label" for="nomeMoradorSecundario">Nome</label> 
+                            <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="nomeMoradorSecundario" name="nomeMoradorSecundario">
                         </div>
 
                         <div class=" col-sm-4 form-group ">
@@ -27,40 +27,43 @@
                         </div>
 
                         <div class=" col-sm-4 form-group">
-                            <label class="control-label" for="rg">RG</label> 
-                            <input style="text-transform: uppercase" type="text" autocomplete="" class="form-control form-control-flash" id="rg" name="rg">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class=" col-sm-2 form-group ">
-                            <label class="control-label" for="emissor">Orgão emissor</label> 
-                            <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="emissor" name="emissor">
+                            <label class="control-label" for="rgMoradorSecundario">RG</label> 
+                            <input style="text-transform: uppercase" type="text" autocomplete="" class="form-control form-control-flash" id="rgMoradorSecundario" name="rgMoradorSecundario">
                         </div>
 
-                        <div class="col-sm-2 align-items-end">
-                            <label class="control-label" for="sexoMoradorSecundario" >Sexo</label>
+                    </div>    
+                    
+                    <div class="row">
+                        
+                        <div class=" col-sm-2 form-group ">
+                            <label class="control-label" for="emissorMoradorSecundario">Orgão emissor</label> 
+                            <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="emissorMoradorSecundario" name="emissorMoradorSecundario">
+                        </div>
+
+                        <div class="col-sm-2">
                             <div class="form-group">
+                                <label class="control-label" for="sexoMoradorSecundario" >Sexo</label>
                                 <div class="radio radio-inline radio-info"><!--data-width="240"-->
-                                    <input id="sexoMoradorSecundario" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
+                                    <input id="sexoMoradorSecundario" data-width="140" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
                                 </div>
                             </div>
                         </div>
-
+  
                         <div class=" col-sm-4 form-group ">
-                            <label class="control-label" for="dataNascimento">Data nascimento</label> 
-                            <input type="date" autocomplete class="form-control form-control-flash" id="dataNascimento" name="dataNascimento">
+                            <label class="control-label" for="dataNascimentoMoradorSecundario">Data nascimento</label> 
+                            <input type="date" autocomplete class="form-control form-control-flash" id="dataNascimentoMoradorSecundario" name="dataNascimentoMoradorSecundario">
                         </div>
 
                         <div class=" col-sm-4 form-group">
-                            <label class="control-label" for="natural">Natural</label> 
-                            <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="natural" name="natural">
+                            <label class="control-label" for="nataralMoradorSecundario">Natural</label> 
+                            <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="nataralMoradorSecundario" name="nataralMoradorSecundario">
                         </div>
                     </div>
                     
                     <div class="row">
                         <div class=" col-sm-4 form-group ">
-                            <label class="control-label" for="estadoCivil">Estado civil</label>
-                            <select id="estadoCivil" name="estadoCivil" class="form-control">
+                            <label class="control-label" for="estadoCivilMoradorSecundario">Estado civil</label>
+                            <select id="estadoCivilMoradorSecundario" name="estadoCivilMoradorSecundario" class="form-control">
                                 <option/>
                             </select>
                         </div>
@@ -79,7 +82,7 @@
                     </div>
                 </form>
                 <div style="margin-bottom: 15px;" ></div>
-                <form id="form-automoveis">
+                <form id="formAutomoveisMoradorSecundario">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card">
@@ -87,25 +90,25 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <label class="control-label" for="fabricante">Digite as inicias da Marca ou Fabricante</label>
+                                            <label class="control-label" for="fabricanteMoradorSecundario">Digite as inicias da Marca ou Fabricante</label>
                                             <div class="setblockUI">
-                                                <select class="form-control" id="fabricante" name="fabricante">
+                                                <select class="form-control" id="fabricanteMoradorSecundario" name="fabricanteMoradorSecundario">
                                                     <option/>
                                                 </select>
                                             </div>
-                                            <input type="hidden" name="fabricante-id" id="fabricante-id" />
+                                            <input type="hidden" name="fabricanteMoradorSecundario-id" id="fabricanteMoradorSecundario-id" />
                                         </div>
 
                                         <div class="col-sm-6">
                                             <div class="form-row">
                                                 <div class="col-10">
-                                                    <label class="control-label" for="automoveis">Digite as inicias do Automovel (Carro ou Moto)</label>
+                                                    <label class="control-label" for="automoveisMoradorSecundario">Digite as inicias do Automovel (Carro ou Moto)</label>
                                                     <div class="setblockUI">
-                                                        <select class="form-control" id="automoveis" name="automoveis">
+                                                        <select class="form-control" id="automoveisMoradorSecundario" name="automoveisMoradorSecundario">
                                                             <option/>   
                                                         </select>
                                                     </div>    
-                                                    <input type="hidden" name="tipo" id="tipo" />
+                                                    <input type="hidden" name="tipoAutomovel" id="tipoAutomovel" />
                                                 </div>
                                                 <div class="col-2" style="margin-top: 8px;">
                                                     <fieldset style="font-size: 12px;" class="border form-group">
@@ -116,12 +119,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="hidden" name="id-automovel" id="id-automovel" />
+                                        <input type="hidden" name="automovelMoradorSecundario-id" id="automovelMoradorSecundario-id" />
                                     </div>
                                     <div class="row" style="margin-top: 10px;">
                                         <div class="form-group col-sm-6">
-                                            <label class="control-label" for="cor">Cor</label>
-                                            <select class="form-control" id="cor" name="cor">
+                                            <label class="control-label" for="corMoradorSecundario">Cor</label>
+                                            <select class="form-control" id="corMoradorSecundario" name="corMoradorSecundario">
                                                 <option value="-1" label="-- Cor --" disabled="" selected=""></option>
                                                 <option class="label label-info" style="background-color: #FFFFFF; color: #000000" label="Branca" id="Branca" value="Branca">Branca</option>
                                                 <option class="label label-info" style="background-color: #bebfbd; color: #FFFFFF" label="Prata" id="Prata" value="Prata">Prata</option>
@@ -144,13 +147,12 @@
                                     </div>
 
                                     <div class="row">
-
                                         <div class="col-sm-12">
                                             <div class="panel panel-default">
-                                                <div class="panel-heading"><button type="button" id="btn-add-novo-automovel" class="btn btn btn-outline-primary">Adicionar</button></div>
+                                                <div class="panel-heading"><button type="button" id="btnAddNovoAutomovelSecundario" class="btn btn-primary">Adicionar</button></div>
                                                 <div class="panel-body">
-                                                    <div style="padding-top: 20px; height: 230px;" class="table-responsive">
-                                                        <table class="table table-bordered tbl-add-automovel">
+                                                    <div style="padding-top: 20px; height: 190px;" class="table-responsive">
+                                                        <table class="table table-bordered tbl-add-automovel-morador-secundario">
                                                             <thead>
                                                                 <tr style="background-color: #f5f5f5">
                                                                     <th>Fabricante</th>
@@ -175,6 +177,43 @@
                         </div>
                     </div>
                 </form>
+                <div style="margin-bottom: 15px;" ></div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header"><b>Morador secundário</b></div>
+                            <div class="card-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"></div>
+                                    <div class="panel-body">
+                                        <div style="padding-top: 20px; height: 190px;" class="table-responsive">
+                                            <table class="table table-bordered tbl-moradores-secundario">
+                                                <thead>
+                                                    <tr style="background-color: #f5f5f5">
+                                                        <th style="width: 300px;">Nome</th>
+                                                        <th style="width: 210px;">CPF</th>
+                                                        <th style="width: 170px;">Sexo</th>
+                                                        <th style="width: 200px;">Grau parentesco</th>
+                                                        <th class="text-center" style="width: 100px;">Ação</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 10px;" class="form-row">
+                    <div class="col-6">
+                        <button type="submit" id="btnAdicionarmMoradorSecundario" class="btn btn-primary">
+                            Adicionar morador
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

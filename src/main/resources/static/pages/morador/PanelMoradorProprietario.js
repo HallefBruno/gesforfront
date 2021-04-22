@@ -1,3 +1,5 @@
+/* global Message */
+
 var automoveis = [];
 $(document).ready(function () {
     automoveis = [];
@@ -80,7 +82,7 @@ function addAutomovelGrid() {
             }
         ]
     });
-    console.log("Data table");
+
     $("#btn-add-novo-automovel").click(function () {
         if ($("#form-automoveis").valid()) {
 
@@ -349,7 +351,7 @@ function camposObrigatoriosMorador() {
             },
             cpf: {
                 required: true,
-                minlength:11
+                minlength:14
             },
             rg: {
                 required: true,
@@ -391,7 +393,7 @@ function camposObrigatoriosMorador() {
             },
             cpf: {
                 required: "CPF obrigatório!",
-                rangelength: "Insira um cpf entre {0} e {1} caracteres!"
+                minlength: "CPF inválido!"
             },
             rg: {
                 required: "RG obrigatório!",

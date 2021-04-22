@@ -46,16 +46,19 @@ Listener.Handler = (function () {
                 break;
         }
         
-        
         $(document).ajaxSend(function (event, jqXHR, settings) {
             if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
                 $(".setblockUI").block({message:null});
+                $(':button').prop('disabled', true);
+                //$("div.loader").css("display","block");
             }
         }.bind(this));
         
         $(document).ajaxComplete(function (event, jqXHR, settings) {
             if (settings.isLocal === false && !settings.url.includes(".html") && !settings.url.includes(".js")) {
                 $(".setblockUI").unblock();
+                $(':button').prop('disabled', false);
+                //$("div.loader").css("display","none");
             }
         }.bind(this));
         
@@ -163,3 +166,15 @@ $(function () {
 //$(':button').prop('disabled', true);
 //$(':button').block({message: null});
 
+
+//function getData() {
+//$.post("/echo/json", {"json": JSON.stringify({"test": "test"})
+//});
+//}
+
+//var oldJQueryEventTrigger = jQuery.event.trigger;
+//jQuery.event.trigger = function (event, data, elem, onlyHandlers) {
+//console.log(event, data, elem, onlyHandlers);
+//oldJQueryEventTrigger(event, data, elem, onlyHandlers);
+//};
+//$("#myForm :input").prop('readonly', true);

@@ -66,7 +66,6 @@ function constructionMenu() {
                 }
             });
             $("#pages").find("div").html(htmlButtonsCadastro);
-            $(".loading").removeClass("show");
         }
     });
     
@@ -79,10 +78,8 @@ function eventContructionPage(target) {
 }
 
 function eventSubmenu() {
-    $(".loading").addClass("show");
     $("#pages").find("div").empty();
     $("#pages").find("div").html(htmlButtonsSubmenu);
-    $(".loading").removeClass("show");
     contentDivMenu = "";
 }
 
