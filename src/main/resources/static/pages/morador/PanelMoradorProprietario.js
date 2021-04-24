@@ -232,6 +232,7 @@ function poluarSelectCadastro() {
         });
         
         $("#fabricante").on("select2:unselecting", function () {
+            $("#automoveis").val(null).trigger("change");
             $("#automoveis").prop("disabled",true);
         });
         

@@ -25,6 +25,33 @@ function removeAllLocalStorage() {
     storageURL();
 }
 
+function getValuesForm(form) {
+    var object = {};
+    $.each($(form).serializeArray(), function(_, field) {
+        object = {
+            [field.name]:field.value
+        };
+    });
+    return object;
+}
+
+function cleanForm(form,object) {
+    $(form)[0].reset();
+    if(object.length > 0) {
+        for(var i=0; i<object.length; i++) {
+            if(object[i].disabled) {
+                $(object[i].id).val(null).trigger("change");
+                $(object[i].id).prop("disabled",true);
+            } else {
+                $(object[i].id).val(null).trigger("change");
+            }
+        }
+    } else {
+        $(object[i].id).val(null).trigger("change");
+    }
+    console.log("Clean the from "+form);
+}
+
 function loadPageHtml(pathPage) {
     if (pathPage !== 'undefined' && pathPage !== null) {
         var divLoadPage = $("#pages").children().first();
