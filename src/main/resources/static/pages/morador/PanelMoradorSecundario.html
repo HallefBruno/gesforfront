@@ -149,7 +149,20 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="panel panel-default">
-                                                <div class="panel-heading"><button type="button" id="btnAddNovoAutomovelSecundario" class="btn btn-primary">Adicionar</button></div>
+                                                <div class="panel-heading">
+                                                    <div class="form-row">
+                                                        <div class="col-4">
+                                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                                <label class="btn btn-primary active">
+                                                                    <input type="radio" name="options" id="btnAddNovoAutomovelSecundario" autocomplete="off" checked> Adicionar
+                                                                </label>
+                                                                <label class="btn btn-info">
+                                                                    <input type="radio" name="options" id="btnTerminar" autocomplete="off"> Terminar
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="panel-body">
                                                     <div style="padding-top: 20px; height: 190px;" class="table-responsive">
                                                         <table class="table table-bordered tbl-add-automovel-morador-secundario">
@@ -209,7 +222,7 @@
                 </div>
                 <div style="margin-top: 10px;" class="form-row">
                     <div class="col-6">
-                        <button type="submit" id="btnAdicionarmMoradorSecundario" class="btn btn-primary">
+                        <button type="submit" id="btnAdicionarMoradorSecundario" class="btn btn-primary">
                             Adicionar morador
                         </button>
                     </div>

@@ -49,7 +49,6 @@ function cleanForm(form,object) {
     } else {
         $(object[i].id).val(null).trigger("change");
     }
-    console.log("Clean the from "+form);
 }
 
 function loadPageHtml(pathPage) {
