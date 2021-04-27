@@ -22,7 +22,8 @@ function salvarMorador() {
     var url = localStorage.getItem("currentUri");
     
     $("#btnSalvar").click(function () {
-        if ($("#form-principal").valid()) {
+        if ($("#formMoradorProprietario").valid()) {
+            window.console.log(getStorage64("listMoradorSecundario"));
             var morador = {
                 nome: $("#nome").val(),
                 cpf: $("#cpf").val(),
@@ -344,7 +345,7 @@ function camposObrigatorioAutomovel() {
 
 
 function camposObrigatoriosMorador() {
-    $("#form-principal").validate({
+    $("#formMoradorProprietario").validate({
         rules: {
             nome: {
                 required: true,

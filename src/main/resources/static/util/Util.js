@@ -25,14 +25,20 @@ function removeAllLocalStorage() {
     storageURL();
 }
 
-function getValuesForm(form) {
+function converterFormInObject(form) {
     var object = {};
     $.each($(form).serializeArray(), function(_, field) {
-        object = {
-            [field.name]:field.value
-        };
+        object[field.name] = field.value;
     });
     return object;
+}
+
+function converterFormInArray(form) {
+    var array = [];
+    $.each($(form).serializeArray(), function(_, field) {
+        array.push(field.value);
+    });
+    return array;
 }
 
 function cleanForm(form,object) {

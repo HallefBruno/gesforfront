@@ -1,8 +1,8 @@
-<div class="container shadow p-3 mb-5 bg-white rounded" style="height: 100%; margin-top: 20px;">
+<div class="container-fluid shadow p-3 mb-5 bg-white rounded" style="height: 100%; margin-top: 20px;">
     <div class="card" style="height: 100%;">
         <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Morador secundário</h5>
         <div class="card-body">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
 
                 <div style="display: none;" class="alert-erro-morador-secundario">
@@ -80,6 +80,9 @@
                             <input style="text-transform: uppercase" type="text" autocomplete class="form-control form-control-flash" id="telefoneMoradorSecundario" name="telefoneMoradorSecundario">
                         </div>
                     </div>
+                    
+                    <input type="hidden" id="listaVazia" name="listaVazia">
+                    
                 </form>
                 <div style="margin-bottom: 15px;" ></div>
                 <form id="formAutomoveisMoradorSecundario">
