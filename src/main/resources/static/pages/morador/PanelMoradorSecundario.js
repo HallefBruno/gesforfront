@@ -131,7 +131,8 @@ function addMoradorSecundarioAutomovel() {
                     "<button id='btnRemoverAutomovelMoradorSecundario' data-key='" + automovelutomovelSecundarioGrid.placa + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>"
                 ]).draw(false);
             }
-
+            
+            $("#listaVazia").attr("value",false);
             selects = [{"id":"#automoveisMoradorSecundario",disabled:true},{"id":"#fabricanteMoradorSecundario"}];
             cleanForm("#formAutomoveisMoradorSecundario",selects);
             toast.show("Automovel adicionado!");
@@ -175,6 +176,7 @@ function addMoradorSecundarioAutomovel() {
                 "<button id='btnRemoverMoradorSecundario' data-key='" + moradorSecundario.cpf + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button> "+htmlButtonMostrarCarros
             ]).draw(false);
             
+            $("#listaVazia").attr("value",false);
             $(".tbl-add-automovel-morador-secundario").DataTable().clear().draw();
             $("#sexoMoradorSecundario").prop("checked", true).change();
             selects = [{"id":"#estadoCivilMoradorSecundario"},{"id":"#grauParentesco"}];
@@ -241,8 +243,14 @@ function addMoradorSecundarioAutomovel() {
         for (var i = 0; i < automoveisMoradorSecundarioGrid.length; i++) {
             if (placa === automoveisMoradorSecundarioGrid[i].placa) {
                 automoveisMoradorSecundarioGrid.splice(i,1);
+                $(".tbl-add-automovel-morador-secundario").DataTable().row($(this).parents("tr")).remove().draw();
             }
         }
+        
+        if (automoveisMoradorSecundarioGrid.length === 0) {
+            $("#listaVazia").attr("value", true);
+        }
+        
         window.console.log("Removendo automovel grid", automoveisMoradorSecundarioGrid);
         window.console.log("Removendo automovel list", listMorador);
         toast.show("Automóvel removido!");
@@ -278,6 +286,9 @@ function addMoradorSecundarioAutomovel() {
             if(listMorador.length > 0) {
                 atualizarGridMoradorPosDeleteAutomovel(listMorador);
             }
+        }
+        if(listMorador.length === 0) {
+            $("#listaVazia").attr("value",true);
         }
         window.console.log("List grid ",automoveisMoradorSecundarioGrid);
         window.console.log("List morador ",listMorador);
@@ -379,6 +390,7 @@ function init() {
 
     $("#sexoMoradorSecundario").bootstrapToggle("on", true);
     $("#btnTerminar").prop("disabled",true);
+    $("#listaVazia").attr("value",true);
     
     $("#cpfMoradorSecundario").mask('000.000.000-00', {reverse: true});
     var maskPhone = function (val) {
