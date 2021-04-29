@@ -23,7 +23,12 @@ function salvarMorador() {
     
     $("#btnSalvar").click(function () {
         if ($("#formMoradorProprietario").valid()) {
-            window.console.log(getStorage64("listMoradorSecundario"));
+
+            var telefones = JSON.parse(getStorage64("telefones"));
+            var listaMoradoresSecundarios = JSON.parse(getStorage64("listMoradorSecundario"));
+
+            console.log(telefones, listaMoradoresSecundarios);
+            
             var morador = {
                 nome: $("#nome").val(),
                 cpf: $("#cpf").val(),
@@ -37,8 +42,9 @@ function salvarMorador() {
                 qdtMoradores: $("#qtdMorador").val(),
                 tipoMoradia: $("#tiposResidencia :selected").val(),
                 animalDomestico: $("#animalDomentico").prop("checked"),
-                telefones: JSON.parse(getStorage64("telefones")),
-                automoveis: automoveis
+                telefones: telefones,
+                automoveis: automoveis,
+                moradorSecundarios:[]
             };
             $.ajax({
                 method: "POST",
@@ -50,6 +56,8 @@ function salvarMorador() {
                     201: function (data) {
                         var message = new Message.Success();
                         automoveis = [];
+                        removeItemStorage("telefones");
+                        removeItemStorage("listMoradorSecundario");
                         message.show("Registro salvo com sucesso!");
                         loadPageHtml("pages/morador/Novo.html");
                     }

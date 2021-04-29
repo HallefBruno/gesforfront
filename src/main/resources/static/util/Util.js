@@ -6,13 +6,16 @@ function criaAtualizaStorage64(key,value) {
 }
 
 function getStorage(key) {
-    localStorage.getItem(key);
+    return localStorage.getItem(key);
 }
 
 function getStorage64(key) {
-    var atual = localStorage.getItem(key);
-    var stringJson = JSON.stringify(atob(atual));
-    var objectJson = JSON.parse(stringJson);
+    var objectJson = null;
+    if(getStorage(key) !== null) {
+        var atual = localStorage.getItem(key);
+        var stringJson = JSON.stringify(atob(atual));
+        objectJson = JSON.parse(stringJson);
+    }
     return objectJson;
 }
 
@@ -21,8 +24,13 @@ function removeItemStorage(key) {
 }
 
 function removeAllLocalStorage() {
-    localStorage.clear();
-    storageURL();
+    
+    for (var i = 0; i < localStorage.length; i++) {
+        window.console.log(localStorage.getItem(localStorage.key(i)));
+    }
+    
+    //localStorage.clear();
+    //storageURL();
 }
 
 function converterFormInObject(form) {
