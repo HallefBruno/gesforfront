@@ -20,12 +20,16 @@ function events() {
 function salvarMorador() {
     
     var url = localStorage.getItem("currentUri");
+    var listaMoradoresSecundarios = [];
     
     $("#btnSalvar").click(function () {
         if ($("#formMoradorProprietario").valid()) {
 
             var telefones = JSON.parse(getStorage64("telefones"));
-            var listaMoradoresSecundarios = JSON.parse(getStorage64("listMoradorSecundario"));
+            
+            if(JSON.parse(getStorage64("listMoradorSecundario")) !== null) {
+                listaMoradoresSecundarios = JSON.parse(getStorage64("listMoradorSecundario"));
+            }
 
             console.log(telefones, listaMoradoresSecundarios);
             
@@ -44,8 +48,11 @@ function salvarMorador() {
                 animalDomestico: $("#animalDomentico").prop("checked"),
                 telefones: telefones,
                 automoveis: automoveis,
-                moradorSecundarios:[]
+                moradorSecundarios:listaMoradoresSecundarios
             };
+            
+            console.log(morador);
+            
             $.ajax({
                 method: "POST",
                 url: url + "/morador/salvar",
