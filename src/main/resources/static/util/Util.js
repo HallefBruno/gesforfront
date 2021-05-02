@@ -6,6 +6,9 @@ function criaAtualizaStorage64(key,value) {
 }
 
 function getStorage(key) {
+    if(key === null || key === undefined || key === "") {
+        return alert("Key não encontrada ",key);
+    }
     return localStorage.getItem(key);
 }
 
@@ -20,17 +23,21 @@ function getStorage64(key) {
 }
 
 function removeItemStorage(key) {
+    if(key === null || key === undefined || key === "") {
+        alert("Key não encontrada ",key);
+    }
     localStorage.removeItem(key);
 }
 
 function removeAllLocalStorage() {
-    
+    var key = null;
     for (var i = 0; i < localStorage.length; i++) {
-        window.console.log(localStorage.getItem(localStorage.key(i)));
+        key = localStorage.key(i);
+        if(key !== "currentUri") {
+            removeItemStorage(key);
+            i=-1;
+        }
     }
-    
-    //localStorage.clear();
-    //storageURL();
 }
 
 function converterFormInObject(form) {
@@ -74,9 +81,4 @@ function loadPageHtml(pathPage) {
         var message = new Message.Error();
         message.show("Não foi possivel carregar a página!");
     }
-    //const url = new URL(window.location);
-    //url.searchParams.set('foo', 'bar');
-    //window.history.pushState({}, '', url);
-    //history.pushState(null, "Página", pathPage);    
-    //console.log("State "+window.history);
 }

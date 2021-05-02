@@ -3,8 +3,8 @@
 $(function () {
 
     $('[data-toggle="tooltip"]').tooltip();
-    var path = localStorage.getItem("currentUri");
-    var filipetaId = localStorage.getItem("filipetaId");
+    var path = getStorage("currentUri");
+    var filipetaId = getStorage("filipetaId");
     var filipeta = {};
     
     $.get(path + "/filipetas/buscar/" + filipetaId, function (data) {
@@ -44,11 +44,10 @@ $(function () {
         });
         
         if ($("#portaria-id").val() === "") {
-            $("#btnPortariaAtual").css("pointer-events","");
+            $("#btnPortariaAtual").css("pointer-events",""); //pointer-events: auto;
             $("#btnPortariaAtual").prop("disabled",false);
         }
         $("#portarias").val($("#portaria-id").val()).trigger("change");
-        
     });
 
     $("#portarias").on("select2:select", function (e) {
@@ -75,6 +74,7 @@ $(function () {
                 dataType: "json",
                 statusCode: {
                     200: function (data) {
+                        removeAllLocalStorage();
                         var success = new Message.Success();
                         success.show("Registro salvo com sucesso!");
                     }
@@ -83,7 +83,7 @@ $(function () {
         }
     });
     
-    loadPageHtml("#btnPagePesquisar", "pages/filipeta/Pesquisar.html");
+    irParaPagePesquisar();
     validar();
     setPortaria();
 });
@@ -141,5 +141,11 @@ function stylePortaria(portaria) {
 function setPortaria() {
     $("#btnPortariaAtual").click(function () {
         $("#portarias").val($("#portaria-id").val()).trigger("change");
+    });
+}
+
+function irParaPagePesquisar() {
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/filipeta/Pesquisar.html");
     });
 }

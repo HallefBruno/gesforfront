@@ -2,8 +2,8 @@
 
 $(function () {
 
-    var url = localStorage.getItem("currentUri");
-    var id = localStorage.getItem("estadoId");
+    var url = getStorage("currentUri");
+    var id = getStorage("estadoId");
     
     $.get(url+"/estados/buscar/"+id, function(data) {
         if ($("#nome").length) {
@@ -33,6 +33,7 @@ $(function () {
                 dataType: "json",
                 statusCode: {
                     200: function (data) {
+                        removeAllLocalStorage();
                         var success = new Message.Success();
                         success.show("Registro salvo com sucesso!");
                     }

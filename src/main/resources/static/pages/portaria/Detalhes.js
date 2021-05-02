@@ -23,6 +23,7 @@ $(function () {
         $("#modalDetalhePortaria").on("hidden.bs.modal", function () {
             $("#modalDetalhePortaria").modal("dispose");
         });
+        
     });
     
 

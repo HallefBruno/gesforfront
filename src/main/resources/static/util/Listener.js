@@ -63,6 +63,7 @@ Listener.Handler = (function () {
         }.bind(this));
         
         $(document).ajaxError(function (event, jqXHR, settings) {
+            
             if (jqXHR.status === 0) {
                 var message = new Message.Error();
                 message.show("Falha de comicação com o serviço!");
@@ -133,6 +134,7 @@ Listener.Handler = (function () {
                     message.show("Recurso não encontrado: "+jqXHR.responseJSON.path,"I");
                 }
             } else if (jqXHR.status === 500) {
+                removeAllLocalStorage();
                 if(jqXHR.responseJSON !== null) {
                     var message = new Message.Warning();
                     message.show(jqXHR.responseJSON.errors[0],"I");

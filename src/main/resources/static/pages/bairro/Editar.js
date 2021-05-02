@@ -79,6 +79,7 @@ $(document).ready(function() {
                     200: function (data) {
                         var success = new Message.Success();
                         success.show("Registro salvo com sucesso!");
+                        removeAllLocalStorage();
                     }
                 }
             });

@@ -2,8 +2,6 @@
 
 $(function () {
 
-    window.console.log("Events panel");
-
     $("#divMoradorProprietario").empty();
     $("#divMoradorProprietario").load("pages/morador/PanelMoradorProprietario.html");
 

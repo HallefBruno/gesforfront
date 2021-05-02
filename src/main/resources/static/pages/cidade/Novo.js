@@ -59,6 +59,7 @@ $(document).ready(function() {
                 dataType: "json",
                 statusCode: {
                     201: function (data) {
+                        removeAllLocalStorage();
                         message.show("Registro salvo com sucesso!");
                     }
                 }

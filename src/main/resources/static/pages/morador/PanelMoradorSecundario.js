@@ -133,10 +133,9 @@ function addMoradorSecundarioAutomovel() {
             }
             
             $("#listaVazia").attr("value",false);
-            selects = [{"id":"#automoveisMoradorSecundario",disabled:true},{"id":"#fabricanteMoradorSecundario"}];
+            const selects = [{"id":"#automoveisMoradorSecundario",disabled:true},{"id":"#fabricanteMoradorSecundario"}];
             cleanForm("#formAutomoveisMoradorSecundario",selects);
             toast.show("Automovel adicionado!");
-            console.log(automoveisMoradorSecundarioGrid,"Automovel adicionado!");
         }
     });
     
@@ -179,10 +178,9 @@ function addMoradorSecundarioAutomovel() {
             $("#listaVazia").attr("value",false);
             $(".tbl-add-automovel-morador-secundario").DataTable().clear().draw();
             $("#sexoMoradorSecundario").prop("checked", true).change();
-            selects = [{"id":"#estadoCivilMoradorSecundario"},{"id":"#grauParentesco"}];
+            const selects = [{"id":"#estadoCivilMoradorSecundario"},{"id":"#grauParentesco"}];
             cleanForm("#formPrincipalMoradorSecundario",selects);
             toast.show("Morador secundário adicionado!");
-            console.log(listMorador,"Morador adicionado!");
             automoveisMoradorSecundario = [];
             criaAtualizaStorage64("listMoradorSecundario",listMorador);
         }
@@ -251,8 +249,6 @@ function addMoradorSecundarioAutomovel() {
             $("#listaVazia").attr("value", true);
         }
         criaAtualizaStorage64("listMoradorSecundario",listMorador);
-        window.console.log("Removendo automovel grid", automoveisMoradorSecundarioGrid);
-        window.console.log("Removendo automovel list", listMorador);
         toast.show("Automóvel removido!");
     });
     
@@ -268,7 +264,7 @@ function addMoradorSecundarioAutomovel() {
                                 listMorador[i].automoveisMoradores.splice(j, 1);
                                 automoveisMoradorSecundarioGrid.splice(k, 1);
                                 j=-1;
-                                break;//listMorador[i].automoveisMoradoresMoradores
+                                break;
                             }
                         }
                     }
@@ -292,8 +288,6 @@ function addMoradorSecundarioAutomovel() {
         }
         criaAtualizaStorage64("listMoradorSecundario",listMorador);
         toast.show("Morador removido");
-        window.console.log("List grid ",automoveisMoradorSecundarioGrid);
-        window.console.log("List morador ",listMorador);
     });
     
     $("#btnTerminar").click(function () {
@@ -373,14 +367,14 @@ function popularSelects() {
             data: fabricantes
         });
         
-        $("#fabricanteMoradorSecundario").on("select2:selecting",function (e) {
-            var fabricanteId = e.params.args.data.id;
+        $("#fabricanteMoradorSecundario").on("select2:select",function (e) {
+            var fabricanteId = e.params.data.id;
             $("#fabricanteMoradorSecundario-id").val(fabricanteId);
-            $("#automoveisMoradorSecundario").val(null).trigger("change");
             $("#automoveisMoradorSecundario").prop("disabled",false);
+            $("#automoveisMoradorSecundario").val(null).trigger("change");
         });
         
-        $("#fabricanteMoradorSecundario").on("select2:unselecting", function () {
+        $("#fabricanteMoradorSecundario").on("select2:unselect", function () {
             $("#automoveisMoradorSecundario").val(null).trigger("change");
             $("#automoveisMoradorSecundario").prop("disabled",true);
         });

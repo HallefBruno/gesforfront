@@ -31,8 +31,6 @@ function salvarMorador() {
                 listaMoradoresSecundarios = JSON.parse(getStorage64("listMoradorSecundario"));
             }
 
-            console.log(telefones, listaMoradoresSecundarios);
-            
             var morador = {
                 nome: $("#nome").val(),
                 cpf: $("#cpf").val(),
@@ -50,9 +48,7 @@ function salvarMorador() {
                 automoveisMoradores: automoveis,
                 moradorSecundarios:listaMoradoresSecundarios
             };
-            
-            console.log(morador);
-            
+
             $.ajax({
                 method: "POST",
                 url: url + "/morador/salvar",
@@ -63,8 +59,7 @@ function salvarMorador() {
                     201: function (data) {
                         var message = new Message.Success();
                         automoveis = [];
-                        removeItemStorage("telefones");
-                        removeItemStorage("listMoradorSecundario");
+                        removeAllLocalStorage();
                         message.show("Registro salvo com sucesso!");
                         loadPageHtml("pages/morador/Novo.html");
                     }
@@ -78,6 +73,7 @@ function salvarMorador() {
 function addAutomovelGrid() {
     
     var message = new Message.Warning();
+    var toast = new Message.SuccessToast();
     var htmltipo = "";
     var automoveisGrid = [];
     
@@ -100,7 +96,7 @@ function addAutomovelGrid() {
     });
 
     $("#btn-add-novo-automovel").click(function () {
-        if ($("#form-automoveis").valid()) {
+        if ($("#formAutomoveis").valid()) {
 
             var automovelGrid = {
                 id: $("#automoveis option:selected").filter(':selected').val(),
@@ -129,7 +125,7 @@ function addAutomovelGrid() {
             
             automoveis.push(moradorAutomovel);
             automoveisGrid.push(automovelGrid);
-            
+           
             if (automovelGrid.tipoAutomovel === "Carro") {
                 htmltipo = "<span class='text-center badge badge-primary'>" + automovelGrid.tipoAutomovel + "</span>";
             } else if (automovelGrid.tipoAutomovel === "Moto") {
@@ -144,17 +140,22 @@ function addAutomovelGrid() {
                 htmltipo,
                 "<button id='btn-remover' data-key='" + automovelGrid.placa + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>"
             ]).draw(false);
-
+            
+            const selects = [{"id":"#fabricante"},{"id":"#automoveis",disabled:true}];
+            cleanForm("#formAutomoveis",selects);
+            toast.show("Automovel adicionado!");
         }
     });
     
     $(".tbl-add-automovel").DataTable().on("click","#btn-remover", function () {
-        $(".tbl-add-automovel").DataTable().row($(this).parents("tr")).remove().draw();
         var placa = $(this).data("key");
         for(var i=0; i<automoveisGrid.length; i++) {
             if(automoveisGrid[i].placa === placa) {
                 automoveisGrid.splice(i,1);
                 automoveis.splice(i,1);
+                $(".tbl-add-automovel").DataTable().row($(this).parents("tr")).remove().draw();
+                toast.show("Automovel removido!");
+                break;
             }
         }
     });
@@ -240,8 +241,8 @@ function poluarSelectCadastro() {
             data: fabricantes
         });
         
-        $("#fabricante").on("select2:selecting",function (e) {
-            var fabricanteId = e.params.args.data.id;
+        $("#fabricante").on("select2:select",function (e) {
+            var fabricanteId = e.params.data.id;
             $("#fabricante-id").val(fabricanteId);
             $("#automoveis").val(null).trigger("change");
             $("#automoveis").prop("disabled",false);
@@ -302,7 +303,7 @@ function automovelExist(array, placa) {
 }
 
 function camposObrigatorioAutomovel() {
-    $("#form-automoveis").validate({
+    $("#formAutomoveis").validate({
         rules: {
             fabricante: {
                 required: true

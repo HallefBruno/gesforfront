@@ -75,6 +75,7 @@ $(function () {
                 dataType: "json",
                 statusCode: {
                     200: function (data) {
+                        removeAllLocalStorage();
                         var success = new Message.Success();
                         success.show("Registro salvo com sucesso!");
                     }
