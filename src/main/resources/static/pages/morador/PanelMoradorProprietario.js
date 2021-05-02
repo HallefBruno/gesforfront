@@ -47,7 +47,7 @@ function salvarMorador() {
                 tipoMoradia: $("#tiposResidencia :selected").val(),
                 animalDomestico: $("#animalDomentico").prop("checked"),
                 telefones: telefones,
-                automoveis: automoveis,
+                automoveisMoradores: automoveis,
                 moradorSecundarios:listaMoradoresSecundarios
             };
             
