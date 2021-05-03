@@ -9,7 +9,7 @@ $(document).ready(function() {
     };
     setDefaultsDataTable(parametros);
 
-    var url = localStorage.getItem("currentUri");
+    var url = getStorage("currentUri");
 
     $("#tbportarias").DataTable({
         ajax: {

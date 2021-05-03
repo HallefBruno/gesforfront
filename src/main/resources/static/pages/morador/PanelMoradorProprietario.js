@@ -19,7 +19,7 @@ function events() {
 
 function salvarMorador() {
     
-    var url = localStorage.getItem("currentUri");
+    var url = getStorage("currentUri");
     var listaMoradoresSecundarios = [];
     
     $("#btnSalvar").click(function () {
@@ -41,7 +41,7 @@ function salvarMorador() {
                 estadoCivil: $("#estadoCivil :selected").val(),
                 sexo: $("#sexo").prop("checked") === true ? "Masculino" : "Feminino",
                 residencia: $("#residencia").val(),
-                qdtMoradores: $("#qtdMorador").val(),
+                qtdMoradores: $("#qtdMorador").val(),
                 tipoMoradia: $("#tiposResidencia :selected").val(),
                 animalDomestico: $("#animalDomentico").prop("checked"),
                 telefones: telefones,

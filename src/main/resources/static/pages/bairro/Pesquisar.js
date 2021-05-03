@@ -5,7 +5,7 @@ $(document).ready(function() {
     var atualPage = $(this);
     var cidade;
     var cidades = [];
-    var url = localStorage.getItem("currentUri");
+    var url = getStorage("currentUri");
     
     var parametros = {
         columns: [

@@ -4,7 +4,7 @@ $(function () {
 
     var filipeta;
     var portarias = [];
-    var url = localStorage.getItem("currentUri");
+    var url = getStorage("currentUri");
     
     var parametros = {
         columns: [

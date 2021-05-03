@@ -116,7 +116,7 @@ function structureMenu() {
                 'class':'btn btn-success',
                 'icon': "<i class='fa fa-file'></i>",
                 'event':'eventContructionPage(this)',
-                'url': 'pages/morador/Novo.html'
+                'url': 'pages/morador/Pesquisar.html'
             },
 //            {
 //                'name': 'Cidade',
