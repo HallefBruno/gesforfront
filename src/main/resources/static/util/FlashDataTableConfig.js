@@ -26,7 +26,7 @@ function setDefaultsDataTable(parametros) {
             url: "vendor/internationalisation/pt_br.json"
         },
         "columnDefs": [
-            {width: "20%", "targets": parametros.columns.length - 1},
+            {width: "15%", "targets": parametros.columns.length - 1},
             {targets: parametros.columns.length - 1, className: 'text-center'},
             {targets: parametros.columns.length - 1, orderable: false},
             {targets: '_all',defaultContent: '-'}

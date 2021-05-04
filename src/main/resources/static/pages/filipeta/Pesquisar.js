@@ -84,7 +84,7 @@ $(function () {
     
     $("table").on("click", "#btn-editar", function () {
         loadPageHtml("pages/filipeta/Editar.html");
-        localStorage.setItem("filipetaId", $(this).data("editar"));
+        setStorage("filipetaId", $(this).data("editar"));
     });
 
     $.validator.setDefaults({

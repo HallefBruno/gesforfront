@@ -294,6 +294,8 @@ function init() {
     
     $("#telefone").mask(maskPhone, novoDigito);
     $("#placa").mask(mercoSulMaskBehavior, mercoSulOptions);
+    
+    irParaPageNovo();
 }
 
 function automovelExist(array, placa) {
@@ -524,4 +526,10 @@ function styleSelectAutomoveis(automovel) {
         html = $("<span>" + automovel.text + "</span>");
     }
     return html;
+}
+
+function irParaPageNovo() {
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/morador/Pesquisar.html");
+    });
 }

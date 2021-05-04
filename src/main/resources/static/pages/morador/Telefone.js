@@ -12,7 +12,7 @@ $(function () {
             $("#numeroTelefone").trigger("focus");
             $("#numeroTelefone").val("");
         });
-        mascaraTelefone();
+        mascaraTelefone("#numeroTelefone");
         $(".alert-modal-telefone").hide();
     });
     
@@ -38,7 +38,7 @@ $(function () {
             listaTelefones.push(telefone);
             popularTabela(listaTelefones);
             popularSelectTelefone(listaTelefones);
-            criaAtualizaStorage64("telefones",listaTelefones);
+            setStorage64("telefones",listaTelefones);
             $(".alert-modal-telefone").hide();
             return;
         } 
@@ -56,7 +56,7 @@ $(function () {
         $("#telefones").append("<option value=''>Telefone</option>");
         popularSelectTelefone(data);
         if(listaTelefones.length > 0) {
-            criaAtualizaStorage64("telefones",listaTelefones);
+            setStorage64("telefones",listaTelefones);
         } else {
             removeItemStorage("telefones");
         }
@@ -108,18 +108,6 @@ function popularSelectTelefone(listaTelefones) {
     });
     
     //$("#telefones").trigger("change");
-}
-
-function mascaraTelefone() {
-    var maskPhone = function (val) {
-        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-    },
-    novoDigito = {
-        onKeyPress: function (val, e, field, options) {
-            field.mask(maskPhone.apply({}, arguments), options);
-        }
-    };
-    $("#numeroTelefone").mask(maskPhone, novoDigito);
 }
 
 function validation() {

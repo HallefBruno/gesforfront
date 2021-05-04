@@ -182,7 +182,7 @@ function addMoradorSecundarioAutomovel() {
             cleanForm("#formPrincipalMoradorSecundario",selects);
             toast.show("Morador secundário adicionado!");
             automoveisMoradorSecundario = [];
-            criaAtualizaStorage64("listMoradorSecundario",listMorador);
+            setStorage64("listMoradorSecundario",listMorador);
         }
     });
     
@@ -248,7 +248,7 @@ function addMoradorSecundarioAutomovel() {
         if (automoveisMoradorSecundarioGrid.length === 0) {
             $("#listaVazia").attr("value", true);
         }
-        criaAtualizaStorage64("listMoradorSecundario",listMorador);
+        setStorage64("listMoradorSecundario",listMorador);
         toast.show("Automóvel removido!");
     });
     
@@ -286,7 +286,7 @@ function addMoradorSecundarioAutomovel() {
         if(listMorador.length === 0) {
             $("#listaVazia").attr("value",true);
         }
-        criaAtualizaStorage64("listMoradorSecundario",listMorador);
+        setStorage64("listMoradorSecundario",listMorador);
         toast.show("Morador removido");
     });
     

@@ -1,13 +1,13 @@
 /* global Message */
 
-function criaAtualizaStorage64(key,value) {
+function setStorage64(key,value) {
     var encoded = btoa(JSON.stringify(value));
     localStorage.setItem(key,encoded);
 }
 
 function getStorage(key) {
     if(key === null || key === undefined || key === "") {
-        return alert("Key não encontrada ",key);
+        return alert("Cahve não encontrada ",key);
     }
     return localStorage.getItem(key);
 }
@@ -22,9 +22,16 @@ function getStorage64(key) {
     return objectJson;
 }
 
+function setStorage(key,value) {
+    if(key === null || key === "" || value === null) {
+        return alert("Chave ou valor inválido!");
+    }
+    localStorage.setItem(key, value);
+}
+
 function removeItemStorage(key) {
     if(key === null || key === undefined || key === "") {
-        alert("Key não encontrada ",key);
+        alert("Cahve não encontrada ",key);
     }
     localStorage.removeItem(key);
 }
@@ -81,4 +88,20 @@ function loadPageHtml(pathPage) {
         var message = new Message.Error();
         message.show("Não foi possivel carregar a página!");
     }
+}
+
+function mascaraTelefone(element) {
+    var maskPhone = function (val) {
+        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+    },
+    novoDigito = {
+        onKeyPress: function (val, e, field, options) {
+            field.mask(maskPhone.apply({}, arguments), options);
+        }
+    };
+    $(element).mask(maskPhone, novoDigito);
+}
+
+function mascaraCpf(element) {
+    $(element).mask('000.000.000-00', {reverse: true});
 }
