@@ -28,7 +28,11 @@ function initDatatable() {
             {data: "sexo", sortable: false},
             {data: "estadoCivil", sortable: false},
             {data: "residencia", sortable: false},
-            {data: "qtdMoradores", sortable: false}
+            {data: "telefone", sortable: false,
+                render: function (data) {
+                    return data;
+                }
+            }
         ]
     };
     
@@ -57,3 +61,17 @@ function irParaPageNovo() {
         loadPageHtml("pages/morador/Novo.html");
     });
 }
+
+function formatData(data) {
+    if (!data.id) {
+        return data.text;
+    }
+    var $result = $('<span><img src="/Ressources/Images/Locked.png"/> ' + data.text + '</span>');
+    return $result;
+}
+;
+
+$("#SelectPeriode").select2({
+    templateResult: formatData,
+    templateSelection: formatData
+});
