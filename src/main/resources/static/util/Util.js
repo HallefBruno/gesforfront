@@ -40,7 +40,7 @@ function removeAllLocalStorage() {
     var key = null;
     for (var i = 0; i < localStorage.length; i++) {
         key = localStorage.key(i);
-        if(key !== "currentUri") {
+        if(key !== "currentUri" && key !== "urlPagina") {
             removeItemStorage(key);
             i=-1;
         }
@@ -81,9 +81,11 @@ function cleanForm(form,object) {
 
 function loadPageHtml(pathPage) {
     if (pathPage !== 'undefined' && pathPage !== null) {
-        var divLoadPage = $("#pages").children().first();
+        $(".dashboard-myChart").find("div").empty();
+        const divLoadPage = $("#pages").children().first();
         divLoadPage.empty();
         divLoadPage.load(pathPage);
+        window.history.pushState("data",pathPage,"#/"+pathPage);
     } else {
         var message = new Message.Error();
         message.show("Não foi possivel carregar a página!");
@@ -105,3 +107,5 @@ function mascaraTelefone(element) {
 function mascaraCpf(element) {
     $(element).mask('000.000.000-00', {reverse: true});
 }
+
+const CONSTANTES = Object.freeze({"chart":"dashboard-myChart", "urlPagina":"urlPagina", "currentUri":"currentUri"});

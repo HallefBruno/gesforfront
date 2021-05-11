@@ -154,6 +154,24 @@ $(function () {
     var listener = new Listener.Handler();
     listener.execute();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //$(".table-responsive").block({message: null});
 //$("button[type='submit']").prop('disabled',true);
 //$(':button').prop('disabled', true);

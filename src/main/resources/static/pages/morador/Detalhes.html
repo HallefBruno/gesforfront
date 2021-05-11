@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalDetalheMorador" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalhes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formMoradorProprietario">
+                    <div class="row" >
+                        <div class=" col-sm-3 form-group">
+                            <label class="control-label" for="nome">Nome</label> 
+                            <input type="text" autocomplete class="form-control form-control-flash" id="nome" name="nome">
+                        </div>
+
+                        <div class=" col-sm-3 form-group ">
+                            <label class="control-label" for="cpf">CPF</label> 
+                            <input type="text" autocomplete class="form-control form-control-flash" id="cpf" name="cpf">
+                        </div>
+
+                        <div class=" col-sm-3 form-group">
+                            <label class="control-label" for="rg">RG</label> 
+                            <input type="text" autocomplete="" class="form-control form-control-flash" id="rg" name="rg">
+                        </div>
+
+                        <div class=" col-sm-3 form-group ">
+                            <label class="control-label" for="emissor">Orgão emissor</label> 
+                            <input type="text" autocomplete class="form-control form-control-flash" id="emissor" name="emissor">
+                        </div>
+
+                        <div class=" col-sm-3 form-group ">
+                            <label class="control-label" for="dataNascimento">Data nascimento</label> 
+                            <input type="date" autocomplete class="form-control form-control-flash" id="dataNascimento" name="dataNascimento">
+                        </div>
+
+                        <div class=" col-sm-3 form-group">
+                            <label class="control-label" for="natural">Natural</label> 
+                            <input type="text" autocomplete class="form-control form-control-flash" id="natural" name="natural">
+                        </div>
+
+                        <div class=" col-sm-3 form-group ">
+                            <label class="control-label" for="estadoCivil">Estado civil</label>
+                            <input id="estadoCivil" type="text" class="form-control form-control-flash" >
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="control-label" >Sexo</label>
+                                        <div class="radio radio-inline radio-info">
+                                            <input id="sexo" type="text" class="form-control form-control-flash" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="control-label">Animal domestico</label>
+                                        <div class="radio radio-inline radio-info">
+                                            <input id="animalDomentico" class="form-control form-control-flash" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col form-group">
+                                    <label class="control-label" for="residencia">Residência</label>
+                                    <input id="residencia" name="residencia" type="text" class="form-control form-control-flash">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="qtdMoradores col-sm-2 form-group ">
+                            <label class="control-label" for="qtdMorador">Qtd M</label> 
+                            <input type="text" maxlength="1" autocomplete class="form-control form-control-flash" id="qtdMorador" name="qtdMorador">
+                        </div>
+
+                        <div class="col-sm-4 form-group">
+                            <div class="row">
+                                <div class="col-10">
+                                    <label for="telefones" class="control-label">Telefone/Telefones</label>
+                                    <select id="telefones" name="telefones" class="form-control" >
+                                        <option/>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div style="margin-bottom: 15px;" ></div>
+                <form id="formAutomoveis">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header"><b>Automóveis</b></div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="control-label" for="fabricante">Fabricante</label>
+                                            <input type="text" class="form-control form-control-flash" name="fabricante" id="fabricante" />
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-10">
+                                                    <label class="control-label" for="automoveis">Automovel</label>  
+                                                    <input type="text" class="form-control form-control-flash" name="automovel" id="automovel" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="form-group col-sm-6">
+                                            <label class="control-label" for="cor">Cor</label>
+                                            <input class="form-control form-control-flash" type="text" name="cor" id="cor"/>
+                                        </div>
+
+                                        <div class="form-group col-sm-6">
+                                            <label class="control-label" for="placa">Placa</label>
+                                            <input class="form-control form-control-flash" id="placa" name="placa"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div style="padding-top: 20px; height: 230px;" class="table-responsive">
+                                                        <table class="table table-bordered tbl-add-automovel">
+                                                            <thead>
+                                                                <tr style="background-color: #f5f5f5">
+                                                                    <th>Fabricante</th>
+                                                                    <th>Modelo</th>
+                                                                    <th>Placa</th>
+                                                                    <th>Cor</th>
+                                                                    <th class="text-center" style="width: 60px;">Tipo</th>
+                                                                    <th class="text-center" style="width: 60px;">Ação</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

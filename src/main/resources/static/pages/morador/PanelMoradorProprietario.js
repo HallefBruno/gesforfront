@@ -61,7 +61,7 @@ function salvarMorador() {
                         automoveis = [];
                         removeAllLocalStorage();
                         message.show("Registro salvo com sucesso!");
-                        loadPageHtml("pages/morador/Novo.html");
+                        loadPageHtml("pages/morador/Pesquisar.html");
                     }
                 }
             });

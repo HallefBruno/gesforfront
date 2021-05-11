@@ -1,9 +1,13 @@
+/* global CONSTANTES */
+
 var conteudoDivMenu = "";
 var htmlButtonsSubmenu = "";
 
 $(function () {
     constructionMenu();
     storageURL();
+    setUrlInBar();
+    clickBtnIndex();
 });
 
 function constructionMenu() {
@@ -72,8 +76,9 @@ function constructionMenu() {
 }
 
 function eventContructionPage(target) {
+    const url = target.dataset.url;
     $("#pages").find("div").empty();
-    $("#pages").find("div").load(target.dataset.url, function (target) {});
+    $("#pages").find("div").load(url);
     conteudoDivMenu = "";
 }
 
@@ -85,7 +90,7 @@ function eventSubmenu() {
 
 function structureMenu() {
 
-    let menus = {
+    const menus = {
 
         'cadastros': [
 
@@ -118,24 +123,6 @@ function structureMenu() {
                 'event':'eventContructionPage(this)',
                 'url': 'pages/morador/Pesquisar.html'
             },
-//            {
-//                'name': 'Cidade',
-//                'title': 'Cadastro de cidade',
-//                'type': 'Página',
-//                'class':'btn btn-success',
-//                'icon': "<i class='fa fa-file'></i>",
-//                'event':'eventContructionPage(this)',
-//                'url': 'pages/cidade/Pesquisar.html'
-//            },
-//            {
-//                'name': 'Bairro',
-//                'title': 'Cadastro de bairro',
-//                'type': 'Página',
-//                'class':'btn btn-success',
-//                'icon': "<i class='fa fa-file'></i>",
-//                'event':'eventContructionPage(this)',
-//                'url': 'pages/bairro/Pesquisar.html'
-//            },
 
             {
                 'name': 'Cadastros básicos',
@@ -174,25 +161,7 @@ function structureMenu() {
                         'event': 'eventContructionPage(this)',
                         'url': 'pages/bairro/Pesquisar.html'
                     }
-                    
-//                    {
-//                        'name':'Morador',
-//                        'title':'Cadastro de morador',
-//                        'type':'Página',
-//                        'class':'btn btn-success',
-//                        'icon': "<i class='fa fa-file'></i>",
-//                        'event':'eventContructionPage(this)',
-//                        'url':'pages/estado/MenuCadastro.html'
-//                    },
-//                    {
-//                        'name':'Morador',
-//                        'title':'Cadastro de morador',
-//                        'type':'Página',
-//                        'class':'btn btn-success',
-//                        'icon': "<i class='fa fa-file'></i>",
-//                        'event':'eventContructionPage(this)',
-//                        'url':'pages/estado/MenuCadastro.html'
-//                    }
+
                 ]
             }
         ]
@@ -215,6 +184,31 @@ function storageURL() {
         } else {
             targetUrl = data.urlExternalBack;
         }
-        localStorage.setItem("currentUri", targetUrl);
+        localStorage.setItem(CONSTANTES.currentUri, targetUrl);
+    });
+}
+
+function setUrlInBar() {
+    let url = getStorage("urlPagina");
+    if(url !== undefined && url !== null && url !== "") {
+        url = url.substring(1, url.length);
+        loadPageHtml(url);
+        window.history.pushState("data", url, "#" + getStorage("urlPagina"));
+    }
+}
+
+window.onbeforeunload = function () {
+    var url = window.location.href;
+    const urlPage = url.substring(url.lastIndexOf("#")+1,url.length);
+    if(!urlPage.includes("Index") && !urlPage.includes("http") && !urlPage.includes("flash") && !urlPage.includes("https") && urlPage !== "") {
+        setStorage("urlPagina",urlPage);
+    }
+};
+
+function clickBtnIndex() {
+    $("#aIndex").on("click",function() {
+        window.history.pushState("data", "flash", "/flash");
+        removeItemStorage("urlPagina");
+        window.location.href="/flash";
     });
 }
