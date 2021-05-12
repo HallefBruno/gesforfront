@@ -79,6 +79,7 @@ function eventContructionPage(target) {
     const url = target.dataset.url;
     $("#pages").find("div").empty();
     $("#pages").find("div").load(url);
+    window.history.pushState("data",url,"#/"+url);
     conteudoDivMenu = "";
 }
 
