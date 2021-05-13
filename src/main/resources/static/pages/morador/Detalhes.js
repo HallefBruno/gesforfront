@@ -11,7 +11,6 @@ $(function () {
             $("#modalDetalheMorador").modal("show");
             var morador = data;
             $("#modalDetalheMorador").on("shown.bs.modal", function () {
-                window.console.log(morador);
                 var modal = $(this);
                 window.console.log(modal);
                 modal.find("#nome").val(morador.nome);
@@ -80,7 +79,7 @@ function popularTabela(data) {
                     "</tr>";
         }
     } else {
-        body += "<tr><td colspan='2' class=''>Nenhum automovel vinculado</td></tr>";
+        body += "<tr><td colspan='5' class=''>Nenhum automovel vinculado</td></tr>";
     }
 
     table.find("tbody").append(body);
