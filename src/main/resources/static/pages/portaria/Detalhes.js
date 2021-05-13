@@ -8,23 +8,21 @@ $(function () {
         
         var url = localStorage.getItem("currentUri")+"/portarias/buscar/"+id;
         
-        var portaria = {};
         $.get(url, function(data) {
+            var portaria = {};
             portaria = data;
-        });
-        
-        $("#modalDetalhePortaria").modal("show");
-        
-        $("#modalDetalhePortaria").on("shown.bs.modal", function () {
-            var modal = $(this);
-            modal.find("#nome").val(portaria.nome);
-        });
-        
-        $("#modalDetalhePortaria").on("hidden.bs.modal", function () {
-            $("#modalDetalhePortaria").modal("dispose");
+            $("#modalDetalhePortaria").modal("show");
+
+            $("#modalDetalhePortaria").on("shown.bs.modal", function () {
+                var modal = $(this);
+                modal.find("#nome").val(portaria.nome);
+            });
+
+            $("#modalDetalhePortaria").on("hidden.bs.modal", function () {
+                $("#modalDetalhePortaria").modal("dispose");
+            });
         });
         
     });
     
-
 });

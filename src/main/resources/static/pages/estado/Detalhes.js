@@ -8,23 +8,22 @@ $(function () {
         
         var url = localStorage.getItem('currentUri')+"/estados/buscar/"+id;
         
-        var estado = {};
         $.get(url, function(data) {
+            var estado = {};
             estado = data;
+            $('#modalDetalheEstado').modal("show");
+
+            $("#modalDetalheEstado").on("shown.bs.modal", function () {
+                var modal = $(this);
+                modal.find("#nome").val(estado.nome);
+                modal.find("#uf").val(estado.uf);
+            });
+
+            $("#modalDetalheEstado").on("hidden.bs.modal", function () {
+                $("#modalDetalheEstado").modal("dispose");
+            });
         });
         
-        $('#modalDetalheEstado').modal("show");
-        
-        $("#modalDetalheEstado").on("shown.bs.modal", function () {
-            var modal = $(this);
-            modal.find("#nome").val(estado.nome);
-            modal.find("#uf").val(estado.uf);
-        });
-        
-        $("#modalDetalheEstado").on("hidden.bs.modal", function () {
-            $("#modalDetalheEstado").modal("dispose");
-        });
     });
-    
 
 });

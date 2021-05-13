@@ -8,23 +8,22 @@ $(function () {
         
         var url = localStorage.getItem('currentUri')+"/cidades/buscar/"+id;
         
-        var cidade = {};
         $.get(url, function(data) {
+            var cidade = {};
             cidade = data;
+            $('#modalDetalheCidade').modal("show");
+
+            $("#modalDetalheCidade").on("shown.bs.modal", function () {
+                var modal = $(this);
+                modal.find("#estado").val(cidade.estado.nome);
+                modal.find("#cidade").val(cidade.nome);
+            });
+
+            $("#modalDetalheCidade").on("hidden.bs.modal", function () {
+                $("#modalDetalheCidade").modal("dispose");
+            });
         });
         
-        $('#modalDetalheCidade').modal("show");
-        
-        $("#modalDetalheCidade").on("shown.bs.modal", function () {
-            var modal = $(this);
-            modal.find("#estado").val(cidade.estado.nome);
-            modal.find("#cidade").val(cidade.nome);
-        });
-        
-        $("#modalDetalheCidade").on("hidden.bs.modal", function () {
-            $("#modalDetalheCidade").modal("dispose");
-        });
     });
     
-
 });
