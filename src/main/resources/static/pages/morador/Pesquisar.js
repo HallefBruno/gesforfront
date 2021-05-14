@@ -81,14 +81,14 @@ function initDatatable() {
             {data: "sexo", sortable: false},
             {data: "estadoCivil", sortable: false},
             {data: "residencia", sortable: false},
-            {data: "telefone", sortable: false, 
+            {data: "telefone", sortable: false, width: "200px", 
                 render: function (data,type,row,meta) {
                     var telefones = data.split(",");
                     var telefoneFormatado="";
                     for(var i=0;i<telefones.length; i++) {
                         telefoneFormatado = telefoneFormatado + mascaraStringTel(telefones[i]);
                     }
-                    return telefoneFormatado.join(",");
+                    return telefoneFormatado;
                     window.console.log(telefoneFormatado);
                 }
             }
