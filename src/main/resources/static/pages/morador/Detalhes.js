@@ -12,7 +12,6 @@ $(function () {
             var morador = data;
             $("#modalDetalheMorador").on("shown.bs.modal", function () {
                 var modal = $(this);
-                window.console.log(modal);
                 modal.find("#nome").val(morador.nome);
                 modal.find("#cpf").val(morador.cpf);
                 modal.find("#rg").val(morador.rg);
@@ -31,7 +30,7 @@ $(function () {
                 $.each(morador.telefones, function (i, values) {
                     telefone = {
                         id: values.id,
-                        text: values.numero
+                        text: mascaraStringTel(values.numero)
                     };
                     telefones.push(telefone);
                 });

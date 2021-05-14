@@ -108,4 +108,12 @@ function mascaraCpf(element) {
     $(element).mask('000.000.000-00', {reverse: true});
 }
 
+function mascaraStringTel(numero) {
+    if (numero.length === 10) {
+        return numero.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    } else {
+        return numero.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    }
+}
+
 const CONSTANTES = Object.freeze({"chart":"dashboard-myChart", "urlPagina":"urlPagina", "currentUri":"currentUri"});

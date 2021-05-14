@@ -81,7 +81,13 @@ function initDatatable() {
             {data: "sexo", sortable: false},
             {data: "estadoCivil", sortable: false},
             {data: "residencia", sortable: false},
-            {data: "telefone", sortable: false}
+            {data: "telefone", sortable: false, 
+                render: function (data,type,row,meta) {
+                    var telefone = data.split(",");
+                    window.console.log(telefone[0]);
+                    return mascaraStringTel(data);
+                }
+            }
         ]
     };
     
