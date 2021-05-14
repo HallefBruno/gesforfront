@@ -83,9 +83,13 @@ function initDatatable() {
             {data: "residencia", sortable: false},
             {data: "telefone", sortable: false, 
                 render: function (data,type,row,meta) {
-                    var telefone = data.split(",");
-                    window.console.log(telefone[0]);
-                    return mascaraStringTel(data);
+                    var telefones = data.split(",");
+                    var telefoneFormatado="";
+                    for(var i=0;i<telefones.length; i++) {
+                        telefoneFormatado = telefoneFormatado + mascaraStringTel(telefones[i]);
+                    }
+                    return telefoneFormatado.join(",");
+                    window.console.log(telefoneFormatado);
                 }
             }
         ]
