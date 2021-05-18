@@ -116,4 +116,52 @@ function mascaraStringTel(numero) {
     }
 }
 
+function mascaraStringCnpj(cnpj) {
+    var numeroFormatado;
+    numeroFormatado = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+    return numeroFormatado;
+}
+
+function mascaraStringCpf(cpf) {
+    var placa = cpf.substring(0,3)+"."+cpf.substring(3,6)+"."+cpf.substring(6,9)+"-"+cpf.substring(9,cpf.length);
+    return placa;
+}
+
+function mascaraStringPlaca(placa) {
+    var placaFormatado;
+    placaFormatado = placa.substring(0,3)+"-"+placa.substring(3,placa.length);
+    return placaFormatado;
+}
+
+function validarCPF(strCPF) {
+    var Soma;
+    var Resto;
+    Soma = 0;
+    if (strCPF === "00000000000")
+        return false;
+
+    for (i = 1; i <= 9; i++)
+        Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+    Resto = (Soma * 10) % 11;
+
+    if ((Resto === 10) || (Resto === 11))
+        Resto = 0;
+    if (Resto !== parseInt(strCPF.substring(9, 10)))
+        return false;
+
+    Soma = 0;
+    for (i = 1; i <= 10; i++)
+        Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
+
+    if ((Resto === 10) || (Resto === 11))
+        Resto = 0;
+    if (Resto !== parseInt(strCPF.substring(10, 11)))
+        return false;
+    return true;
+
+    var strCPF = "12345678909";
+    alert(TestaCPF(strCPF));
+}
+
 const CONSTANTES = Object.freeze({"chart":"dashboard-myChart", "urlPagina":"urlPagina", "currentUri":"currentUri"});

@@ -5,7 +5,15 @@ $(function () {
     pesquisar();
     validForm();
     irParaPageEditar();
+    eventEditeDelete();
 });
+
+function eventEditeDelete() {
+    $("table").on("click", "#btn-editar", function () {
+        loadPageHtml("pages/morador/Editar.html");
+        setStorage("moradorId", $(this).data("editar"));
+    });
+}
 
 function init() {
     mascaraCpf("#cpf");
@@ -74,8 +82,7 @@ function initDatatable() {
                     //console.log(type);
                     //console.log(row);
                     //console.log(meta);
-                    data = data.substring(0,3)+"."+data.substring(3,6)+"."+data.substring(6,9)+"-"+data.substring(9,11);
-                    return data;
+                    return mascaraStringCpf(data);
                 }
             },
             {data: "sexo", sortable: false},
@@ -89,7 +96,6 @@ function initDatatable() {
                         telefoneFormatado = telefoneFormatado + mascaraStringTel(telefones[i]);
                     }
                     return telefoneFormatado;
-                    window.console.log(telefoneFormatado);
                 }
             }
         ]

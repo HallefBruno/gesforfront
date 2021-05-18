@@ -124,7 +124,7 @@ DefaultDataTable.AssembleDataTable = (function () {
     
 }());
 
-function assembleTB(data,parametros) {
+function assembleTB(data) {
     
     var table = $("table");
     table.find("tr").remove();
@@ -142,9 +142,9 @@ function assembleTB(data,parametros) {
                     cabecalho += "<th>" + nomePermanente + "</th>";
                 }
             }
-            if (parametros.columnsAction) {
-                cabecalho += "<th class='text-center' style='width: 230px; font-size: 1.5em;'><span class='fa fa-cogs'></span></th>";
-            }
+//            if (parametros.columnsAction) {
+//                cabecalho += "<th class='text-center' style='width: 230px; font-size: 1.5em;'><span class='fa fa-cogs'></span></th>";
+//            }
             var array = [];
 
             data.content.forEach(obj => {
@@ -198,42 +198,4 @@ function assembleTB(data,parametros) {
         table.find("tbody").append(listaVazia);
         $("#navPageable").html("");
     }
-}
-
-function showSkeleton() {
-    var uri = null;
-    uri = localStorage.getItem("currentUri");
-
-    if (uri === null) {
-        var message = new Message.Warning();
-        message.show("Algo ocasionou um mal funcionamento, regarregue a página!", "I");
-
-        let nativeSkeleton =
-        "<div class='ph-item'>"+
-            "<div class='ph-col-12'>"+
-                "<div class='ph-row'>"+
-                    "<div class='ph-col-6 big'></div>"+
-                    "<div class='ph-col-4 empty big'></div>"+
-                    "<div class='ph-col-2 big'></div>"+
-                    "<div class='ph-col-4 big'></div>"+
-                    "<div class='ph-col-8 empty big'></div>"+
-                    "<div class='ph-col-6 big'></div>"+
-                    "<div class='ph-col-4 empty big'></div>"+
-                    "<div class='ph-col-12 big'></div>"+
-                "</div>"+
-                "<div class='ph-row'>"+
-                    "<div class='ph-col-12 empty big'></div>"+
-                    "<div class='ph-col-12 empty big'></div>"+
-                    "<div class='ph-col-12 empty big'></div>"+
-                    "<div class='ph-col-12 empty big'></div>"+
-                "</div>"+
-                "<div class='ph-picture2'></div>"+
-            "</div>"+
-        "</div>";
-        var form = $(event.target.forms);
-        $(form).empty();
-        $(form).append(nativeSkeleton);
-        return true;
-    }
-    return uri;
 }

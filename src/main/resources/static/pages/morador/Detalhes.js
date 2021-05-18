@@ -13,7 +13,7 @@ $(function () {
             $("#modalDetalheMorador").on("shown.bs.modal", function () {
                 var modal = $(this);
                 modal.find("#nome").val(morador.nome);
-                modal.find("#cpf").val(morador.cpf);
+                modal.find("#cpf").val(mascaraStringCpf(morador.cpf));
                 modal.find("#rg").val(morador.rg);
                 modal.find("#emissor").val(morador.orgaoEmissor);
                 modal.find("#dataNascimento").val(morador.dataNascimento);
@@ -34,7 +34,9 @@ $(function () {
                     };
                     telefones.push(telefone);
                 });
-
+                
+                $("#telefones").empty();
+                
                 $("#telefones").select2({
                     theme: "bootstrap4",
                     placeholder: "Telefones",
@@ -42,20 +44,68 @@ $(function () {
                     language: "pt-BR",
                     data: telefones
                 });
-                popularTabela(morador.automoveisMoradores);
+                window.console.log(morador.moradorSecundarios);
+                popularTabelaMoradorSecundario(morador.moradorSecundarios);
+                listarVeiculosMoradorSecundario(morador);
+                popularTabelaAutomovelMoradorProprietaria(morador.automoveisMoradores);
+                
             });
+            
         });
         
         $("#modalDetalheMorador").on("hidden.bs.modal", function () {
             $("#modalDetalheMorador").modal("dispose");
         });
         
+        
     });
     
 });
 
+function popularTabelaMoradorSecundario(data) {
+    
+    var table = $(".tbl-add-morador-secundario");
+    table.find("tbody").find("tr").remove();
+    var body = "";
+    
+    if(data.length !== "undefined" && data.length !== null && data.length > 0) {
+        for(var i=0; i<data.length; i++) {
+            const htmlBtnveiculos = "<button id='btnCarroVinculadoMoradorSecundario' data-key='" + data[i].cpf + "' type='button' title='Veículos vinculados' class='text-center btn btn-outline-primary btn-sm'><i class='fa fa-archive'></i></button>";
+            body += "<tr>"+
+                        "<td>" + data[i].nome + "</td>"+
+                        "<td>" + mascaraStringCpf(data[i].cpf) + "</td>"+
+                        "<td>" + mascaraStringTel(data[i].telefone) +"</td>"+
+                        "<td>" + data[i].grauParentesco +"</td>"+
+                        "<td>" + data[i].sexo +"</td>"+
+                        "<td class='text-center'>" + htmlBtnveiculos + "</td>" +
+                    "</tr>";
+        }
+    } else {
+        body += "<tr><td colspan='5' class=''>Nenhum morador vinculado</td></tr>";
+    }
 
-function popularTabela(data) {
+    table.find("tbody").append(body);
+}
+
+function listarVeiculosMoradorSecundario(data) {
+    
+    var table = $(".tbl-add-automovel-morador-secundario");
+    table.find("tbody").find("tr").remove();
+    var body = "";
+    
+    $(".tbl-add-morador-secundario").on("click", "#btnCarroVinculadoMoradorSecundario", function () {
+        window.console.log("OK");
+        var cpf = $(this).data("key");
+        for (var i = 0; i < data.length; i++) {
+            if (cpf === data[i].cpf) {
+                console.log(data[i].automoveisMoradores);
+            }
+        }
+    });
+}
+
+
+function popularTabelaAutomovelMoradorProprietaria(data) {
     
     var table = $(".tbl-add-automovel");
     table.find("tbody").find("tr").remove();
@@ -72,7 +122,7 @@ function popularTabela(data) {
             body += "<tr>"+
                         "<td>" + data[i].automovel.fabricante.nome + "</td>"+
                         "<td>" + data[i].automovel.nome + "</td>"+
-                        "<td>" + data[i].placa.toUpperCase() +"</td>"+
+                        "<td>" + mascaraStringPlaca(data[i].placa.toUpperCase()) +"</td>"+
                         "<td>" + data[i].cor +"</td>"+
                         "<td>" + htmlTipo +"</td>"+
                     "</tr>";
