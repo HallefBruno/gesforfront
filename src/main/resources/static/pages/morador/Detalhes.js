@@ -44,20 +44,16 @@ $(function () {
                     language: "pt-BR",
                     data: telefones
                 });
-                window.console.log(morador.moradorSecundarios);
                 popularTabelaMoradorSecundario(morador.moradorSecundarios);
-                listarVeiculosMoradorSecundario(morador);
+                listarVeiculosMoradorSecundario(morador.moradorSecundarios);
                 popularTabelaAutomovelMoradorProprietaria(morador.automoveisMoradores);
-                
             });
-            
         });
         
         $("#modalDetalheMorador").on("hidden.bs.modal", function () {
             $("#modalDetalheMorador").modal("dispose");
         });
-        
-        
+
     });
     
 });
@@ -67,7 +63,7 @@ function popularTabelaMoradorSecundario(data) {
     var table = $(".tbl-add-morador-secundario");
     table.find("tbody").find("tr").remove();
     var body = "";
-    
+
     if(data.length !== "undefined" && data.length !== null && data.length > 0) {
         for(var i=0; i<data.length; i++) {
             const htmlBtnveiculos = "<button id='btnCarroVinculadoMoradorSecundario' data-key='" + data[i].cpf + "' type='button' title='Veículos vinculados' class='text-center btn btn-outline-primary btn-sm'><i class='fa fa-archive'></i></button>";
@@ -81,26 +77,45 @@ function popularTabelaMoradorSecundario(data) {
                     "</tr>";
         }
     } else {
-        body += "<tr><td colspan='5' class=''>Nenhum morador vinculado</td></tr>";
+        body += "<tr><td colspan='6' class=''>Nenhum morador vinculado</td></tr>";
     }
 
     table.find("tbody").append(body);
 }
 
-function listarVeiculosMoradorSecundario(data) {
-    
-    var table = $(".tbl-add-automovel-morador-secundario");
-    table.find("tbody").find("tr").remove();
-    var body = "";
-    
+function listarVeiculosMoradorSecundario(moradorSecundarios) {
     $(".tbl-add-morador-secundario").on("click", "#btnCarroVinculadoMoradorSecundario", function () {
-        window.console.log("OK");
-        var cpf = $(this).data("key");
-        for (var i = 0; i < data.length; i++) {
-            if (cpf === data[i].cpf) {
-                console.log(data[i].automoveisMoradores);
+        var table = $(".tbl-add-automovel-morador-secundario");
+        table.find("tbody").find("tr").remove();
+        var body = "";
+        var htmlTipo = "";
+        var automoveis = null;
+        var cpf = $(this).data("key").toString();
+        if (moradorSecundarios !== undefined && moradorSecundarios !== null && moradorSecundarios.length > 0) {
+            for (var i = 0; i < moradorSecundarios.length; i++) {
+                if (cpf === moradorSecundarios[i].cpf) {
+                    automoveis = moradorSecundarios[i].automoveisMoradores;
+                    for(var j = 0; j < automoveis.length; j++) {
+                        if (automoveis[j].automovel.tipoAutomovel === "C") {
+                            htmlTipo = "<span class='text-center badge badge-primary'>" + "Carro" + "</span>";
+                        } else {
+                            htmlTipo = "<span class='text-center badge badge-success'>" + "Moto" + "</span>";
+                        }
+                        body += "<tr>"+
+                                    "<td>" + automoveis[j].automovel.fabricante.nome + "</td>"+
+                                    "<td>" + automoveis[j].automovel.nome + "</td>"+
+                                    "<td>" + mascaraStringPlaca(automoveis[j].placa.toUpperCase()) +"</td>"+
+                                    "<td>" + automoveis[j].cor +"</td>"+
+                                    "<td>" + htmlTipo +"</td>"+
+                                "</tr>";
+                    }
+                }
+                break;
             }
+        } else {
+            body += "<tr><td colspan='5' class=''>Nenhum automovel vinculado</td></tr>";
         }
+        table.find("tbody").append(body);
     });
 }
 
@@ -110,6 +125,9 @@ function popularTabelaAutomovelMoradorProprietaria(data) {
     var table = $(".tbl-add-automovel");
     table.find("tbody").find("tr").remove();
     var body = "";
+    
+    $(".tbl-add-automovel-morador-secundario").find("tbody").find("tr").remove();
+    $(".tbl-add-automovel-morador-secundario").find("tbody").append("<tr><td colspan='6'>Nenhum automovel vinculado</td></tr>");
     
     if(data.length !== "undefined" && data.length !== null && data.length > 0) {
         for(var i=0; i<data.length; i++) {
