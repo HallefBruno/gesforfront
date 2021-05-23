@@ -4,10 +4,10 @@ $(function () {
 
     $('[data-toggle="tooltip"]').tooltip();
     var path = getStorage("currentUri");
-    var filipetaId = getStorage("filipetaId");
+    const filipetaId = params();
     var filipeta = {};
     
-    $.get(path + "/filipetas/buscar/" + filipetaId, function (data) {
+    $.get(path + "/filipetas/buscar/" + filipetaId.id, function (data) {
         $("#id").val(data.id);
         $("#numero").val(data.numero);
 

@@ -4,9 +4,9 @@ $(function () {
     $("#detalheEstado").load("pages/estado/Detalhes.html");
     
     $("table").on("click","#btn-detalhe", function () {
-        var id = $(this).data("detalhe");
         
-        var url = localStorage.getItem('currentUri')+"/estados/buscar/"+id;
+        const id = $(this).data("detalhe");
+        const url = getStorage('currentUri')+"/estados/buscar/"+id;
         
         $.get(url, function(data) {
             var estado = {};

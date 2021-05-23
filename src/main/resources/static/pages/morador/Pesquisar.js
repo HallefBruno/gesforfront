@@ -4,14 +4,13 @@ $(function () {
     irParaPageNovo();
     pesquisar();
     validForm();
-    irParaPageEditar();
     eventEditeDelete();
 });
 
 function eventEditeDelete() {
     $("table").on("click", "#btn-editar", function () {
-        loadPageHtml("pages/morador/Editar.html");
-        setStorage("moradorId", $(this).data("editar"));
+        const pessoaId = {id:$(this).data("editar")};
+        loadPageHtml("pages/morador/Editar.html",pessoaId);
     });
 }
 
@@ -27,13 +26,6 @@ function pesquisar() {
         submitHandler: function () {
             $("#tbMoradores").DataTable().ajax.url(url + "/morador/todos").load();
         }
-    });
-}
-
-function irParaPageEditar() {
-    $("#tbMoradores").on("click", "#btn-editar", function () {
-        loadPageHtml("pages/morador/Editar.html");
-        localStorage.setItem("moradorId", $(this).data("editar"));
     });
 }
 

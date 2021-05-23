@@ -3,9 +3,8 @@
 $(document).ready(function () {
 
     var url = localStorage.getItem("currentUri");
-    var id = localStorage.getItem("portariaId");
-    
-    $.get(url + "/portarias/buscar/" + id, function (data) {
+    var portaria = params();
+    $.get(url + "/portarias/buscar/" + portaria.id, function (data) {
         $("#id").val(data.id);
         $("#nome").val(data.nome);
     });

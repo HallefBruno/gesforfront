@@ -2,7 +2,7 @@
 
 $(document).ready(function() {
     
-    var url = localStorage.getItem("currentUri");
+    var url = getStorage("currentUri");
     
     var cidade;
     var estados = [];
@@ -50,7 +50,6 @@ $(document).ready(function() {
 
             Object.assign(cidade, {nome: $("#nome").val()});
 
-            
             $.ajax({
                 method: "POST",
                 url: url + "/cidades/salvar",

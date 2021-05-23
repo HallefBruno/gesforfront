@@ -87,13 +87,13 @@ $(document).ready(function() {
     });
     
     $("table").on("click", "#btn-editar", function () {
-        loadPageHtml("pages/bairro/Editar.html");
-        localStorage.setItem("bairroId", $(this).data("editar"));
+        const bairroId = {id:$(this).data("editar")};
+        loadPageHtml("pages/bairro/Editar.html",bairroId);
     });
 
     $.validator.setDefaults({
         submitHandler: function () {
-            $("#tbbairros").DataTable().ajax.url(localStorage.getItem('currentUri')+"/bairros/todos").load();
+            $("#tbbairros").DataTable().ajax.url(getStorage('currentUri')+"/bairros/todos").load();
         }
     });
     

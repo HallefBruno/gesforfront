@@ -5,15 +5,14 @@ $(document).ready(function() {
     var bairro = {};
     var cidade = {};
 
-    var path = localStorage.getItem("currentUri");
-    var bairroId = localStorage.getItem("bairroId");
+    var path = getStorage("currentUri");
+    var bairroId = params();
     
     $('[data-toggle="tooltip"]').tooltip();
     
-    $.get(path + "/bairros/buscar/" + bairroId, function (data) {
+    $.get(path + "/bairros/buscar/" + bairroId.id, function (data) {
         $("#id").val(data.id);
         $("#nome").val(data.nome);
-
         $("#cidade-id").val(data.cidade.id);
         $("#cidade-nome").val(data.cidade.nome);
         $("#estado-uf").val(data.cidade.estado.uf);

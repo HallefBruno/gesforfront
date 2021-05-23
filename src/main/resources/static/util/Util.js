@@ -1,20 +1,20 @@
 /* global Message */
 
-function setStorage64(key,value) {
+function setStorage64(key, value) {
     var encoded = btoa(JSON.stringify(value));
-    localStorage.setItem(key,encoded);
+    localStorage.setItem(key, encoded);
 }
 
 function getStorage(key) {
-    if(key === null || key === undefined || key === "") {
-        return alert("Cahve não encontrada ",key);
+    if (key === null || key === undefined || key === "") {
+        return alert("Cahve não encontrada ", key);
     }
     return localStorage.getItem(key);
 }
 
 function getStorage64(key) {
     var objectJson = null;
-    if(getStorage(key) !== null) {
+    if (getStorage(key) !== null) {
         var atual = localStorage.getItem(key);
         var stringJson = JSON.stringify(atob(atual));
         objectJson = JSON.parse(stringJson);
@@ -22,16 +22,16 @@ function getStorage64(key) {
     return objectJson;
 }
 
-function setStorage(key,value) {
-    if(key === null || key === "" || value === null) {
+function setStorage(key, value) {
+    if (key === null || key === "" || value === null) {
         return alert("Chave ou valor inválido!");
     }
     localStorage.setItem(key, value);
 }
 
 function removeItemStorage(key) {
-    if(key === null || key === undefined || key === "") {
-        alert("Cahve não encontrada ",key);
+    if (key === null || key === undefined || key === "") {
+        alert("Cahve não encontrada ", key);
     }
     localStorage.removeItem(key);
 }
@@ -40,16 +40,16 @@ function removeAllLocalStorage() {
     var key = null;
     for (var i = 0; i < localStorage.length; i++) {
         key = localStorage.key(i);
-        if(key !== "currentUri" && key !== "urlPagina") {
+        if (key !== "currentUri" && key !== "urlPagina") {
             removeItemStorage(key);
-            i=-1;
+            i = -1;
         }
     }
 }
 
 function converterFormInObject(form) {
     var object = {};
-    $.each($(form).serializeArray(), function(_, field) {
+    $.each($(form).serializeArray(), function (_, field) {
         object[field.name] = field.value;
     });
     return object;
@@ -57,19 +57,19 @@ function converterFormInObject(form) {
 
 function converterFormInArray(form) {
     var array = [];
-    $.each($(form).serializeArray(), function(_, field) {
+    $.each($(form).serializeArray(), function (_, field) {
         array.push(field.value);
     });
     return array;
 }
 
-function cleanForm(form,object) {
+function cleanForm(form, object) {
     $(form)[0].reset();
-    if(object.length > 0) {
-        for(var i=0; i<object.length; i++) {
-            if(object[i].disabled) {
+    if (object.length > 0) {
+        for (var i = 0; i < object.length; i++) {
+            if (object[i].disabled) {
                 $(object[i].id).val(null).trigger("change");
-                $(object[i].id).prop("disabled",true);
+                $(object[i].id).prop("disabled", true);
             } else {
                 $(object[i].id).val(null).trigger("change");
             }
@@ -79,16 +79,34 @@ function cleanForm(form,object) {
     }
 }
 
-function loadPageHtml(pathPage) {
+function loadPageHtml(pathPage, obj) {
     if (pathPage !== 'undefined' && pathPage !== null) {
         $(".dashboard-myChart").find("div").empty();
         const divLoadPage = $("#pages").children().first();
+        var params = "";
         divLoadPage.empty();
         divLoadPage.load(pathPage);
-        window.history.pushState("data",pathPage,"#/"+pathPage);
+        if (obj !== undefined && obj !== null && obj !== "") {
+            const encoded = btoa(JSON.stringify(obj));
+            params = "?" + encoded;
+        }
+        window.history.pushState("data", pathPage, "#/" + pathPage + params);
     } else {
         var message = new Message.Error();
         message.show("Não foi possivel carregar a página!");
+    }
+}
+
+function params () {
+    try {
+        var url = $(location).attr("href");
+        console.log(url);
+        var urlFinal = url.substring(url.toString().indexOf(".html") + 1, url.length);
+        urlFinal = urlFinal.replace("html?", "");
+        const decod = atob(urlFinal);
+        return JSON.parse(decod);
+    } catch (ex) {
+        alert(ex.message);
     }
 }
 
@@ -123,13 +141,13 @@ function mascaraStringCnpj(cnpj) {
 }
 
 function mascaraStringCpf(cpf) {
-    var placa = cpf.substring(0,3)+"."+cpf.substring(3,6)+"."+cpf.substring(6,9)+"-"+cpf.substring(9,cpf.length);
+    var placa = cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9, cpf.length);
     return placa;
 }
 
 function mascaraStringPlaca(placa) {
     var placaFormatado;
-    placaFormatado = placa.substring(0,3)+"-"+placa.substring(3,placa.length);
+    placaFormatado = placa.substring(0, 3) + "-" + placa.substring(3, placa.length);
     return placaFormatado;
 }
 
@@ -164,4 +182,17 @@ function validarCPF(strCPF) {
     alert(TestaCPF(strCPF));
 }
 
-const CONSTANTES = Object.freeze({"chart":"dashboard-myChart", "urlPagina":"urlPagina", "currentUri":"currentUri"});
+//const urlParams = new URLSearchParams(window.location.search);
+//const myParam = urlParams.get('myParam');
+//var recursiveEncoded1 = $.param(obj);
+//var recursiveDecoded2 = decodeURIComponent($.param(obj));
+//window.console.log(recursiveEncoded1,recursiveDecoded2);
+
+//$.urlParam = function (name) {
+//        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.search);
+//        window.console.log(results);
+//        return (results !== null) ? results[1] || 0 : false;
+//    };
+//
+//    console.log($.urlParam('action')); //edit
+const CONSTANTES = Object.freeze({"chart": "dashboard-myChart", "urlPagina": "urlPagina", "currentUri": "currentUri"});

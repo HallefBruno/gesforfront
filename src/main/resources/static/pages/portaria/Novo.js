@@ -5,7 +5,7 @@ $(document).ready(function () {
         submitHandler: function () {
 
             var message = new Message.Success();
-            var url = localStorage.getItem("currentUri");
+            var url = getStorage("currentUri");
 
             var portaria = {
                 nome: $("#nome").val()

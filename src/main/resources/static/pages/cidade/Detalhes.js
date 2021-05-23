@@ -6,7 +6,7 @@ $(function () {
     $("table").on("click","#btn-detalhe", function () {
         var id = $(this).data("detalhe");
         
-        var url = localStorage.getItem('currentUri')+"/cidades/buscar/"+id;
+        var url = getStorage('currentUri')+"/cidades/buscar/"+id;
         
         $.get(url, function(data) {
             var cidade = {};

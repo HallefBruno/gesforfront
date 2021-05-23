@@ -3,9 +3,9 @@
 $(function () {
 
     var url = getStorage("currentUri");
-    var id = getStorage("estadoId");
+    var estadoId = params();
     
-    $.get(url+"/estados/buscar/"+id, function(data) {
+    $.get(url+"/estados/buscar/"+estadoId.id, function(data) {
         if ($("#nome").length) {
             $("#id").val(data.id);
             $("#nome").val(data.nome);

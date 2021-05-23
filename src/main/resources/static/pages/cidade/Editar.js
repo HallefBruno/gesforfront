@@ -2,10 +2,10 @@
 
 $(function () {
 
-    var path = localStorage.getItem("currentUri");
-    var cidadeId = localStorage.getItem("cidadeId");
+    var path = getStorage("currentUri");
+    var cidadeId = params();
 
-    $.get(path + "/cidades/buscar/" + cidadeId, function (data) {
+    $.get(path + "/cidades/buscar/" + cidadeId.id, function (data) {
         $("#id").val(data.id);
         $("#nome").val(data.nome);
 

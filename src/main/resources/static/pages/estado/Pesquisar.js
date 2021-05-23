@@ -10,7 +10,7 @@ $(function () {
     };
     setDefaultsDataTable(parametros);
 
-    var url = localStorage.getItem("currentUri");
+    var url = getStorage("currentUri");
 
     $("#tbestados").DataTable({
         ajax: {
@@ -50,8 +50,8 @@ $(function () {
     });
     
     $("table").on("click", "#btn-editar", function () {
-        loadPageHtml("pages/estado/Editar.html");
-        localStorage.setItem("estadoId", $(this).data("editar"));
+        const estadoId = {id:$(this).data("editar")};
+        loadPageHtml("pages/estado/Editar.html",estadoId);
     });
     
     $.validator.setDefaults({

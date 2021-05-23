@@ -83,8 +83,8 @@ $(function () {
     });
     
     $("table").on("click", "#btn-editar", function () {
-        loadPageHtml("pages/filipeta/Editar.html");
-        setStorage("filipetaId", $(this).data("editar"));
+        const filipetaId = {id:$(this).data("editar")};
+        loadPageHtml("pages/filipeta/Editar.html",filipetaId);
     });
 
     $.validator.setDefaults({

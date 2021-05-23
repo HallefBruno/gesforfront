@@ -5,7 +5,7 @@ $(function () {
         submitHandler: function () {
 
             var message = new Message.Success();
-            var retrievedObject = localStorage.getItem('currentUri');
+            var retrievedObject = getStorage('currentUri');
 
             var estado = {
                 nome: $("#nome").val(),

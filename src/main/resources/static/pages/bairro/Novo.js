@@ -2,7 +2,7 @@
 
 $(document).ready(function() {
     
-    var url = localStorage.getItem('currentUri');
+    var url = getStorage('currentUri');
     
     var bairro;
     var cidades = [];

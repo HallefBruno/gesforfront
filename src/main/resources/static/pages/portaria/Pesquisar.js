@@ -49,8 +49,10 @@ $(document).ready(function() {
     });
     
     $("#tbportarias").on("click", "#btn-editar", function () {
-        loadPageHtml("pages/portaria/Editar.html");
-        localStorage.setItem("portariaId", $(this).data("editar"));
+        var portariaId = {
+            id:$(this).data("editar")
+        };
+        loadPageHtml("pages/portaria/Editar.html",portariaId);
     });
     
     $.validator.setDefaults({

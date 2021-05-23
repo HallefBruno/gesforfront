@@ -4,7 +4,7 @@ $(function () {
 
     var estado;
     var estados = [];
-    var url = localStorage.getItem("currentUri");
+    var url = getStorage("currentUri");
     
     var parametros = {
         columns: [
@@ -84,8 +84,8 @@ $(function () {
     });
     
     $("table").on("click", "#btn-editar", function () {
-        loadPageHtml("pages/cidade/Editar.html");
-        localStorage.setItem("cidadeId", $(this).data("editar"));
+        const cidadeId = {id:$(this).data("editar")};
+        loadPageHtml("pages/cidade/Editar.html",cidadeId);
     });
 
     $.validator.setDefaults({

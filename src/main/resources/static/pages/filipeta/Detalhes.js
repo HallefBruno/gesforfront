@@ -5,7 +5,7 @@ $(function () {
     
     $("table").on("click","#btn-detalhe", function () {
         var id = $(this).data("detalhe");
-        var url = localStorage.getItem("currentUri")+"/filipetas/buscar/"+id;
+        var url = getStorage("currentUri")+"/filipetas/buscar/"+id;
         
         $.get(url, function(data) {
             var filipeta = {};
@@ -22,8 +22,5 @@ $(function () {
                 $("#modalDetalheFilipeta").modal("dispose");
             });
         });
-        
     });
-    
-
 });
