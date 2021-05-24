@@ -79,6 +79,14 @@ function cleanForm(form, object) {
     }
 }
 
+function setValueInputInForm(form,obj) {
+    const selector = form+" input[type=text]";
+    window.console.log(selector,obj);
+    $(selector).each(function () {
+        $(this).val(obj[$(this).attr("name")]);
+    });
+}
+
 function loadPageHtml(pathPage, obj) {
     if (pathPage !== 'undefined' && pathPage !== null) {
         $(".dashboard-myChart").find("div").empty();
@@ -100,7 +108,6 @@ function loadPageHtml(pathPage, obj) {
 function params () {
     try {
         var url = $(location).attr("href");
-        console.log(url);
         var urlFinal = url.substring(url.toString().indexOf(".html") + 1, url.length);
         urlFinal = urlFinal.replace("html?", "");
         const decod = atob(urlFinal);
@@ -120,6 +127,29 @@ function mascaraTelefone(element) {
         }
     };
     $(element).mask(maskPhone, novoDigito);
+}
+
+function mascaraPlacaMercoSul(element) {
+    
+    var mercoSulMaskBehavior = function (val) {
+        var mask = 'AAA0A00';
+        var mercosul = /([A-Za-z]{3}[0-9]{1}[A-Za-z]{1})/;
+        var normal = /([A-Za-z]{3}[0-9]{2})/;
+        var replaced = val.replace(/[^\w]/g, '');
+        if (normal.exec(replaced)) {
+            mask = 'AAA-0000';
+        } else if (mercosul.exec(replaced)) {
+            mask = 'AAA-0A00';
+        }
+        return mask;
+    },
+    mercoSulOptions = {
+        onKeyPress: function (val, e, field, options) {
+            field.mask(mercoSulMaskBehavior.apply({}, arguments), options);
+        }
+    };
+    
+    $(element).mask(mercoSulMaskBehavior, mercoSulOptions);
 }
 
 function mascaraCpf(element) {

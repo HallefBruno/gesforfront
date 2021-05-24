@@ -1,13 +1,493 @@
-<!DOCTYPE html>
 <html>
     <head>
-        <title>Editar</title>
+        <title>Cadastro de morador</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        
-        <script src="pages/morador/Editar.js" ></script>
+        <nav class="container-fluid" style="margin-top: 10px;">
+            <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="tabMoradorProprietario" data-toggle="pill" href="#paneMoradorProprietario" role="tab" aria-controls="paneMoradorProprietario" aria-selected="true">Morador proprietário <i style="color: yellow;" class="fa fa-star"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " id="tabMoradorSecundario" data-toggle="pill" href="#paneMoradorSecundario" role="tab" aria-controls="paneMoradorSecundario" aria-selected="false">Morador secundário <i style="color: black;" class="fa fa-users"></i></a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="paneMoradorProprietario" role="tabpanel" aria-labelledby="paneMoradorProprietario">
+                    <div id="divMoradorProprietario">
+                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded" style="height: 100%; margin-top: 20px;">
+                            <div class="card" style="height: 100%;">
+                                <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Cadastro de morador</h5>
+                                <div class="card-body">
+                                    <div class="container-fluid">
+                                        <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
+
+                                        <div style="display: none;" class="alert-erro-novo-morador">
+                                            <div class="alert alert-danger alert-dismissible fade show">
+                                                <ul></ul>
+                                                <button type="button" class="close" onclick="$('.alert-erro-novo-morador').hide()" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <form id="formMoradorProprietario">
+                                            <div class="row" >
+                                                <div class=" col-sm-3 form-group">
+                                                    <label class="control-label" for="nome">Nome</label> 
+                                                    <input type="text" autocomplete class="form-control form-control-flash" id="nome" name="nome">
+                                                </div>
+
+                                                <div class=" col-sm-3 form-group ">
+                                                    <label class="control-label" for="cpf">CPF</label> 
+                                                    <input type="text" autocomplete class="form-control form-control-flash" id="cpf" name="cpf">
+                                                </div>
+
+                                                <div class=" col-sm-3 form-group">
+                                                    <label class="control-label" for="rg">RG</label> 
+                                                    <input type="text" autocomplete="" class="form-control form-control-flash" id="rg" name="rg">
+                                                </div>
+
+                                                <div class=" col-sm-3 form-group ">
+                                                    <label class="control-label" for="orgaoEmissor">Orgão emissor</label> 
+                                                    <input type="text" autocomplete class="form-control form-control-flash" id="orgaoEmissor" name="orgaoEmissor">
+                                                </div>
+
+                                                <div class=" col-sm-3 form-group ">
+                                                    <label class="control-label" for="dataNascimento">Data nascimento</label> 
+                                                    <input type="date" autocomplete class="form-control form-control-flash" id="dataNascimento" name="dataNascimento">
+                                                </div>
+
+                                                <div class=" col-sm-3 form-group">
+                                                    <label class="control-label" for="naturalidade">Natural</label> 
+                                                    <input type="text" autocomplete class="form-control form-control-flash" id="naturalidade" name="naturalidade">
+                                                </div>
+
+                                                <div class=" col-sm-3 form-group ">
+                                                    <label class="control-label" for="estadoCivil">Estado civil</label>
+                                                    <select id="estadoCivil" name="estadoCivil" class="form-control">
+                                                        <option/>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-sm-3">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label" >Sexo</label>
+                                                            <div class="form-group">
+                                                                <div class="radio radio-inline radio-info"><!--data-width="240"-->
+                                                                    <input id="sexo" data-width="120" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">Animal<span data-toggle="tooltip" data-placement="top" title="Posssui animal domésticos?" style="margin-left: 10px; color: #444;" class="fa fa-info-circle"></span></label>
+                                                            <div class="form-group">
+                                                                <div class="radio radio-inline radio-info">
+                                                                    <input id="animalDomentico" data-width="100" data-onstyle="outline-primary" data-on="<i class='fa fa-thumbs-o-up'></i> Sim" data-offstyle="outline-secondary" data-off="<i class='fa fa-thumbs-o-down'></i> Não" type="checkbox">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-row">
+                                                        <div class="col form-group">
+                                                            <label class="control-label" for="residencia">Residência</label>
+                                                            <input id="residencia" name="residencia" type="text" class="form-control form-control-flash" placeholder="Ex: casa 2 ou apto 101">
+                                                        </div>
+                                                        <div class="col" style="margin-top: 31px;">
+                                                            <select id="tiposResidencia" name="tiposResidencia" class="form-control">
+                                                                <option/>
+                                                            </select>
+                                                            <input type="hidden" id="tipo-residencia" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="qtdMoradores col-sm-2 form-group ">
+                                                    <label class="control-label" for="qtdMorador">Qtd M</label> 
+                                                    <input type="text" maxlength="1" autocomplete class="form-control form-control-flash" id="qtdMoradores" name="qtdMoradores">
+                                                </div>
+
+                                                <div class="col-sm-4 form-group">
+                                                    <div class="form-row">
+                                                        <div class="col-10">
+                                                            <label for="telefones" class="control-label">Telefone/Telefones</label>
+                                                            <select id="telefones" name="telefones" class="form-control" >
+                                                                <option/>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-2" style="margin-top: 32px;">
+                                                            <button title="Clique para adicionar novo" id="btn-open-modal-telefone" type="button" class="btn btn btn-outline-primary"> 
+                                                                <i class="fa fa-plus-circle"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div style="margin-bottom: 15px;" ></div>
+                                        <form id="formAutomoveis">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="card">
+                                                        <div class="card-header"><b>Automóveis</b></div>
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <label class="control-label" for="fabricante">Digite as inicias da Marca ou Fabricante</label>
+                                                                    <div class="setblockUI">
+                                                                        <select class="form-control" id="fabricante" name="fabricante">
+                                                                            <option/>
+                                                                        </select>
+                                                                    </div>
+                                                                    <input type="hidden" name="fabricante-id" id="fabricante-id" />
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-row">
+                                                                        <div class="col-10">
+                                                                            <label class="control-label" for="automoveis">Digite as inicias do Automovel (Carro ou Moto)</label>
+                                                                            <div class="setblockUI">
+                                                                                <select class="form-control" id="automoveis" name="automoveis">
+                                                                                    <option/>   
+                                                                                </select>
+                                                                            </div>    
+                                                                            <input type="hidden" name="tipo" id="tipo" />
+                                                                        </div>
+                                                                        <div class="col-2" style="margin-top: 8px;">
+                                                                            <fieldset style="font-size: 12px;" class="border form-group">
+                                                                                <legend style="font-size: 12px;" class="control-label">Legenda</legend>
+                                                                                <span style="font-size: 12px;" >Carro: <i style="color: blue;" class="fa fa-circle" aria-hidden="true"></i></span>
+                                                                                <span style="font-size: 12px;" >Moto: <i style="color: green;" class="fa fa-circle" aria-hidden="true"></i></span>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="id-automovel" id="id-automovel" />
+                                                            </div>
+                                                            <div class="row" style="margin-top: 10px;">
+                                                                <div class="feed-cor form-group col-sm-6">
+                                                                    <label class="control-label" for="cor">Cor</label>
+                                                                    <select class="form-control" id="cor" name="cor">
+                                                                        <option value="-1" label="-- Cor --" disabled="" selected=""></option>
+                                                                        <option class="label label-info" style="background-color: #FFFFFF; color: #000000" label="Branca" id="Branca" value="Branca">Branca</option>
+                                                                        <option class="label label-info" style="background-color: #bebfbd; color: #FFFFFF" label="Prata" id="Prata" value="Prata">Prata</option>
+                                                                        <option class="label label-info" style="background-color: #000000; color: #FFFFFF" label="Preta" id="Preta" value="Preta">Preta</option>
+                                                                        <option class="label label-info" style="background-color: #C0C0C0; color: #FFFFFF" label="Cinza" id="Cinza" value="Cinza">Cinza</option>
+                                                                        <option class="label label-info" style="background-color: #FF0000; color: #FFFFFF" label="Vermelha" id="Vermelha" value="Vermelha">Vermelha</option>
+                                                                        <option class="label label-info" style="background-color: #4F4F2F; color: #FFFFFF" label="Verde" id="Verde" value="Verde">Verde</option>
+                                                                        <option class="label label-info" style="background-color: #0000FF; color: #FFFFFF" label="Azul" id="Azul" value="Azul">Azul</option>
+                                                                        <option class="label label-info" style="background-color: #FFFF00; color: #000000" label="Amarela" id="Amarela" value="Amarela">Amarela</option>
+                                                                        <option class="label label-info" style="background-color: #A62A2A; color: #FFFFFF" label="Marrom" id="Marrom" value="Marrom">Marrom</option>
+                                                                        <option class="label label-info" style="background-color: #FFFFFF;color:black" label="Outra" id="Outra" value="Outra">Outra</option>
+                                                                    </select>
+                                                                    <input type="hidden" id="cor-carro-value"/>
+                                                                </div>
+
+                                                                <div class="feed-placa form-group col-sm-6">
+                                                                    <label class="control-label" for="placa">Placa</label>
+                                                                    <input class="form-control form-control-flash" id="placa" name="placa"/>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+
+                                                                <div class="col-sm-12">
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-heading"><button type="button" id="btnAddNovoAutomovel" class="btn btn-primary">Adicionar</button></div>
+                                                                        <div class="panel-body">
+                                                                            <div style="padding-top: 20px; height: 230px;" class="table-responsive">
+                                                                                <table class="table table-bordered tbl-add-automovel">
+                                                                                    <thead>
+                                                                                        <tr style="background-color: #f5f5f5">
+                                                                                            <th>Fabricante</th>
+                                                                                            <th>Modelo</th>
+                                                                                            <th>Placa</th>
+                                                                                            <th>Cor</th>
+                                                                                            <th class="text-center" style="width: 60px;">Tipo</th>
+                                                                                            <th class="text-center" style="width: 60px;">Ação</th>
+                                                                                        </tr>
+                                                                                    </thead>
+
+                                                                                    <tbody>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div style="margin-top: 10px;" class="form-row">
+                                            <div class="col-6">
+                                                <button type="submit" id="btnSalvar" class="btn btn-primary">
+                                                    <i class="fa fa-floppy-o"></i> Salvar
+                                                </button>
+                                                <button type="button" id="btnPagePesquisar" class="btn btn-light">
+                                                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Pesquisar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="paneMoradorSecundario" role="tabpanel" aria-labelledby="paneMoradorSecundario">
+                    <div id="divMoradorSegundario">
+                        <div class="container-fluid shadow p-3 mb-5 bg-white rounded" style="height: 100%; margin-top: 20px;">
+                            <div class="card" style="height: 100%;">
+                                <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Morador secundário</h5>
+                                <div class="card-body">
+                                    <div class="container-fluid">
+                                        <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
+
+                                        <div style="display: none;" class="alert-erro-morador-secundario">
+                                            <div class="alert alert-danger alert-dismissible fade show">
+                                                <ul></ul>
+                                                <button type="button" class="close" onclick="$('.alert-erro-morador-secundario').hide()" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <form id="formPrincipalMoradorSecundario">
+                                            <div class="row" >
+                                                <div class=" col-sm-4 form-group">
+                                                    <label class="control-label" for="nomeMoradorSecundario">Nome</label> 
+                                                    <input type="text" autocomplete class="form-control form-control-flash" id="nomeMoradorSecundario" name="nomeMoradorSecundario">
+                                                </div>
+
+                                                <div class=" col-sm-4 form-group ">
+                                                    <label class="control-label" for="cpfMoradorSecundario">CPF</label> 
+                                                    <input type="text" autocomplete class="form-control form-control-flash" id="cpfMoradorSecundario" name="cpfMoradorSecundario">
+                                                </div>
+
+                                                <div class=" col-sm-4 form-group">
+                                                    <label class="control-label" for="rgMoradorSecundario">RG</label> 
+                                                    <input type="text" autocomplete="" class="form-control form-control-flash" id="rgMoradorSecundario" name="rgMoradorSecundario">
+                                                </div>
+
+                                            </div>    
+
+                                            <div class="row">
+
+                                                <div class=" col-sm-2 form-group ">
+                                                    <label class="control-label" for="emissorMoradorSecundario">Orgão emissor</label> 
+                                                    <input type="text" autocomplete class="form-control form-control-flash" id="emissorMoradorSecundario" name="emissorMoradorSecundario">
+                                                </div>
+
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="sexoMoradorSecundario" >Sexo</label>
+                                                        <div class="radio radio-inline radio-info"><!--data-width="240"-->
+                                                            <input id="sexoMoradorSecundario" data-width="140" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class=" col-sm-4 form-group ">
+                                                    <label class="control-label" for="dataNascimentoMoradorSecundario">Data nascimento</label> 
+                                                    <input type="date" autocomplete class="form-control form-control-flash" id="dataNascimentoMoradorSecundario" name="dataNascimentoMoradorSecundario">
+                                                </div>
+
+                                                <div class=" col-sm-4 form-group">
+                                                    <label class="control-label" for="nataralMoradorSecundario">Natural</label> 
+                                                    <input type="text" autocomplete class="form-control form-control-flash" id="nataralMoradorSecundario" name="nataralMoradorSecundario">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class=" col-sm-4 form-group ">
+                                                    <label class="control-label" for="estadoCivilMoradorSecundario">Estado civil</label>
+                                                    <select id="estadoCivilMoradorSecundario" name="estadoCivilMoradorSecundario" class="form-control">
+                                                        <option/>
+                                                    </select>
+                                                </div>
+
+                                                <div class=" col-sm-4 form-group ">
+                                                    <label class="control-label" for="grauParentesco">Grau parentesco</label>
+                                                    <select id="grauParentesco" name="grauParentesco" class="form-control">
+                                                        <option/>
+                                                    </select>
+                                                </div>
+
+                                                <div class=" col-sm-4 form-group">
+                                                    <label class="control-label" for="telefoneMoradorSecundario">Telefone</label> 
+                                                    <input type="text" autocomplete class="form-control form-control-flash" id="telefoneMoradorSecundario" name="telefoneMoradorSecundario">
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                        <div style="margin-bottom: 15px;" ></div>
+                                        <form id="formAutomoveisMoradorSecundario">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="card">
+                                                        <div class="card-header"><b>Automóveis</b></div>
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <label class="control-label" for="fabricanteMoradorSecundario">Digite as inicias da Marca ou Fabricante</label>
+                                                                    <div class="setblockUI">
+                                                                        <select class="form-control" id="fabricanteMoradorSecundario" name="fabricanteMoradorSecundario">
+                                                                            <option/>
+                                                                        </select>
+                                                                    </div>
+                                                                    <input type="hidden" name="fabricanteMoradorSecundario-id" id="fabricanteMoradorSecundario-id" />
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-row">
+                                                                        <div class="col-10">
+                                                                            <label class="control-label" for="automoveisMoradorSecundario">Digite as inicias do Automovel (Carro ou Moto)</label>
+                                                                            <div class="setblockUI">
+                                                                                <select class="form-control" id="automoveisMoradorSecundario" name="automoveisMoradorSecundario">
+                                                                                    <option/>   
+                                                                                </select>
+                                                                            </div>    
+                                                                            <input type="hidden" name="tipoAutomovel" id="tipoAutomovel" />
+                                                                        </div>
+                                                                        <div class="col-2" style="margin-top: 8px;">
+                                                                            <fieldset style="font-size: 12px;" class="border form-group">
+                                                                                <legend style="font-size: 12px;" class="control-label">Legenda</legend>
+                                                                                <span style="font-size: 12px;" >Carro: <i style="color: blue;" class="fa fa-circle" aria-hidden="true"></i></span>
+                                                                                <span style="font-size: 12px;" >Moto: <i style="color: green;" class="fa fa-circle" aria-hidden="true"></i></span>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="automovelMoradorSecundario-id" id="automovelMoradorSecundario-id" />
+                                                            </div>
+                                                            <div class="row" style="margin-top: 10px;">
+                                                                <div class="form-group col-sm-6">
+                                                                    <label class="control-label" for="corMoradorSecundario">Cor</label>
+                                                                    <select class="form-control" id="corMoradorSecundario" name="corMoradorSecundario">
+                                                                        <option value="-1" label="-- Cor --" disabled="" selected=""></option>
+                                                                        <option class="label label-info" style="background-color: #FFFFFF; color: #000000" label="Branca" id="Branca" value="Branca">Branca</option>
+                                                                        <option class="label label-info" style="background-color: #bebfbd; color: #FFFFFF" label="Prata" id="Prata" value="Prata">Prata</option>
+                                                                        <option class="label label-info" style="background-color: #000000; color: #FFFFFF" label="Preta" id="Preta" value="Preta">Preta</option>
+                                                                        <option class="label label-info" style="background-color: #C0C0C0; color: #FFFFFF" label="Cinza" id="Cinza" value="Cinza">Cinza</option>
+                                                                        <option class="label label-info" style="background-color: #FF0000; color: #FFFFFF" label="Vermelha" id="Vermelha" value="Vermelha">Vermelha</option>
+                                                                        <option class="label label-info" style="background-color: #4F4F2F; color: #FFFFFF" label="Verde" id="Verde" value="Verde">Verde</option>
+                                                                        <option class="label label-info" style="background-color: #0000FF; color: #FFFFFF" label="Azul" id="Azul" value="Azul">Azul</option>
+                                                                        <option class="label label-info" style="background-color: #FFFF00; color: #000000" label="Amarela" id="Amarela" value="Amarela">Amarela</option>
+                                                                        <option class="label label-info" style="background-color: #A62A2A; color: #FFFFFF" label="Marrom" id="Marrom" value="Marrom">Marrom</option>
+                                                                        <option class="label label-info" style="background-color: #FFFFFF;color:black" label="Outra" id="Outra" value="Outra">Outra</option>
+                                                                    </select>
+                                                                    <input type="hidden" id="cor-carro-value"/>
+                                                                </div>
+
+                                                                <div class="form-group col-sm-6">
+                                                                    <label class="control-label" for="placaMoradorSecundario">Placa</label>
+                                                                    <input class="form-control form-control-flash" id="placaMoradorSecundario" name="placaMoradorSecundario"/>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-heading">
+                                                                            <div class="form-row">
+                                                                                <div class="col-4">
+                                                                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                                                        <label class="btn btn-primary active">
+                                                                                            <input type="radio" name="options" id="btnAddNovoAutomovelSecundario" autocomplete="off" checked> Adicionar
+                                                                                        </label>
+                                                                                        <label class="btn btn-info">
+                                                                                            <input type="radio" name="options" id="btnTerminar" autocomplete="off"> Terminar
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="panel-body">
+                                                                            <div style="padding-top: 20px; height: 190px;" class="table-responsive">
+                                                                                <table class="table table-bordered tbl-add-automovel-morador-secundario">
+                                                                                    <thead>
+                                                                                        <tr style="background-color: #f5f5f5">
+                                                                                            <th>Fabricante</th>
+                                                                                            <th>Modelo</th>
+                                                                                            <th>Placa</th>
+                                                                                            <th>Cor</th>
+                                                                                            <th class="text-center" style="width: 60px;">Tipo</th>
+                                                                                            <th class="text-center" style="width: 60px;">Ação</th>
+                                                                                        </tr>
+                                                                                    </thead>
+
+                                                                                    <tbody>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div style="margin-bottom: 15px;" ></div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header"><b>Morador secundário</b></div>
+                                                    <div class="card-body">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading"></div>
+                                                            <div class="panel-body">
+                                                                <div style="padding-top: 20px; height: 190px;" class="table-responsive">
+                                                                    <table class="table table-bordered tbl-moradores-secundario">
+                                                                        <thead>
+                                                                            <tr style="background-color: #f5f5f5">
+                                                                                <th style="width: 300px;">Nome</th>
+                                                                                <th style="width: 210px;">CPF</th>
+                                                                                <th style="width: 170px;">Sexo</th>
+                                                                                <th style="width: 200px;">Grau parentesco</th>
+                                                                                <th class="text-center" style="width: 100px;">Ação</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 10px;" class="form-row">
+                                            <div class="col-6">
+                                                <button type="submit" id="btnAdicionarMoradorSecundario" class="btn btn-primary">
+                                                    Adicionar morador
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="listaVazia" name="listaVazia">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <script src="vendor/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="vendor/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+        <script src="util/FlashDataTableConfig.js" type="text/javascript"></script>
+        <script src="pages/morador/Editar.js" type="text/javascript"></script>
     </body>
-    
 </html>
