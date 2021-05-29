@@ -40,12 +40,20 @@ function removeAllLocalStorage() {
     var key = null;
     for (var i = 0; i < localStorage.length; i++) {
         key = localStorage.key(i);
-        if (key !== "currentUri" && key !== "urlPagina") {
-            removeItemStorage(key);
-            i = -1;
-        }
+        removeItemStorage(key);
     }
 }
+
+//function removeAllLocalStorage() {
+//    var key = null;
+//    for (var i = 0; i < localStorage.length; i++) {
+//        key = localStorage.key(i);
+//        if (key !== "currentUri" && key !== "urlPagina") {
+//            removeItemStorage(key);
+//            i = -1;
+//        }
+//    }
+//}
 
 function converterFormInObject(form) {
     var object = {};

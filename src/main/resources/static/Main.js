@@ -72,8 +72,8 @@ function constructionMenu() {
             });
             $("#pages").find("div").html(htmlButtonsCadastro);
         }
+        removeAllLocalStorage();
     });
-    
 }
 
 function eventContructionPage(target) {
@@ -206,6 +206,7 @@ window.onbeforeunload = function () {
     var url = window.location.href;
     const urlPage = url.substring(url.lastIndexOf("#")+1,url.length);
     if(!urlPage.includes("Index") && !urlPage.includes("http") && !urlPage.includes("flash") && !urlPage.includes("https") && urlPage !== "") {
+        removeAllLocalStorage();
         setStorage("urlPagina",urlPage);
     }
 };
@@ -213,7 +214,7 @@ window.onbeforeunload = function () {
 function clickBtnIndex() {
     $("#aIndex").on("click",function() {
         window.history.pushState("data", "flash", "/flash");
-        removeItemStorage("urlPagina");
+        removeAllLocalStorage();
         window.location.href="/flash";
     });
 }

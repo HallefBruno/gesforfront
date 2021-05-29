@@ -69,6 +69,7 @@ Listener.Handler = (function () {
                 message.show("Falha de comicação com o serviço!");
                 $("#pages").find("div").empty();
                 $("#pages").find("div").append(nativeSkeleton);
+                removeAllLocalStorage();
             } else if(jqXHR.status === 400) {
                 if(jqXHR.responseJSON !== null && jqXHR.responseJSON.errors) {
                     var message = new Message.Warning();
