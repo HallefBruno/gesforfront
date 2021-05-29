@@ -1,10 +1,10 @@
-/* global Swal */
+/* global Swal, CONSTANTES */
 
 $(function () {
 
     var filipeta;
     var portarias = [];
-    var url = getStorage("currentUri");
+    var url = CONSTANTES.currentUri;
     
     var parametros = {
         columns: [

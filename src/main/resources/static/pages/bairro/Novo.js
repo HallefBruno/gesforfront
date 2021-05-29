@@ -1,8 +1,8 @@
-/* global Message */
+/* global Message, CONSTANTES */
 
 $(document).ready(function() {
     
-    var url = getStorage('currentUri');
+    var url = CONSTANTES.currentUri;
     
     var bairro;
     var cidades = [];

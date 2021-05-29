@@ -1,4 +1,4 @@
-/* global Message */
+/* global Message, CONSTANTES */
 
 var listMorador = [];
 
@@ -301,7 +301,7 @@ function addMoradorSecundarioAutomovel() {
 
 function popularSelects() {
     
-    var url = localStorage.getItem("currentUri");
+    var url = CONSTANTES.currentUri;
     
     $.get(url + "/morador/estado-civil", function (data) {
 
@@ -560,7 +560,7 @@ function camposObrigatorioAutomovel() {
 
 function populaSelectAutomoveis() {
     
-    var url = localStorage.getItem("currentUri");
+    var url = CONSTANTES.currentUri;
     
     $("#automoveisMoradorSecundario").prop("disabled",true);
     

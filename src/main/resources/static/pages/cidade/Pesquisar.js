@@ -1,10 +1,10 @@
-/* global Swal */
+/* global Swal, CONSTANTES */
 
 $(function () {
 
     var estado;
     var estados = [];
-    var url = getStorage("currentUri");
+    var url = CONSTANTES.currentUri;
     
     var parametros = {
         columns: [

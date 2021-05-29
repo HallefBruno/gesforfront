@@ -1,11 +1,11 @@
-/* global Message */
+/* global Message, CONSTANTES */
 
 $(function () {
     $.validator.setDefaults({
         submitHandler: function () {
 
             var message = new Message.Success();
-            var retrievedObject = getStorage('currentUri');
+            var retrievedObject = CONSTANTES.currentUri;
 
             var estado = {
                 nome: $("#nome").val(),

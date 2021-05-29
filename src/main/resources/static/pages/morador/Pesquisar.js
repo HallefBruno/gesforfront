@@ -1,3 +1,5 @@
+/* global CONSTANTES */
+
 $(function () {
     init();
     initDatatable();
@@ -21,7 +23,7 @@ function init() {
 }
 
 function pesquisar() {
-    var url = getStorage("currentUri");
+    var url = CONSTANTES.currentUri;
     $.validator.setDefaults({
         submitHandler: function () {
             $("#tbMoradores").DataTable().ajax.url(url + "/morador/todos").load();
@@ -59,7 +61,7 @@ function validForm() {
 }
 
 function initDatatable() {
-    var url = getStorage("currentUri");
+    var url = CONSTANTES.currentUri;
     var parametros = {
         columns: [
             {data: "nome", sortable: true,

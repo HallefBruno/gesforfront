@@ -1,8 +1,8 @@
-/* global Message */
+/* global Message, CONSTANTES */
 
 $(function () {
 
-    var url = getStorage("currentUri");
+    var url = CONSTANTES.currentUri;
     var estadoId = params();
     
     $.get(url+"/estados/buscar/"+estadoId.id, function(data) {

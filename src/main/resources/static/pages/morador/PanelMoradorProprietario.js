@@ -1,4 +1,4 @@
-/* global Message */
+/* global Message, CONSTANTES */
 
 var automoveis = [];
 $(document).ready(function () {
@@ -19,7 +19,7 @@ function events() {
 
 function salvarMorador() {
     
-    var url = getStorage("currentUri");
+    var url = CONSTANTES.currentUri;
     var listaMoradoresSecundarios = [];
     
     $("#btnSalvar").click(function () {
@@ -164,7 +164,7 @@ function addAutomovelGrid() {
 
 function poluarSelectCadastro() {
     
-    var url = localStorage.getItem("currentUri");
+    var url = CONSTANTES.currentUri;
     
     $("#telefones").select2({
         theme: "bootstrap4",
@@ -456,7 +456,7 @@ function camposObrigatoriosMorador() {
 
 
 function populaSelectAutomoveis() {
-    var url = localStorage.getItem("currentUri");
+    var url = CONSTANTES.currentUri;
     $("#automoveis").prop("disabled",true);
     
     $("#automoveis").select2({

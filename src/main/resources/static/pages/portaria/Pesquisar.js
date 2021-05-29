@@ -1,4 +1,4 @@
-/* global Swal */
+/* global Swal, CONSTANTES */
 
 $(document).ready(function() {
     
@@ -9,7 +9,7 @@ $(document).ready(function() {
     };
     setDefaultsDataTable(parametros);
 
-    var url = getStorage("currentUri");
+    var url = CONSTANTES.currentUri;
 
     $("#tbportarias").DataTable({
         ajax: {

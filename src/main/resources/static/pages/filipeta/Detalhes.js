@@ -1,3 +1,5 @@
+/* global CONSTANTES */
+
 $(function () {
     
     $("form").after("<div id='detalheFilipeta'></div>");
@@ -5,7 +7,7 @@ $(function () {
     
     $("table").on("click","#btn-detalhe", function () {
         var id = $(this).data("detalhe");
-        var url = getStorage("currentUri")+"/filipetas/buscar/"+id;
+        var url = CONSTANTES.currentUri+"/filipetas/buscar/"+id;
         
         $.get(url, function(data) {
             var filipeta = {};

@@ -1,3 +1,5 @@
+/* global CONSTANTES */
+
 $(function () {
     
     init();
@@ -18,12 +20,14 @@ function init() {
     $('[data-toggle="tooltip"]').tooltip();
     $("#animalDomentico").bootstrapToggle("off", true);
     $("#sexo").bootstrapToggle("on", true);
-    $("#cpf").mask('000.000.000-00', {reverse: true});
+    mascaraCpf("#cpf");
 }
 
 function popularMoradorProprietario() {
     const moradorId = params();
-    $.get(getStorage("currentUri") + "/morador/buscar/"+moradorId.id, function (data) {
+    window.console.log(CONSTANTES.currentUri);
+    $.get(CONSTANTES.currentUri + "/morador/buscar/"+moradorId.id, function (data) {
+        window.console.log(data);
         popularTela(data);
     });
 }
@@ -46,7 +50,66 @@ function popularTela(morador) {
     morador.animalDomestico === true ? $("#animalDomentico").bootstrapToggle("on"):$("#animalDomentico").bootstrapToggle("off");
     
     popularTabelaVeiculoMoradorProprietario(listaAutomoveisMoradorProprietario);
-    //window.console.log(morador);
+    popularSelectEstadoCivil(morador);
+    
+    
+    
+}
+
+function popularSelectEstadoCivil(morador) {
+    
+    var url = CONSTANTES.currentUri;
+
+    $.get(url + "/morador/estado-civil", function (data) {
+
+        var estadoCivil;
+        var estadosCivil = [];
+        $.each(data, function (i, values) {
+            estadoCivil = {
+                id: values.id,
+                text: values.text
+            };
+            estadosCivil.push(estadoCivil);
+        });
+
+        $("#estadoCivil").select2({
+            theme: "bootstrap4",
+            placeholder: "Selecione o estado civil",
+            allowClear: true,
+            language: "pt-BR",
+            data: estadosCivil
+        });
+        
+        $("#estadoCivil").val(morador.estadoCivil);
+        $("#estadoCivil").trigger("change");
+
+    });
+    
+    $.get(url + "/morador/tipo-residencia", function (data) {
+
+        var tipoResidencia;
+        var tiposResidencias = [];
+        $.each(data, function (i, values) {
+            tipoResidencia = {
+                id: values.id,
+                text: values.text
+            };
+            tiposResidencias.push(tipoResidencia);
+        });
+
+        $("#tiposResidencia").select2({
+            theme: "bootstrap4",
+            placeholder: "Selecione tipo residência",
+            allowClear: true,
+            language: "pt-BR",
+            data: tiposResidencias
+        });
+        
+        $("#tiposResidencia").val(morador.tipoMoradia);
+        $("#tiposResidencia").trigger("change");
+        
+    });
+    
 }
 
 function popularTabelaVeiculoMoradorProprietario(automoveis) {

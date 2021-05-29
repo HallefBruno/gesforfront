@@ -1,8 +1,8 @@
-/* global Message */
+/* global Message, CONSTANTES */
 
 $(document).ready(function () {
 
-    var url = localStorage.getItem("currentUri");
+    var url = CONSTANTES.currentUri;
     var portaria = params();
     $.get(url + "/portarias/buscar/" + portaria.id, function (data) {
         $("#id").val(data.id);

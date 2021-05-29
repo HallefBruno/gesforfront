@@ -1,11 +1,11 @@
-/* global Swal */
+/* global Swal, CONSTANTES */
 
 $(document).ready(function() {
     
     var atualPage = $(this);
     var cidade;
     var cidades = [];
-    var url = getStorage("currentUri");
+    var url = CONSTANTES.currentUri;
     
     var parametros = {
         columns: [

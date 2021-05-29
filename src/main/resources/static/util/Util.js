@@ -81,9 +81,16 @@ function cleanForm(form, object) {
 
 function setValueInputInForm(form,obj) {
     const selector = form+" input[type=text]";
-    window.console.log(selector,obj);
     $(selector).each(function () {
-        $(this).val(obj[$(this).attr("name")]);
+        if($(this).attr("name") === "cpf") {
+            $(this).val(mascaraStringCpf(obj[$(this).attr("name")]));
+        } else if($(this).attr("name") === "cnpj") {
+            $(this).val(mascaraStringCpf(obj[$(this).attr("name")]));
+        } else if($(this).attr("name") === "telefone") {
+            $(this).val(mascaraStringTel(obj[$(this).attr("name")]));
+        } else {
+            $(this).val(obj[$(this).attr("name")]);
+        }
     });
 }
 
@@ -113,7 +120,7 @@ function params () {
         const decod = atob(urlFinal);
         return JSON.parse(decod);
     } catch (ex) {
-        alert(ex.message);
+        alert(ex.message+"\n"+"Parametro inválido!");
     }
 }
 
@@ -225,4 +232,3 @@ function validarCPF(strCPF) {
 //    };
 //
 //    console.log($.urlParam('action')); //edit
-const CONSTANTES = Object.freeze({"chart": "dashboard-myChart", "urlPagina": "urlPagina", "currentUri": "currentUri"});

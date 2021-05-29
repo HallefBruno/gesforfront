@@ -1,9 +1,9 @@
-/* global Message */
+/* global Message, CONSTANTES */
 
 $(function () {
 
     $('[data-toggle="tooltip"]').tooltip();
-    var path = getStorage("currentUri");
+    var path = CONSTANTES.currentUri;
     const filipetaId = params();
     var filipeta = {};
     

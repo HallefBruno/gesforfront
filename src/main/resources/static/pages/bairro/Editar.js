@@ -1,11 +1,11 @@
-/* global Message */
+/* global Message, CONSTANTES */
 
 $(document).ready(function() {
 
     var bairro = {};
     var cidade = {};
 
-    var path = getStorage("currentUri");
+    var path = CONSTANTES.currentUri;
     var bairroId = params();
     
     $('[data-toggle="tooltip"]').tooltip();

@@ -1,11 +1,11 @@
-/* global Message */
+/* global Message, CONSTANTES */
 
 $(document).ready(function () {
     $.validator.setDefaults({
         submitHandler: function () {
 
             var message = new Message.Success();
-            var url = getStorage("currentUri");
+            var url = CONSTANTES.currentUri;
 
             var portaria = {
                 nome: $("#nome").val()

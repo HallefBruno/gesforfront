@@ -1,3 +1,5 @@
+/* global CONSTANTES */
+
 $(function () {
     
     $("form").after("<div id='divDetalheMorador'></div>");
@@ -6,7 +8,7 @@ $(function () {
     
     $("table").on("click", "#btn-detalhe", function () {
         const id = $(this).data("detalhe");
-        const url = getStorage("currentUri") + "/morador/buscar/" + id;
+        const url = CONSTANTES.currentUri + "/morador/buscar/" + id;
         $.get(url, function (data) {
             $("#modalDetalheMorador").modal("show");
             var morador = data;

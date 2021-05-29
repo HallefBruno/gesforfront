@@ -2,6 +2,7 @@
 
 var conteudoDivMenu = "";
 var htmlButtonsSubmenu = "";
+var CONSTANTES = {};
 
 $(function () {
     constructionMenu();
@@ -177,16 +178,19 @@ function clearCanvasMyChart() {
 
 function storageURL() {
     $.getJSON("urls", function (data) {
-        var local = $(location).attr("href");
+        const local = $(location).attr("href");
         var targetUrl;
-
         if (local.includes("127") || local.includes("host")) {
             targetUrl = data.urlLocalBack;
         } else {
             targetUrl = data.urlExternalBack;
         }
-        localStorage.setItem(CONSTANTES.currentUri, targetUrl);
+        consts(targetUrl);
     });
+}
+
+function consts(url) {
+    CONSTANTES = Object.freeze({"chart": "dashboard-myChart", "urlPagina": "urlPagina", "currentUri": url});
 }
 
 function setUrlInBar() {

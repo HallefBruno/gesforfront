@@ -1,5 +1,5 @@
 
-/* global Swal */
+/* global Swal, CONSTANTES */
 $(function () {
     
     var parametros = {
@@ -10,7 +10,7 @@ $(function () {
     };
     setDefaultsDataTable(parametros);
 
-    var url = getStorage("currentUri");
+    var url = CONSTANTES.currentUri;
 
     $("#tbestados").DataTable({
         ajax: {
