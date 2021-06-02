@@ -4,7 +4,8 @@ $(function () {
 
     init();
     popularMoradorProprietario();
-    populaSelectAutomoveis();
+    populaSelectAutomoveis("#automoveis","#fabricante-id");
+    populaSelectAutomoveis("#automoveisMoradorSecundario","#fabricanteMoradorSecundario-id");
     
     $("#tabMoradorProprietario").on("click", function (e) {
         e.preventDefault();
@@ -60,32 +61,12 @@ function popularTela(morador) {
 function popularSelects(morador) {
 
     var url = CONSTANTES.currentUri;
-
-    $.get(url + "/morador/estado-civil", function (data) {
-
-        var estadoCivil;
-        var estadosCivil = [];
-        $.each(data, function (i, values) {
-            estadoCivil = {
-                id: values.id,
-                text: values.text
-            };
-            estadosCivil.push(estadoCivil);
-        });
-
-        $("#estadoCivil").select2({
-            theme: "bootstrap4",
-            placeholder: "Selecione o estado civil",
-            allowClear: true,
-            language: "pt-BR",
-            data: estadosCivil
-        });
-
-        $("#estadoCivil").val(morador.estadoCivil);
-        $("#estadoCivil").trigger("change");
-
-    });
-
+    
+    popularSelectEstadoCivil("#estadoCivil",morador.estadoCivil);
+    popularSelectEstadoCivil("#estadoCivilMoradorSecundario",null);
+    popularSelectFabricantes("#fabricante","#automoveis","#fabricante-id");
+    popularSelectFabricantes("#fabricanteMoradorSecundario","#automoveisMoradorSecundario","#fabricanteMoradorSecundario-id");
+    
     $.get(url + "/morador/tipo-residencia", function (data) {
 
         var tipoResidencia;
@@ -129,6 +110,63 @@ function popularSelects(morador) {
         data: telefones
     });
 
+    $.get(url + "/morador/grau-parentesco", function (data) {
+
+        var grauParentesco = {};
+        var grauParentescos = [];
+        $.each(data, function (i, values) {
+            grauParentesco = {
+                id: values.id,
+                text: values.text
+            };
+            grauParentescos.push(grauParentesco);
+        });
+
+        $("#grauParentesco").select2({
+            theme: "bootstrap4",
+            placeholder: "Selecione o grau de parentesco",
+            allowClear: true,
+            language: "pt-BR",
+            data: grauParentescos,
+            templateResult: styleSelectGrauParentesco
+        });
+
+    });
+
+}
+
+function popularSelectEstadoCivil(element,selecionar) {
+    var url = CONSTANTES.currentUri;
+    $.get(url + "/morador/estado-civil", function (data) {
+
+        var estadoCivil;
+        var estadosCivil = [];
+        $.each(data, function (i, values) {
+            estadoCivil = {
+                id: values.id,
+                text: values.text
+            };
+            estadosCivil.push(estadoCivil);
+        });
+
+        $(element).select2({
+            theme: "bootstrap4",
+            placeholder: "Selecione o estado civil",
+            allowClear: true,
+            language: "pt-BR",
+            data: estadosCivil
+        });
+        
+        if(selecionar) {
+            $(element).val(selecionar);
+            $(element).trigger("change");
+        }
+
+    });
+}
+
+function popularSelectFabricantes(element1, element2, idfabricante) {
+    var url = CONSTANTES.currentUri;
     $.get(url + "/morador/fabricantes", function (data) {
 
         var fabricante;
@@ -141,7 +179,7 @@ function popularSelects(morador) {
             fabricantes.push(fabricante);
         });
 
-        $("#fabricante").select2({
+        $(element1).select2({
             theme: "bootstrap4",
             placeholder: "Selecione o fabricante",
             allowClear: true,
@@ -149,27 +187,44 @@ function popularSelects(morador) {
             data: fabricantes
         });
         
-        $("#fabricante").on("select2:select",function (e) {
-            var fabricanteId = e.params.data.id;
-            $("#fabricante-id").val(fabricanteId);
-            $("#automoveis").val(null).trigger("change");
-            $("#automoveis").prop("disabled",false);
+        $(element1).on("select2:select",function (e) {
+            const fabricanteId = e.params.data.id;
+            $(idfabricante).val(fabricanteId);
+            $(element2).val(null).trigger("change");
+            $(element2).prop("disabled",false);
         });
         
-        $("#fabricante").on("select2:unselecting", function () {
-            $("#automoveis").val(null).trigger("change");
-            $("#automoveis").prop("disabled",true);
+        $(element1).on("select2:unselecting", function () {
+            $(element2).val(null).trigger("change");
+            $(element2).prop("disabled",true);
         });
         
     });
-
 }
 
-function populaSelectAutomoveis() {
+function styleSelectGrauParentesco(grauParentesco) {
+    var html = "";
+    var grau = grauParentesco.text;
+    if (grau.toUpperCase() === ("ESPOSO") || 
+        grau.toUpperCase() === ("ESPOSA") || 
+        grau.toUpperCase() === ("FILHO")  || 
+        grau.toUpperCase() === ("FILHA")  ||
+        grau.toUpperCase() === ("PAI")    ||
+        grau.toUpperCase() === ("MÃE")    ||
+        grau.toUpperCase() === ("AVÔ")    ||
+        grau.toUpperCase() === ("AVÓ")) {
+        html = $("<span>" + grauParentesco.text + "</span><span class='text-right badge badge-primary'>" + "1° grau" + "</span>");
+    } else {
+        html = $("<span>" + grauParentesco.text + "</span>");
+    }
+    return html;
+}
+
+function populaSelectAutomoveis(element,idfabrincante) {
     var url = CONSTANTES.currentUri;
     
-    $("#automoveis").prop("disabled",true);
-    $("#automoveis").select2({
+    $(element).prop("disabled",true);
+    $(element).select2({
         theme: "bootstrap4",
         placeholder: "Automóveis",
         allowClear: true,
@@ -184,7 +239,7 @@ function populaSelectAutomoveis() {
             data: function (params) {
                 return {
                     q: params.term,
-                    fabricanteId:$("#fabricante-id").val(),
+                    fabricanteId:$(idfabrincante).val(),
                     page: params.page
                 };
             },
@@ -262,7 +317,7 @@ function popularTabelaVeiculoMoradorProprietario(automoveis) {
                     "</tr>";
         }
     } else {
-        body += "<tr><td colspan='5' class='text-left badge badge-dark'>Nenhum automovel vinculado</td></tr>";
+        body += "<tr><td colspan='5' ><span class='text-left badge badge-dark'>Nenhum automovel vinculado</span></td></tr>";
     }
 
     table.find("tbody").append(body);

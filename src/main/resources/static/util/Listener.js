@@ -130,6 +130,7 @@ Listener.Handler = (function () {
                 if (jqXHR.responseJSON !== undefined && jqXHR.responseJSON.errors !== undefined) {
                     var message = new Message.Warning();
                     message.show(jqXHR.responseJSON.errors[0] + "\nRecurso não encontrado!", "I");
+                    removeAllLocalStorage();
                 } else {
                     var message = new Message.Warning();
                     message.show("Recurso não encontrado: "+jqXHR.responseJSON.path,"I");
