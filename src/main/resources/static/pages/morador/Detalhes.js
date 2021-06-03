@@ -79,7 +79,7 @@ function popularTabelaMoradorSecundario(data) {
                     "</tr>";
         }
     } else {
-        body += "<tr><td colspan='6' class=''>Nenhum morador vinculado</td></tr>";
+        body += "<tr><td colspan='6'><span class='badge badge-dark'>Nenhum morador vinculado</span></td></tr>";
     }
 
     table.find("tbody").append(body);
@@ -115,7 +115,7 @@ function listarVeiculosMoradorSecundario(moradorSecundarios) {
                 break;
             }
         } else {
-            body += "<tr><td colspan='5' class=''>Nenhum automovel vinculado</td></tr>";
+            body += "<tr><td colspan='5'><span class='badge badge-dark'>Nenhum automovel vinculado</span></td></tr>";
         }
         table.find("tbody").append(body);
     });
@@ -129,7 +129,7 @@ function popularTabelaAutomovelMoradorProprietaria(data) {
     var body = "";
     
     $(".tbl-add-automovel-morador-secundario").find("tbody").find("tr").remove();
-    $(".tbl-add-automovel-morador-secundario").find("tbody").append("<tr><td colspan='6'>Nenhum automovel vinculado</td></tr>");
+    $(".tbl-add-automovel-morador-secundario").find("tbody").append("<tr><td colspan='6'><span class='badge badge-dark'>Nenhum automovel vinculado</span></td></tr>");
     
     if(data.length !== "undefined" && data.length !== null && data.length > 0) {
         for(var i=0; i<data.length; i++) {
@@ -148,7 +148,7 @@ function popularTabelaAutomovelMoradorProprietaria(data) {
                     "</tr>";
         }
     } else {
-        body += "<tr><td colspan='5' class=''>Nenhum automovel vinculado</td></tr>";
+        body += "<tr><td colspan='5'><span class='badge badge-dark'>Nenhum automovel vinculado</span></td></tr>";
     }
 
     table.find("tbody").append(body);

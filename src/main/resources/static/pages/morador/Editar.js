@@ -27,6 +27,11 @@ function init() {
     mascaraCpf("#cpfMoradorSecundario");
     mascaraPlacaMercoSul("#placa");
     mascaraPlacaMercoSul("#placaMoradorSecundario");
+    
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/morador/Pesquisar.html");
+    });
+    
 }
 
 function popularMoradorProprietario() {
@@ -317,7 +322,7 @@ function popularTabelaVeiculoMoradorProprietario(automoveis) {
                     "</tr>";
         }
     } else {
-        body += "<tr><td colspan='5' ><span class='text-left badge badge-dark'>Nenhum automovel vinculado</span></td></tr>";
+        body += "<tr><td colspan='6' ><span class='badge badge-dark'>Nenhum automovel vinculado</span></td></tr>";
     }
 
     table.find("tbody").append(body);

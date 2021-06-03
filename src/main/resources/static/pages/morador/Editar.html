@@ -3,6 +3,11 @@
         <title>Cadastro de morador</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .margin {
+                margin-right: 5px;
+            }
+        </style>
     </head>
     <body>
         <nav class="container-fluid" style="margin-top: 10px;">
@@ -74,21 +79,19 @@
                                                 </div>
 
                                                 <div class="col-sm-3">
-                                                    <div class="row">
-                                                        <div class="col-sm-6 col-md-6 col-lg-6">
-                                                            <label class="control-label" >Sexo</label>
-                                                            <div class="form-group">
-                                                                <div class="radio radio-inline radio-info">
-                                                                    <input id="sexo" data-width="120" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
-                                                                </div>
+                                                    <div class="float-right">
+                                                        <label class="control-label" >Sexo</label>
+                                                        <div class="form-group">
+                                                            <div class="radio radio-inline radio-info">
+                                                                <input id="sexo" data-width="120" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-6 col-md-6 col-lg-6">
-                                                            <label class="control-label">Animal<span data-toggle="tooltip" data-placement="top" title="Posssui animal domésticos?" style="margin-left: 10px; color: #444;" class="fa fa-info-circle"></span></label>
-                                                            <div class="form-group">
-                                                                <div class="radio radio-inline radio-info">
-                                                                    <input id="animalDomentico" data-width="100" data-onstyle="outline-primary" data-on="<i class='fa fa-thumbs-o-up'></i> Sim" data-offstyle="outline-secondary" data-off="<i class='fa fa-thumbs-o-down'></i> Não" type="checkbox">
-                                                                </div>
+                                                    </div>
+                                                    <div class="float-right">
+                                                        <label class="control-label">Animal<span data-toggle="tooltip" data-placement="top" title="Posssui animal domésticos?" style="margin-left: 10px; color: #444;" class="fa fa-info-circle"></span></label>
+                                                        <div class="form-group">
+                                                            <div class="radio radio-inline radio-info">
+                                                                <input data-style="margin" id="animalDomentico" data-width="100" data-onstyle="outline-primary" data-on="<i class='fa fa-thumbs-o-up'></i> Sim" data-offstyle="outline-secondary" data-off="<i class='fa fa-thumbs-o-down'></i> Não" type="checkbox">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -109,23 +112,22 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="qtdMoradores col-sm-2 form-group ">
-                                                    <label class="control-label" for="qtdMorador">Qtd M</label> 
-                                                    <input type="text" maxlength="1" autocomplete class="form-control form-control-flash" id="qtdMoradores" name="qtdMoradores">
-                                                </div>
-
-                                                <div class="col-sm-4 col-md-4 col-lg-4 form-group">
+                                                <div class="col-sm-6 col-md-6 col-lg-6">
                                                     <div class="form-row">
-                                                        <div class="col-sm-10 col-md-10 col-lg-10">
-                                                            <label for="telefones" class="control-label">Telefone/Telefones</label>
-                                                            <select id="telefones" name="telefones" class="form-control" >
-                                                                <option/>
-                                                            </select>
+                                                        <div class="col-3">
+                                                            <label class="control-label" for="qtdMoradores">Qtd M</label> 
+                                                            <input type="text" maxlength="1" autocomplete class="form-control form-control-flash" id="qtdMoradores" name="qtdMoradores">
                                                         </div>
-                                                        <div class="col-sm-2 col-md-2 col-lg-2" style="margin-top: 32px;">
-                                                            <button title="Clique para adicionar novo" id="btn-open-modal-telefone" type="button" class="btn btn btn-outline-primary"> 
-                                                                <i class="fa fa-plus-circle"></i>
-                                                            </button>
+                                                        <div class="col-9">
+                                                            <label for="telefones" class="control-label">Telefone/Telefones</label>
+                                                            <div class="d-flex flex-row">
+                                                                <select id="telefones" name="telefones" class="form-control">
+                                                                    <option/>
+                                                                </select>
+                                                                <button title="Clique para adicionar novo" id="btn-open-modal-telefone" type="button" class="btn btn btn-outline-primary ml-1"> 
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -161,7 +163,7 @@
                                                                             <input type="hidden" name="tipo" id="tipo" />
                                                                         </div>
                                                                         <div class="col-sm-2 col-md-2 col-lg-2" style="margin-top: 8px;">
-                                                                            <fieldset style="font-size: 12px;" class="border form-group">
+                                                                            <fieldset style="font-size: 12px;" class="border">
                                                                                 <legend style="font-size: 12px;" class="control-label">Legenda</legend>
                                                                                 <span style="font-size: 12px;" >Carro: <i style="color: blue;" class="fa fa-circle" aria-hidden="true"></i></span>
                                                                                 <span style="font-size: 12px;" >Moto: <i style="color: green;" class="fa fa-circle" aria-hidden="true"></i></span>
