@@ -202,6 +202,11 @@ function setUrlInBar() {
     }
 }
 
+window.onabort = function () {
+    alert("window.onabort");
+    removeAllLocalStorage();
+};
+
 window.onbeforeunload = function () {
     var url = window.location.href;
     const urlPage = url.substring(url.lastIndexOf("#")+1,url.length);

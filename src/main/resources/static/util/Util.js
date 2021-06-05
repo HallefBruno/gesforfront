@@ -37,11 +37,7 @@ function removeItemStorage(key) {
 }
 
 function removeAllLocalStorage() {
-    var key = null;
-    for (var i = 0; i < localStorage.length; i++) {
-        key = localStorage.key(i);
-        removeItemStorage(key);
-    }
+    localStorage.clear();
 }
 
 //function removeAllLocalStorage() {

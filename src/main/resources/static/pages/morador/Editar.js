@@ -39,6 +39,7 @@ function popularMoradorProprietario() {
     $.get(CONSTANTES.currentUri + "/morador/buscar/" + moradorId.id, function (data) {
         window.console.log(data);
         popularTela(data);
+        popularTableMoradorSecundario(data.moradorSecundarios);
     });
 }
 
@@ -322,8 +323,65 @@ function popularTabelaVeiculoMoradorProprietario(automoveis) {
                     "</tr>";
         }
     } else {
-        body += "<tr><td colspan='6' ><span class='badge badge-dark'>Nenhum automovel vinculado</span></td></tr>";
+        body += "<tr><td colspan='6' ><span class='badge badge-dark'>Nenhum registro encontrado</span></td></tr>";
     }
 
     table.find("tbody").append(body);
+}
+
+function popularTableMoradorSecundario(listMoradorSecundario) {
+    
+    $(".tbl-moradores-secundario").DataTable({
+
+        "paginate": false,
+        "lengthChange": false,
+        "info": false,
+        "autoWidth": false,
+        "filter": false,
+        language: {
+            url: "vendor/internationalisation/pt_br.json"
+        },
+        columnDefs: [
+            {
+                targets: [4, 5],
+                className: 'text-center'
+            }
+        ]
+    });
+    
+    if(listMoradorSecundario !== undefined && listMoradorSecundario !== null && listMoradorSecundario.length > 0) {
+        $(".tbl-moradores-secundario").DataTable().clear().draw();
+        for (var i = 0; i < listMoradorSecundario.length; i++) {
+            $(".tbl-moradores-secundario").DataTable().row.add([
+                listMoradorSecundario[i].nome,
+                mascaraStringCpf(listMoradorSecundario[i].cpf),
+                mascaraStringTel(listMoradorSecundario[i].telefone),
+                listMoradorSecundario[i].grauParentesco,
+                listMoradorSecundario[i].sexo,
+                "<button id='btnRemoverMoradorSecundario' data-key='" + i +"' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>"
+            ]).draw(false);
+        }
+    }
+    
+    popularTableVeiculosMoradorSecundario();
+}
+
+function popularTableVeiculosMoradorSecundario() {
+    $(".tbl-add-automovel-morador-secundario").DataTable({
+
+        "paginate": false,
+        "lengthChange": false,
+        "info": false,
+        "autoWidth": false,
+        "filter": false,
+        language: {
+            url: "vendor/internationalisation/pt_br.json"
+        },
+        columnDefs: [
+            {
+                targets: [4],
+                className: 'text-center'
+            }
+        ]
+    });
 }

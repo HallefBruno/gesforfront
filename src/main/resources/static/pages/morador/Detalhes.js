@@ -65,10 +65,14 @@ function popularTabelaMoradorSecundario(data) {
     var table = $(".tbl-add-morador-secundario");
     table.find("tbody").find("tr").remove();
     var body = "";
-
+    var htmlBtnveiculos = "";
     if(data.length !== "undefined" && data.length !== null && data.length > 0) {
         for(var i=0; i<data.length; i++) {
-            const htmlBtnveiculos = "<button id='btnCarroVinculadoMoradorSecundario' data-key='" + data[i].cpf + "' type='button' title='Veículos vinculados' class='text-center btn btn-outline-primary btn-sm'><i class='fa fa-archive'></i></button>";
+            if(data[i].automoveisMoradores !== undefined && data[i].automoveisMoradores !== null && data[i].automoveisMoradores.length > 0) {
+                htmlBtnveiculos = "<button id='btnCarroVinculadoMoradorSecundario' data-key='" + data[i].cpf + "' type='button' title='Veículos vinculados' class='text-center btn btn-outline-primary btn-sm'><i class='fa fa-archive'></i></button>";
+            } else {
+                htmlBtnveiculos = "<button disabled data-key='" + data[i].cpf + "' type='button' title='Nenhum veículo vinculado' class='text-center btn btn-outline-primary btn-sm'><i class='fa fa-archive'></i></button>";
+            }
             body += "<tr>"+
                         "<td>" + data[i].nome + "</td>"+
                         "<td>" + mascaraStringCpf(data[i].cpf) + "</td>"+
@@ -79,7 +83,7 @@ function popularTabelaMoradorSecundario(data) {
                     "</tr>";
         }
     } else {
-        body += "<tr><td colspan='6'><span class='badge badge-dark'>Nenhum morador vinculado</span></td></tr>";
+        body += "<tr><td colspan='6'><span class='badge badge-dark'>Nenhum registro encontrado</span></td></tr>";
     }
 
     table.find("tbody").append(body);
@@ -112,10 +116,10 @@ function listarVeiculosMoradorSecundario(moradorSecundarios) {
                                 "</tr>";
                     }
                 }
-                break;
             }
-        } else {
-            body += "<tr><td colspan='5'><span class='badge badge-dark'>Nenhum automovel vinculado</span></td></tr>";
+        } 
+        if(body === "") {
+            body += "<tr><td colspan='5'><span class='badge badge-dark'>Nenhum registro encontrado</span></td></tr>";
         }
         table.find("tbody").append(body);
     });
@@ -129,7 +133,7 @@ function popularTabelaAutomovelMoradorProprietaria(data) {
     var body = "";
     
     $(".tbl-add-automovel-morador-secundario").find("tbody").find("tr").remove();
-    $(".tbl-add-automovel-morador-secundario").find("tbody").append("<tr><td colspan='6'><span class='badge badge-dark'>Nenhum automovel vinculado</span></td></tr>");
+    $(".tbl-add-automovel-morador-secundario").find("tbody").append("<tr><td colspan='6'><span class='badge badge-dark'>Nenhum registro encontrado</span></td></tr>");
     
     if(data.length !== "undefined" && data.length !== null && data.length > 0) {
         for(var i=0; i<data.length; i++) {
@@ -148,7 +152,7 @@ function popularTabelaAutomovelMoradorProprietaria(data) {
                     "</tr>";
         }
     } else {
-        body += "<tr><td colspan='5'><span class='badge badge-dark'>Nenhum automovel vinculado</span></td></tr>";
+        body += "<tr><td colspan='5'><span class='badge badge-dark'>Nenhum registro encontrado</span></td></tr>";
     }
 
     table.find("tbody").append(body);
