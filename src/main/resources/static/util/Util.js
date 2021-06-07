@@ -193,7 +193,9 @@ function mascaraStringCpf(cpf) {
 
 function mascaraStringPlaca(placa) {
     var placaFormatado;
-    placaFormatado = placa.substring(0, 3) + "-" + placa.substring(3, placa.length);
+    if(!placa.includes("-")) {
+        placaFormatado = placa.substring(0, 3) + "-" + placa.substring(3, placa.length);
+    }
     return placaFormatado;
 }
 

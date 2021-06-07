@@ -16,7 +16,7 @@ $(function () {
         e.preventDefault();
         $(this).tab("show");
     });
-    eventAddNovoAutomovel();
+    //eventAddNovoAutomovel();
     camposObrigatorioAutomovel();
 });
 
@@ -41,6 +41,8 @@ function popularMoradorProprietario() {
         window.console.log(data);
         popularTela(data);
         popularTableMoradorSecundario(data.moradorSecundarios);
+        eventAddNovoAutomovel(data.automoveisMoradores);
+        
     });
 }
 
@@ -286,7 +288,7 @@ function popularTabelaVeiculoMoradorProprietario(automoveis) {
     if (automoveis.length !== "undefined" && automoveis.length !== null && automoveis.length > 0) {
         for (var i = 0; i < automoveis.length; i++) {
             var htmlTipo = "";
-            if (automoveis[i].automovel.tipoAutomovel === "C") {
+            if (automoveis[i].automovel.tipoAutomovel === "C" || automoveis[i].automovel.tipoAutomovel === "Carro") {
                 htmlTipo = "<span class='text-center badge badge-primary'>" + "Carro" + "</span>";
             } else {
                 htmlTipo = "<span class='text-center badge badge-success'>" + "Moto" + "</span>";
@@ -364,10 +366,35 @@ function popularTableVeiculosMoradorSecundario() {
     });
 }
 
-function eventAddNovoAutomovel() {
+function eventAddNovoAutomovel(listAutomoveisMorador) {
     $("#btnAddNovoAutomovel").click(function () {
         if ($("#formAutomoveis").valid()) {
-            alert("OK");
+            
+            var automovelGrid = {
+                cor: $("#cor option:selected").filter(':selected').val(),
+                placa: $("#placa").val(),
+                automovel: {
+                    nome: $("#automoveis option:selected").filter(':selected').text(),
+                    fabricante: {
+                        id: $("#fabricante option:selected").filter(':selected').val(),
+                        nome: $("#fabricante option:selected").filter(':selected').text()
+                    },
+                    id: $("#automoveis option:selected").filter(':selected').val(),
+                    tipoAutomovel: $("#tipo").val()
+                }
+            };
+
+            var moradorAutomovel = {
+                automovel:{
+                   id:automovelGrid.id
+                },
+                placa:automovelGrid.placa,
+                cor:automovelGrid.cor
+            };
+            
+            listAutomoveisMorador.push(automovelGrid);
+            window.console.log(listAutomoveisMorador);
+            popularTabelaVeiculoMoradorProprietario(listAutomoveisMorador);
         }
     });
 }

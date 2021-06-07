@@ -153,7 +153,6 @@ function addAutomovelGrid() {
         var placa = $(this).data("key");
         for(var i=0; i<automoveisGrid.length; i++) {
             if(automoveisGrid[i].placa === placa) {
-                window.console.log("Remover automovel");
                 automoveisGrid.splice(i,1);
                 automoveis.splice(i,1);
                 $(".tbl-add-automovel").DataTable().row($(this).parents("tr")).remove().draw();
