@@ -1,6 +1,7 @@
-/* global Message, CONSTANTES */
+/* global Message, CONSTANTES, listTelefoneModal */
 
 var automoveis = [];
+
 $(document).ready(function () {
     automoveis = [];
     
@@ -24,9 +25,10 @@ function salvarMorador() {
     
     $("#btnSalvar").click(function () {
         if ($("#formMoradorProprietario").valid()) {
-
-            var telefones = JSON.parse(getStorage64("telefones"));
-            
+            var telefones = [];
+            if(listTelefoneModal !== undefined && listTelefoneModal !== null && listTelefoneModal.length > 0) {
+                telefones = listTelefoneModal;
+            }
             if(JSON.parse(getStorage64("listMoradorSecundario")) !== null) {
                 listaMoradoresSecundarios = JSON.parse(getStorage64("listMoradorSecundario"));
             }

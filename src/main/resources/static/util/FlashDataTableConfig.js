@@ -4,9 +4,9 @@ function setDefaultsDataTable(parametros) {
     {
         data: "id", title: "Ações", wrap: true,
         render: function (id) {
-            var stringButtons ="<button id='btn-detalhe' data-detalhe='"+id+"' type='button' title='Detalhes' style='margin-right: 5px;' class='btn btn-outline-info btn-sm'><i class='fa fa-info-circle'></i></button>";
-                stringButtons+="<button id='btn-excluir' data-excluir='"+id+"' type='button' title='Excluir' style='margin-right: 5px;' class='btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>";
-                stringButtons+="<button id='btn-editar' data-editar='"+id+"' type='button' title='Editar' class='btn btn-outline-edit btn-sm'><i class='fa fa-pencil'></i></button>";
+            var stringButtons ="<button class='btn-detalhe btn btn-outline-info btn-sm' data-detalhe='"+id+"' type='button' title='Detalhes' style='margin-right: 5px;'><i class='fa fa-info-circle'></i></button>";
+                stringButtons+="<button class='btn-excluir btn btn-outline-danger btn-sm' data-excluir='"+id+"' type='button' title='Excluir' style='margin-right: 5px;'><i class='fa fa-trash-o'></i></button>";
+                stringButtons+="<button class='btn-editar btn btn-outline-edit btn-sm' data-editar='"+id+"' type='button' title='Editar'><i class='fa fa-pencil'></i></button>";
             return stringButtons;
         }
     };

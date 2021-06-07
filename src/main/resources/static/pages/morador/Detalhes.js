@@ -6,7 +6,7 @@ $(function () {
     $("#divDetalheMorador").empty();
     $("#divDetalheMorador").load("pages/morador/Detalhes.html");
     
-    $("table").on("click", "#btn-detalhe", function () {
+    $("table").on("click", ".btn-detalhe", function () {
         const id = $(this).data("detalhe");
         const url = CONSTANTES.currentUri + "/morador/buscar/" + id;
         $.get(url, function (data) {

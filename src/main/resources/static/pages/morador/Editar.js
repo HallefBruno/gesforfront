@@ -1,7 +1,7 @@
 /* global CONSTANTES */
+var listTelefoneEditarMoradorProprietario = [];
 
 $(function () {
-
     init();
     popularMoradorProprietario();
     populaSelectAutomoveis("#automoveis","#fabricante-id");
@@ -16,6 +16,8 @@ $(function () {
         e.preventDefault();
         $(this).tab("show");
     });
+    eventAddNovoAutomovel();
+    camposObrigatorioAutomovel();
 });
 
 function init() {
@@ -31,7 +33,6 @@ function init() {
     $("#btnPagePesquisar").click(function () {
         loadPageHtml("pages/morador/Pesquisar.html");
     });
-    
 }
 
 function popularMoradorProprietario() {
@@ -45,21 +46,12 @@ function popularMoradorProprietario() {
 
 function popularTela(morador) {
 
-    var listaMoradoresSecundario = [];
-    var listaAutomoveisMoradorSecudario = [];
-
-    var listaTelefones = [];
-    var listaAutomoveisMoradorProprietario = [];
-
-    listaMoradoresSecundario = morador.moradorSecundarios;
-    listaAutomoveisMoradorProprietario = morador.automoveisMoradores;
-
     setValueInputInForm("#formMoradorProprietario", morador);
     $("#dataNascimento").val(morador.dataNascimento);
     morador.sexo === "Masculino" ? $("#sexo").bootstrapToggle("on") : $("#sexo").bootstrapToggle("off");
     morador.animalDomestico === true ? $("#animalDomentico").bootstrapToggle("on") : $("#animalDomentico").bootstrapToggle("off");
 
-    popularTabelaVeiculoMoradorProprietario(listaAutomoveisMoradorProprietario);
+    popularTabelaVeiculoMoradorProprietario(morador.automoveisMoradores);
     popularSelects(morador);
 
 }
@@ -97,25 +89,11 @@ function popularSelects(morador) {
         $("#tiposResidencia").trigger("change");
 
     });
-
-    var telefone;
-    var telefones = [];
-    $.each(morador.telefones, function (i, values) {
-        telefone = {
-            id: values.id,
-            text: mascaraStringTel(values.numero)
-        };
-        telefones.push(telefone);
-    });
-
-    $("#telefones").select2({
-        theme: "bootstrap4",
-        placeholder: "Telefones",
-        allowClear: true,
-        language: "pt-BR",
-        data: telefones
-    });
-
+    
+    popularSelectTelefone(morador.telefones);
+    popularTabelaTelefone(morador.telefones);
+    listTelefoneEditarMoradorProprietario = morador.telefones;
+    
     $.get(url + "/morador/grau-parentesco", function (data) {
 
         var grauParentesco = {};
@@ -383,5 +361,70 @@ function popularTableVeiculosMoradorSecundario() {
                 className: 'text-center'
             }
         ]
+    });
+}
+
+function eventAddNovoAutomovel() {
+    $("#btnAddNovoAutomovel").click(function () {
+        if ($("#formAutomoveis").valid()) {
+            alert("OK");
+        }
+    });
+}
+
+function camposObrigatorioAutomovel() {
+    $("#formAutomoveis").validate({
+        rules: {
+            fabricante: {
+                required: true
+            },
+            
+            automoveis: {
+                required: true
+            },
+            
+            cor: {
+                required: true
+            },
+            
+            placa: {
+                required: true,
+                minlength: 8
+            }
+        },
+        messages: {
+            fabricante: {
+                required: ""
+            },
+            automoveis: {
+                required: ""
+            },
+            cor: {
+                required: ""
+            },
+            placa: {
+                required: "",
+                minlength: "Mínimo oito caracter"
+            }
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+
+            error.addClass("invalid-feedback");
+
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.next("label"));
+            } else if(element.prop("type") === "select-one") {
+                error.insertBefore(element);
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element) {
+            $(element).removeClass("is-invalid");
+        }
     });
 }

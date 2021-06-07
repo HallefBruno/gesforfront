@@ -1,36 +1,48 @@
-/* global Message */
+/* global Message, CONSTANTES */
 
 function setStorage64(key, value) {
-    var encoded = btoa(JSON.stringify(value));
-    localStorage.setItem(key, encoded);
+    if((key !== undefined && key !== null && key !== "") && (value !== undefined && value !== null && value !== "")) {
+        const encoded = btoa(JSON.stringify(value));
+        localStorage.setItem(key, encoded);
+        return;
+    }
+    alert("Chave ou valor inválido!");
+    return null;
 }
 
 function getStorage(key) {
     if (key === null || key === undefined || key === "") {
-        return alert("Cahve não encontrada ", key);
+        alert("Cahve não encontrada ", key);
+        return null;
     }
     return localStorage.getItem(key);
 }
 
 function getStorage64(key) {
-    var objectJson = null;
-    if (getStorage(key) !== null) {
-        var atual = localStorage.getItem(key);
-        var stringJson = JSON.stringify(atob(atual));
-        objectJson = JSON.parse(stringJson);
+    if (key !== undefined && key !== null && key !== "") {
+        var objectJson = null;
+        if (getStorage(key) !== null) {
+            const atual = localStorage.getItem(key);
+            const stringJson = JSON.stringify(atob(atual));
+            objectJson = JSON.parse(stringJson);
+        }
+        return objectJson;
     }
-    return objectJson;
+    alert("A chave precisa ter um nome!");
+    return null;
 }
 
 function setStorage(key, value) {
     if (key === null || key === "" || value === null) {
-        return alert("Chave ou valor inválido!");
+        alert("Chave ou valor inválido!");
+        return null;
     }
     localStorage.setItem(key, value);
 }
 
 function removeItemStorage(key) {
     if (key === null || key === undefined || key === "") {
+        return null;
         alert("Cahve não encontrada ", key);
     }
     localStorage.removeItem(key);
@@ -39,17 +51,6 @@ function removeItemStorage(key) {
 function removeAllLocalStorage() {
     localStorage.clear();
 }
-
-//function removeAllLocalStorage() {
-//    var key = null;
-//    for (var i = 0; i < localStorage.length; i++) {
-//        key = localStorage.key(i);
-//        if (key !== "currentUri" && key !== "urlPagina") {
-//            removeItemStorage(key);
-//            i = -1;
-//        }
-//    }
-//}
 
 function converterFormInObject(form) {
     var object = {};
@@ -100,7 +101,11 @@ function setValueInputInForm(form,obj) {
 
 function loadPageHtml(pathPage, obj) {
     if (pathPage !== 'undefined' && pathPage !== null) {
-        $(".dashboard-myChart").find("div").empty();
+        if(CONSTANTES.chart !== undefined) {
+            $(CONSTANTES.chart).find("div").empty();
+        } else {
+            window.window.console.info("Possível erro ao limpar chart! Vá para index!");
+        }
         const divLoadPage = $("#pages").children().first();
         var params = "";
         divLoadPage.empty();
@@ -192,30 +197,35 @@ function mascaraStringPlaca(placa) {
     return placaFormatado;
 }
 
+function removelAllCaracterSpacialString(string) {
+    var desired = string.replace(/[^\w\s]/gi, '').replace(/\s/g, '');
+    return desired;
+}
+
 function validarCPF(strCPF) {
-    var Soma;
-    var Resto;
-    Soma = 0;
+    var soma;
+    var resto;
+    soma = 0;
     if (strCPF === "00000000000")
         return false;
 
     for (i = 1; i <= 9; i++)
-        Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
-    Resto = (Soma * 10) % 11;
+        soma = soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+    resto = (soma * 10) % 11;
 
-    if ((Resto === 10) || (Resto === 11))
-        Resto = 0;
-    if (Resto !== parseInt(strCPF.substring(9, 10)))
+    if ((resto === 10) || (resto === 11))
+        resto = 0;
+    if (resto !== parseInt(strCPF.substring(9, 10)))
         return false;
 
-    Soma = 0;
+    soma = 0;
     for (i = 1; i <= 10; i++)
-        Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
-    Resto = (Soma * 10) % 11;
+        soma = soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+    resto = (soma * 10) % 11;
 
-    if ((Resto === 10) || (Resto === 11))
-        Resto = 0;
-    if (Resto !== parseInt(strCPF.substring(10, 11)))
+    if ((resto === 10) || (resto === 11))
+        resto = 0;
+    if (resto !== parseInt(strCPF.substring(10, 11)))
         return false;
     return true;
 
@@ -236,3 +246,13 @@ function validarCPF(strCPF) {
 //    };
 //
 //    console.log($.urlParam('action')); //edit
+//function removeAllLocalStorage() {
+//    var key = null;
+//    for (var i = 0; i < localStorage.length; i++) {
+//        key = localStorage.key(i);
+//        if (key !== "currentUri" && key !== "urlPagina") {
+//            removeItemStorage(key);
+//            i = -1;
+//        }
+//    }
+//}

@@ -10,7 +10,7 @@ $(function () {
 });
 
 function eventEditeDelete() {
-    $("table").on("click", "#btn-editar", function () {
+    $("table").on("click", ".btn-editar", function () {
         const pessoaId = {id:$(this).data("editar")};
         loadPageHtml("pages/morador/Editar.html",pessoaId);
     });

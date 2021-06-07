@@ -190,7 +190,7 @@ function storageURL() {
 }
 
 function consts(url) {
-    CONSTANTES = Object.freeze({"chart": "dashboard-myChart", "urlPagina": "urlPagina", "currentUri": url});
+    CONSTANTES = Object.freeze({"chart": ".dashboard-myChart", "currentUri": url});
 }
 
 function setUrlInBar() {
@@ -204,7 +204,7 @@ function setUrlInBar() {
 
 window.onabort = function () {
     alert("window.onabort");
-    removeAllLocalStorage();
+    //removeAllLocalStorage();
 };
 
 window.onbeforeunload = function () {
@@ -218,8 +218,8 @@ window.onbeforeunload = function () {
 
 function clickBtnIndex() {
     $("#aIndex").on("click",function() {
-        window.history.pushState("data", "flash", "/flash");
         removeAllLocalStorage();
+        window.history.pushState("data", "flash", "/flash");
         window.location.href="/flash";
     });
 }

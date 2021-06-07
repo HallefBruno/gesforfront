@@ -1,6 +1,6 @@
 <div class="container-fluid shadow p-3 mb-5 bg-white rounded" style="height: 100%; margin-top: 20px;">
     <div class="card" style="height: 100%;">
-        <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Cadastro de morador proprietário</h5>
+        <h5 class="card-header" style="background-color: #383838; color: white;  border-radius: calc(.30rem - 1px) calc(.30rem - 1px)">Morador proprietário</h5>
         <div class="card-body">
             <div class="container-fluid">
                 <div class="alert alert-danger" style="font-size: 11px; display: none;" id="errosGerais"></div>
@@ -54,21 +54,19 @@
                         </div>
 
                         <div class="col-sm-3">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label class="control-label" >Sexo</label>
-                                    <div class="form-group">
-                                        <div class="radio radio-inline radio-info"><!--data-width="240"-->
-                                            <input id="sexo" data-width="120" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
-                                        </div>
+                            <div class="float-right">
+                                <label class="control-label" >Sexo</label>
+                                <div class="form-group">
+                                    <div class="radio radio-inline radio-info">
+                                        <input id="sexo" data-width="120" data-onstyle="outline-info" data-on="Masculino" data-offstyle="outline-warning" data-off="Feminino" type="checkbox">
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label class="control-label">Animal<span data-toggle="tooltip" data-placement="top" title="Posssui animal domésticos?" style="margin-left: 10px; color: #444;" class="fa fa-info-circle"></span></label>
-                                    <div class="form-group">
-                                        <div class="radio radio-inline radio-info">
-                                            <input id="animalDomentico" data-width="100" data-onstyle="outline-primary" data-on="<i class='fa fa-thumbs-o-up'></i> Sim" data-offstyle="outline-secondary" data-off="<i class='fa fa-thumbs-o-down'></i> Não" type="checkbox">
-                                        </div>
+                            </div>
+                            <div class="float-right">
+                                <label class="control-label">Animal<span data-toggle="tooltip" data-placement="top" title="Posssui animal domésticos?" style="margin-left: 10px; color: #444;" class="fa fa-info-circle"></span></label>
+                                <div class="form-group">
+                                    <div class="radio radio-inline radio-info">
+                                        <input data-style="margin" id="animalDomentico" data-width="100" data-onstyle="outline-primary" data-on="<i class='fa fa-thumbs-o-up'></i> Sim" data-offstyle="outline-secondary" data-off="<i class='fa fa-thumbs-o-down'></i> Não" type="checkbox">
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +138,7 @@
                                                     </div>    
                                                     <input type="hidden" name="tipo" id="tipo" />
                                                 </div>
-                                                <div class="col-2" style="margin-top: 8px;">
+                                                <div class="col-sm-1 col-lg-2 col-md-1" style="margin-top: 8px; max-width:70px;">
                                                     <fieldset style="font-size: 12px;" class="border form-group">
                                                         <legend style="font-size: 12px;" class="control-label">Legenda</legend>
                                                         <span style="font-size: 12px;" >Carro: <i style="color: blue;" class="fa fa-circle" aria-hidden="true"></i></span>
