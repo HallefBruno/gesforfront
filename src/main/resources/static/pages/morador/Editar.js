@@ -1,5 +1,8 @@
-/* global CONSTANTES */
+/* global CONSTANTES, Message */
 var listTelefoneEditarMoradorProprietario = [];
+var message = new Message.Warning();
+var toast = new Message.SuccessToast();
+var listAutomoveisMoradorProprietario = [];
 
 $(function () {
     init();
@@ -284,7 +287,8 @@ function popularTabelaVeiculoMoradorProprietario(automoveis) {
     var table = $(".tbl-add-automovel");
     table.find("tbody").find("tr").remove();
     var body = "";
-
+    listAutomoveisMoradorProprietario = automoveis;
+    
     if (automoveis.length !== "undefined" && automoveis.length !== null && automoveis.length > 0) {
         for (var i = 0; i < automoveis.length; i++) {
             var htmlTipo = "";
@@ -299,7 +303,7 @@ function popularTabelaVeiculoMoradorProprietario(automoveis) {
                         "<td>" + mascaraStringPlaca(automoveis[i].placa.toUpperCase()) + "</td>" +
                         "<td>" + automoveis[i].cor + "</td>" +
                         "<td>" + htmlTipo + "</td>" +
-                        "<td><button id='btnRemover' data-key='" + automoveis[i].placa + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button></td>";
+                        "<td><button id='btnRemoverAutomovelMoradorProrietario' data-key='" + automoveis[i].placa + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button></td>";
                     "</tr>";
         }
     } else {
@@ -369,7 +373,6 @@ function popularTableVeiculosMoradorSecundario() {
 function eventAddNovoAutomovel(listAutomoveisMorador) {
     $("#btnAddNovoAutomovel").click(function () {
         if ($("#formAutomoveis").valid()) {
-            
             var automovelGrid = {
                 cor: $("#cor option:selected").filter(':selected').val(),
                 placa: $("#placa").val(),
@@ -392,10 +395,30 @@ function eventAddNovoAutomovel(listAutomoveisMorador) {
                 cor:automovelGrid.cor
             };
             
+            if(automovelExist(listAutomoveisMorador, automovelGrid.placa)) {
+                message.show("Esse automovel já foi adicionado","N");
+                return;
+            }
+            
             listAutomoveisMorador.push(automovelGrid);
-            window.console.log(listAutomoveisMorador);
+            toast.show("Automóvel adicionado");
             popularTabelaVeiculoMoradorProprietario(listAutomoveisMorador);
         }
+    });
+    
+    removerVeiculoMoradorProprietario();
+}
+
+function removerVeiculoMoradorProprietario() {
+    $(".tbl-add-automovel > tbody").on("click", "#btnRemoverAutomovelMoradorProrietario", function () {
+        var placa = $(this).data("key");
+        for(var i = 0; i < listAutomoveisMoradorProprietario.length; i++) {
+            if(listAutomoveisMoradorProprietario[i].placa === placa) {
+                listAutomoveisMoradorProprietario.splice(i,1);
+            }
+        }
+        toast.show("Automóvel removido");
+        popularTabelaVeiculoMoradorProprietario(listAutomoveisMoradorProprietario);
     });
 }
 
@@ -453,5 +476,11 @@ function camposObrigatorioAutomovel() {
         unhighlight: function (element) {
             $(element).removeClass("is-invalid");
         }
+    });
+}
+
+function automovelExist(array, placa) {
+    return array.some(function (p) {
+        return p.placa === placa;
     });
 }

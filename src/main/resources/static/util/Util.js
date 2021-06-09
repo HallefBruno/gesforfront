@@ -192,11 +192,11 @@ function mascaraStringCpf(cpf) {
 }
 
 function mascaraStringPlaca(placa) {
-    var placaFormatado;
     if(!placa.includes("-")) {
-        placaFormatado = placa.substring(0, 3) + "-" + placa.substring(3, placa.length);
+        var placaFormatado = placa.substring(0, 3) + "-" + placa.substring(3, placa.length);
+        return placaFormatado;
     }
-    return placaFormatado;
+    return placa;
 }
 
 function removelAllCaracterSpacialString(string) {
