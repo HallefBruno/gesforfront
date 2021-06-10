@@ -101,11 +101,7 @@ function setValueInputInForm(form,obj) {
 
 function loadPageHtml(pathPage, obj) {
     if (pathPage !== 'undefined' && pathPage !== null) {
-        if(CONSTANTES.chart !== undefined) {
-            $(CONSTANTES.chart).find("div").empty();
-        } else {
-            window.window.console.info("Possível erro ao limpar chart! Vá para index!");
-        }
+        $(".dashboard-myChart").find("div").empty();
         const divLoadPage = $("#pages").children().first();
         var params = "";
         divLoadPage.empty();

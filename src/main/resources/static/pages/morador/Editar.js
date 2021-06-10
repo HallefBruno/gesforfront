@@ -3,12 +3,18 @@ var listTelefoneEditarMoradorProprietario = [];
 var message = new Message.Warning();
 var toast = new Message.SuccessToast();
 var listAutomoveisMoradorProprietario = [];
+var moradorProprietario = {};
 
 $(function () {
+    
     init();
     popularMoradorProprietario();
     populaSelectAutomoveis("#automoveis","#fabricante-id");
     populaSelectAutomoveis("#automoveisMoradorSecundario","#fabricanteMoradorSecundario-id");
+    
+    salvarMorador();
+    camposObrigatoriosMorador();
+    camposObrigatorioAutomovel();
     
     $("#tabMoradorProprietario").on("click", function (e) {
         e.preventDefault();
@@ -19,8 +25,12 @@ $(function () {
         e.preventDefault();
         $(this).tab("show");
     });
-    //eventAddNovoAutomovel();
-    camposObrigatorioAutomovel();
+    
+    
+    $("#btnPagePesquisar").click(function () {
+        loadPageHtml("pages/morador/Pesquisar.html");
+    });
+    
 });
 
 function init() {
@@ -32,10 +42,6 @@ function init() {
     mascaraCpf("#cpfMoradorSecundario");
     mascaraPlacaMercoSul("#placa");
     mascaraPlacaMercoSul("#placaMoradorSecundario");
-    
-    $("#btnPagePesquisar").click(function () {
-        loadPageHtml("pages/morador/Pesquisar.html");
-    });
 }
 
 function popularMoradorProprietario() {
@@ -58,7 +64,7 @@ function popularTela(morador) {
 
     popularTabelaVeiculoMoradorProprietario(morador.automoveisMoradores);
     popularSelects(morador);
-
+    moradorProprietario = morador;
 }
 
 function popularSelects(morador) {
@@ -419,6 +425,129 @@ function removerVeiculoMoradorProprietario() {
         }
         toast.show("Automóvel removido");
         popularTabelaVeiculoMoradorProprietario(listAutomoveisMoradorProprietario);
+    });
+}
+
+
+function salvarMorador() {
+    $("#btnSalvar").click(function () {
+        if ($("#formMoradorProprietario").valid()) {
+            
+            //obj["key3"] = "value3";
+            //obj.key3 = "value3";
+            window.console.log(moradorProprietario);
+            moradorProprietario["nome"] = $("#nome").val();
+            
+            $.ajax({
+                method: "POST",
+                url: url + "/morador/alterar/"+moradorProprietario.id,
+                data: JSON.stringify(moradorProprietario),
+                contentType: "application/json",
+                dataType: "json",
+                statusCode: {
+                    200: function (data) {
+                        var message = new Message.Success();
+                        automoveis = [];
+                        message.show("Registro alterado com sucesso!");
+                        loadPageHtml("pages/morador/Pesquisar.html");
+                    }
+                }
+            });
+            
+            window.console.log(moradorProprietario);
+        }
+    });
+}
+
+function camposObrigatoriosMorador() {
+    $("#formMoradorProprietario").validate({
+        rules: {
+            nome: {
+                required: true,
+                rangelength: [3, 200]
+            },
+            cpf: {
+                required: true,
+                minlength:14
+            },
+            rg: {
+                required: true,
+                rangelength: [5, 11]
+            },
+            emissor: {
+                required: true,
+                rangelength: [4, 11]
+            },
+            dataNascimento: {
+                required: true,
+                rangelength: [10,10]
+            },
+            natural: {
+                required: true,
+                rangelength: [3, 50]
+            },
+            estadoCivil: {
+                required: true
+            },
+            residencia: {
+                required: true,
+                rangelength: [3, 100]
+            },
+            tiposResidencia: {
+                required: true
+            },
+            qtdMorador : {
+                required: true
+            },
+            telefones: {
+                required: true
+            }
+        },
+        messages: {
+           nome: {
+                required: "Nome obrigatório!",
+                rangelength:"Insira um nome entre {0} e {1} caracteres!" //jQuery.validator.format("Please enter a value between {0} and {1} characters long.")
+            },
+            cpf: {
+                required: "CPF obrigatório!",
+                minlength: "CPF inválido!"
+            },
+            rg: {
+                required: "RG obrigatório!",
+                rangelength: "Insira um rg entre {0} e {1} caracteres!"
+            },
+            emissor: {
+                required: "Orgão emissor obrigatório!",
+                rangelength: "Insira um orgão emissor entre {0} e {1} caracteres!"
+            },
+            dataNascimento: {
+                required: "Data nascimento obrigatória!",
+                rangelength: "Insira uma data entre {0} e {1} caracteres!"
+            },
+            natural: {
+                required: "Naturalidade obrigatório!",
+                rangelength: "Insira um valor entre {0} e {1} caracteres!"
+            },
+            estadoCivil: {
+                required: "Estado civil obrigatório!"
+            },
+            residencia: {
+                required: "Endereço da residência obrigatório!",
+                rangelength: "Insira um valor entre {0} e {1} caracteres!"
+            },
+            tiposResidencia: {
+                required: "Tipo de residência obrigatória!"
+            },
+            qtdMorador: {
+                required: "Quantidade de morador obrigatório!"
+            },
+            telefones: {
+                required: "Telefone pelo menos um obrigatório!"
+            } 
+        },
+        errorContainer: ".alert-erro-novo-morador",
+        errorLabelContainer: ".alert-erro-novo-morador ul",
+        wrapper: "li"
     });
 }
 
