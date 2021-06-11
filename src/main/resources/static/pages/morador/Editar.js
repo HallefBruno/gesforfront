@@ -438,8 +438,10 @@ function salvarMorador() {
             window.console.log(moradorProprietario);
             moradorProprietario["nome"] = $("#nome").val();
             
+            var url = CONSTANTES.currentUri;
+            
             $.ajax({
-                method: "POST",
+                method: "PUT",
                 url: url + "/morador/alterar/"+moradorProprietario.id,
                 data: JSON.stringify(moradorProprietario),
                 contentType: "application/json",
