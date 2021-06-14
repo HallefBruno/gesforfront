@@ -1,7 +1,7 @@
 /* global CONSTANTES, Message */
-var listTelefoneEditarMoradorProprietario = [];
 var message = new Message.Warning();
 var toast = new Message.SuccessToast();
+var listTelefoneEditarMoradorProprietario = [];
 var listAutomoveisMoradorProprietario = [];
 var moradorProprietario = {};
 
@@ -51,7 +51,6 @@ function popularMoradorProprietario() {
         popularTela(data);
         popularTableMoradorSecundario(data.moradorSecundarios);
         eventAddNovoAutomovel(data.automoveisMoradores);
-        
     });
 }
 
@@ -393,14 +392,6 @@ function eventAddNovoAutomovel(listAutomoveisMorador) {
                 }
             };
 
-            var moradorAutomovel = {
-                automovel:{
-                   id:automovelGrid.id
-                },
-                placa:automovelGrid.placa,
-                cor:automovelGrid.cor
-            };
-            
             if(automovelExist(listAutomoveisMorador, automovelGrid.placa)) {
                 message.show("Esse automovel já foi adicionado","N");
                 return;
@@ -433,11 +424,20 @@ function salvarMorador() {
     $("#btnSalvar").click(function () {
         if ($("#formMoradorProprietario").valid()) {
             
-            //obj["key3"] = "value3";
-            //obj.key3 = "value3";
-            window.console.log(moradorProprietario);
-            moradorProprietario["nome"] = $("#nome").val();
-            
+            moradorProprietario.nome = $("#nome").val();
+            moradorProprietario.cpf = $("#cpf").val();
+            moradorProprietario.rg = $("#rg").val();
+            moradorProprietario.orgaoEmissor = $("#orgaoEmissor").val();
+            moradorProprietario.dataNascimento = $("#dataNascimento").val();
+            moradorProprietario.naturalidade = $("#naturalidade").val();
+            moradorProprietario.estadoCivil = $("#estadoCivil :selected").val();
+            moradorProprietario.sexo =  $("#sexo").prop("checked") === true ? "Masculino" : "Feminino";
+            moradorProprietario.residencia = $("#residencia").val();
+            moradorProprietario.qtdMoradores = $("#qtdMoradores").val();
+            moradorProprietario.tipoMoradia = $("#tiposResidencia :selected").val();
+            moradorProprietario.animalDomestico = $("#animalDomentico").prop("checked");
+            moradorProprietario.automoveisMoradores = listAutomoveisMoradorProprietario;
+
             var url = CONSTANTES.currentUri;
             
             $.ajax({
@@ -455,8 +455,6 @@ function salvarMorador() {
                     }
                 }
             });
-            
-            window.console.log(moradorProprietario);
         }
     });
 }
@@ -607,6 +605,13 @@ function camposObrigatorioAutomovel() {
         unhighlight: function (element) {
             $(element).removeClass("is-invalid");
         }
+    });
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+function addAutomovelMoradorSecundario() {
+    $("#btnAddNovoAutomovelSecundario").click(function () {
+        alert("");
     });
 }
 
