@@ -1,8 +1,8 @@
 /* global CONSTANTES, Message */
 var message = new Message.Warning();
 var toast = new Message.SuccessToast();
-var listTelefoneEditarMoradorProprietario = [];
 var listAutomoveisMoradorProprietario = [];
+var listAutomoveisMoradorSecundario = [];
 var moradorProprietario = {};
 
 $(function () {
@@ -38,6 +38,7 @@ function init() {
     $("#animalDomentico").bootstrapToggle("off", true);
     $("#sexoMoradorSecundario").bootstrapToggle("off", true);
     $("#sexo").bootstrapToggle("off", true);
+    $("#btnTerminar").prop("disabled",true);
     mascaraCpf("#cpf");
     mascaraCpf("#cpfMoradorSecundario");
     mascaraPlacaMercoSul("#placa");
@@ -102,7 +103,6 @@ function popularSelects(morador) {
     
     popularSelectTelefone(morador.telefones);
     popularTabelaTelefone(morador.telefones);
-    listTelefoneEditarMoradorProprietario = morador.telefones;
     
     $.get(url + "/morador/grau-parentesco", function (data) {
 
@@ -355,26 +355,6 @@ function popularTableMoradorSecundario(listMoradorSecundario) {
     popularTableVeiculosMoradorSecundario();
 }
 
-function popularTableVeiculosMoradorSecundario() {
-    $(".tbl-add-automovel-morador-secundario").DataTable({
-
-        "paginate": false,
-        "lengthChange": false,
-        "info": false,
-        "autoWidth": false,
-        "filter": false,
-        language: {
-            url: "vendor/internationalisation/pt_br.json"
-        },
-        columnDefs: [
-            {
-                targets: [4],
-                className: 'text-center'
-            }
-        ]
-    });
-}
-
 function eventAddNovoAutomovel(listAutomoveisMorador) {
     $("#btnAddNovoAutomovel").click(function () {
         if ($("#formAutomoveis").valid()) {
@@ -456,6 +436,101 @@ function salvarMorador() {
                 }
             });
         }
+    });
+    addAutomovelMoradorSecundario();
+    addMoradorSecundario();
+}
+
+
+function addAutomovelMoradorSecundario() {
+    $("#btnAddNovoAutomovelSecundario").click(function () {
+        if ($("#formAutomoveisMoradorSecundario").valid()) {
+            var htmltipo = "";
+            var automovelMoradorSecundario = {
+                id: $("#automoveisMoradorSecundario option:selected").filter(':selected').val(),
+                nome: $("#automoveisMoradorSecundario option:selected").filter(':selected').text(),
+                fabricante: {
+                    id: $("#fabricanteMoradorSecundario option:selected").filter(':selected').val(),
+                    nome: $("#fabricanteMoradorSecundario option:selected").filter(':selected').text()
+                },
+                tipoAutomovel: $("#tipo").val(),
+                cor: $("#corMoradorSecundario option:selected").filter(':selected').val(),
+                placa: $("#placaMoradorSecundario").val()
+            };
+            
+            if(automovelExist(listAutomoveisMoradorSecundario, automovelMoradorSecundario.placa)) {
+                message.show("Esse automovel já foi adicionado","N");
+                return;
+            }
+            
+            listAutomoveisMoradorSecundario.push(automovelMoradorSecundario);
+            
+            $(".tbl-add-automovel-morador-secundario").DataTable().clear().draw();
+            for (var i = 0; i < listAutomoveisMoradorSecundario.length; i++) {
+                
+                if (listAutomoveisMoradorSecundario[i].tipoAutomovel === "Carro") {
+                    htmltipo = "<span class='text-center badge badge-primary'>" + listAutomoveisMoradorSecundario[i].tipoAutomovel + "</span>";
+                } else if (listAutomoveisMoradorSecundario[i].tipoAutomovel === "Moto") {
+                    htmltipo = "<span class='text-center badge badge-success'>" + listAutomoveisMoradorSecundario[i].tipoAutomovel + "</span>";
+                }
+                
+                $(".tbl-add-automovel-morador-secundario").DataTable().row.add([
+                    listAutomoveisMoradorSecundario[i].fabricante.nome,
+                    listAutomoveisMoradorSecundario[i].nome,
+                    listAutomoveisMoradorSecundario[i].placa,
+                    listAutomoveisMoradorSecundario[i].cor,
+                    htmltipo,
+                    "<button id='btnRemoverAutomovelMoradorSecundario' data-key='" + listAutomoveisMoradorSecundario[i].placa + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>"
+                ]).draw(false);
+            }
+        }
+    });
+}
+
+function popularTableVeiculosMoradorSecundario() {
+    $(".tbl-add-automovel-morador-secundario").DataTable({
+
+        "paginate": false,
+        "lengthChange": false,
+        "info": false,
+        "autoWidth": false,
+        "filter": false,
+        language: {
+            url: "vendor/internationalisation/pt_br.json"
+        },
+        columnDefs: [
+            {
+                targets: [4],
+                className: 'text-center'
+            }
+        ]
+    });
+}
+
+function addMoradorSecundario() {
+    $("#btnAdicionarMoradorSecundario").click(function () {
+        if ($("#formPrincipalMoradorSecundario").valid()) {
+            var moradorSecundario = {
+                nome: $("#nomeMoradorSecundario").val(),
+                cpf: $("#cpfMoradorSecundario").val(),
+                rg: $("#rgMoradorSecundario").val(),
+                orgaoEmissor: $("#emissorMoradorSecundario").val(),
+                dataNascimento: $("#dataNascimentoMoradorSecundario").val(),
+                naturalidade: $("#nataralMoradorSecundario").val(),
+                estadoCivil: $("#estadoCivilMoradorSecundario :selected").val(),
+                sexo: $("#sexoMoradorSecundario").prop("checked") === true ? "Masculino" : "Feminino",
+                grauParentesco: $("#grauParentesco :selected").val(),
+                telefone: $("#telefoneMoradorSecundario").val(),
+                automoveisMoradores: listAutomoveisMoradorSecundario
+            };
+            
+        }
+    });
+}
+
+function automovelExist(array, placa) {
+    return array.some(function (p) {
+        return p.placa === placa;
     });
 }
 
@@ -549,6 +624,82 @@ function camposObrigatoriosMorador() {
         errorLabelContainer: ".alert-erro-novo-morador ul",
         wrapper: "li"
     });
+    
+    $("#formPrincipalMoradorSecundario").validate({
+        rules: {
+            nomeMoradorSecundario: {
+                required: true,
+                rangelength: [3, 200]
+            },
+            cpfMoradorSecundario: {
+                required: true,
+                minlength:14
+            },
+            rgMoradorSecundario: {
+                required: true,
+                rangelength: [5, 11]
+            },
+            emissorMoradorSecundario: {
+                required: true,
+                rangelength: [4, 11]
+            },
+            dataNascimentoMoradorSecundario: {
+                required: true,
+                rangelength: [10,10]
+            },
+            nataralMoradorSecundario: {
+                required: true,
+                rangelength: [3, 50]
+            },
+            estadoCivilMoradorSecundario: {
+                required: true
+            },
+            grauParentesco: {
+                required: true
+            },
+            telefoneMoradorSecundario: {
+                required: true
+            }
+        },
+        messages: {
+            nomeMoradorSecundario: {
+                required: "Nome obrigatório!",
+                rangelength:"Insira um nome entre {0} e {1} caracteres!" //jQuery.validator.format("Please enter a value between {0} and {1} characters long.")
+            },
+            cpfMoradorSecundario: {
+                required: "CPF obrigatório!",
+                minlength: "CPF inválido!"
+            },
+            rgMoradorSecundario: {
+                required: "RG obrigatório!",
+                rangelength: "Insira um rg entre {0} e {1} caracteres!"
+            },
+            emissorMoradorSecundario: {
+                required: "Orgão emissor obrigatório!",
+                rangelength: "Insira um orgão emissor entre {0} e {1} caracteres!"
+            },
+            dataNascimentoMoradorSecundario: {
+                required: "Data nascimento obrigatória!",
+                rangelength: "Insira uma data entre {0} e {1} caracteres!"
+            },
+            nataralMoradorSecundario: {
+                required: "Naturalidade obrigatório!",
+                rangelength: "Insira um valor entre {0} e {1} caracteres!"
+            },
+            estadoCivilMoradorSecundario: {
+                required: "Estado civil obrigatório!"
+            },
+            grauParentesco: {
+                required: "Grau parentesco obrigatório!"
+            },
+            telefoneMoradorSecundario: {
+                required: "Telefone obrigatório!"
+            }
+        },
+        errorContainer: ".alert-erro-morador-secundario",
+        errorLabelContainer: ".alert-erro-morador-secundario ul",
+        wrapper: "li"
+    });
 }
 
 function camposObrigatorioAutomovel() {
@@ -606,17 +757,59 @@ function camposObrigatorioAutomovel() {
             $(element).removeClass("is-invalid");
         }
     });
-}
+    
+    $("#formAutomoveisMoradorSecundario").validate({
+        rules: {
+            fabricanteMoradorSecundario: {
+                required: true
+            },
+            
+            automoveisMoradorSecundario: {
+                required: true
+            },
+            
+            corMoradorSecundario: {
+                required: true
+            },
+            
+            placaMoradorSecundario: {
+                required: true,
+                minlength: 8
+            }
+        },
+        messages: {
+            fabricanteMoradorSecundario: {
+                required: ""
+            },
+            automoveisMoradorSecundario: {
+                required: ""
+            },
+            corMoradorSecundario: {
+                required: ""
+            },
+            placaMoradorSecundario: {
+                required: "",
+                minlength: "Mínimo oito caracter"
+            }
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
 
-/////////////////////////////////////////////////////////////////////////////////
-function addAutomovelMoradorSecundario() {
-    $("#btnAddNovoAutomovelSecundario").click(function () {
-        alert("");
-    });
-}
+            error.addClass("invalid-feedback");
 
-function automovelExist(array, placa) {
-    return array.some(function (p) {
-        return p.placa === placa;
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.next("label"));
+            } else if(element.prop("type") === "select-one") {
+                error.insertBefore(element);
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        highlight: function (element) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element) {
+            $(element).removeClass("is-invalid");
+        }
     });
 }
