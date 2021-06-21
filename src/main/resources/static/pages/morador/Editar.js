@@ -3,6 +3,7 @@ var message = new Message.Warning();
 var toast = new Message.SuccessToast();
 var listAutomoveisMoradorProprietario = [];
 var listAutomoveisMoradorSecundario = [];
+var listMoradorSecundario = [];
 var moradorProprietario = {};
 
 $(function () {
@@ -43,6 +44,8 @@ function init() {
     mascaraCpf("#cpfMoradorSecundario");
     mascaraPlacaMercoSul("#placa");
     mascaraPlacaMercoSul("#placaMoradorSecundario");
+    mascaraTelefone("#telefoneMoradorSecundario");
+    btnTerminar();
 }
 
 function popularMoradorProprietario() {
@@ -483,6 +486,9 @@ function addAutomovelMoradorSecundario() {
                     "<button id='btnRemoverAutomovelMoradorSecundario' data-key='" + listAutomoveisMoradorSecundario[i].placa + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>"
                 ]).draw(false);
             }
+            const selects = [{"id":"#automoveisMoradorSecundario",disabled:true},{"id":"#fabricanteMoradorSecundario"}];            
+            cleanForm("#formAutomoveisMoradorSecundario",selects);
+            toast.show("Automóvel adicionado!");
         }
     });
 }
@@ -523,14 +529,107 @@ function addMoradorSecundario() {
                 telefone: $("#telefoneMoradorSecundario").val(),
                 automoveisMoradores: listAutomoveisMoradorSecundario
             };
+            if (moradorExist(listMoradorSecundario, moradorSecundario.cpf)) {
+                message.show("Esse morador já foi adicionado","N");
+                return;
+            }
             
+            listMoradorSecundario.push(moradorSecundario);
+            popularTabelaMoradorSercundario(moradorSecundario);
         }
+    });
+}
+
+function popularTabelaMoradorSercundario(moradorSecundario) {
+    var htmlButtonMostrarCarros = "";
+    if (moradorSecundario.automoveisMoradores.length > 0) {
+        htmlButtonMostrarCarros = "<button id='btnCarroVinculadoMoradorSecundario' data-key='" + moradorSecundario.cpf + "' type='button' title='Carros vinculados' class='text-center btn btn-outline-primary btn-sm'><i class='fa fa-archive'></i></button>";
+    }
+    $(".tbl-moradores-secundario").DataTable().row.add([
+        moradorSecundario.nome,
+        moradorSecundario.cpf,
+        moradorSecundario.telefone,
+        moradorSecundario.sexo,
+        moradorSecundario.grauParentesco,
+        "<button id='btnRemoverMoradorSecundario' data-key='" + moradorSecundario.cpf + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button> " + htmlButtonMostrarCarros
+    ]).draw(false);
+    
+    $(".tbl-add-automovel-morador-secundario").DataTable().clear().draw();
+    const selects = [{"id":"#estadoCivilMoradorSecundario"},{"id":"#grauParentesco"}];
+    cleanForm("#formPrincipalMoradorSecundario",selects);
+    toast.show("Morador secundário adicionado!");
+    listAutomoveisMoradorSecundario = [];
+    toast.show("Morador adicionado!");
+    
+    btnCarrosVinculadosMoradorSecundario();
+}
+
+function btnCarrosVinculadosMoradorSecundario() {
+    $(".tbl-moradores-secundario > tbody").on("click", "#btnCarroVinculadoMoradorSecundario", function () {
+        var cpf = $(this).data("key");
+        $(".tbl-add-automovel-morador-secundario").DataTable().clear().draw();
+        for (var i = 0; i < listMoradorSecundario.length; i++) {
+            if (listMoradorSecundario[i].cpf === cpf) {
+                $("#btnTerminar").prop("disabled", false);
+                for (var j = 0; j < listMoradorSecundario[i].automoveisMoradores.length; j++) {
+                    
+                    if (listMoradorSecundario[i].automoveisMoradores[j].tipoAutomovel === "Carro") {
+                        htmltipo = "<span class='text-center badge badge-primary'>" + listMoradorSecundario[i].automoveisMoradores[j].tipoAutomovel + "</span>";
+                    } else if (listMoradorSecundario[i].automoveisMoradores[j].tipoAutomovel === "Moto") {
+                        htmltipo = "<span class='text-center badge badge-success'>" + listMoradorSecundario[i].automoveisMoradores[j].tipoAutomovel + "</span>";
+                    }
+
+                    $(".tbl-add-automovel-morador-secundario").DataTable().row.add([
+                        listMoradorSecundario[i].automoveisMoradores[j].fabricante.nome,
+                        listMoradorSecundario[i].automoveisMoradores[j].nome,
+                        listMoradorSecundario[i].automoveisMoradores[j].placa,
+                        listMoradorSecundario[i].automoveisMoradores[j].cor,
+                        htmltipo,
+                        "<button id='btnRemoverAutomovelMoradorSecundario' data-key='" + listMoradorSecundario[i].automoveisMoradores[j].placa + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>"
+                    ]).draw(false);
+                    
+                    window.console.log(listMoradorSecundario[i].automoveisMoradores);
+
+                }
+            }
+        }
+    });
+}
+
+
+//if (listAutomoveisMoradorSecundario[i].tipoAutomovel === "Carro") {
+//    htmltipo = "<span class='text-center badge badge-primary'>" + listAutomoveisMoradorSecundario[i].tipoAutomovel + "</span>";
+//} else if (listAutomoveisMoradorSecundario[i].tipoAutomovel === "Moto") {
+//    htmltipo = "<span class='text-center badge badge-success'>" + listAutomoveisMoradorSecundario[i].tipoAutomovel + "</span>";
+//}
+//
+//$(".tbl-add-automovel-morador-secundario").DataTable().row.add([
+//    listAutomoveisMoradorSecundario[i].fabricante.nome,
+//    listAutomoveisMoradorSecundario[i].nome,
+//    listAutomoveisMoradorSecundario[i].placa,
+//    listAutomoveisMoradorSecundario[i].cor,
+//    htmltipo,
+//    "<button id='btnRemoverAutomovelMoradorSecundario' data-key='" + listAutomoveisMoradorSecundario[i].placa + "' type='button' title='Remover' class='text-center btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>"
+//]).draw(false);
+
+//MoradorSecundario
+function btnTerminar() {
+    $("#btnTerminar").click(function () {
+        $(".tbl-add-automovel-morador-secundario").DataTable().clear().draw();
+        $("#btnAdicionarMoradorSecundario").prop("disabled", false);
+        $(this).prop("disabled", true);
     });
 }
 
 function automovelExist(array, placa) {
     return array.some(function (p) {
         return p.placa === placa;
+    });
+}
+
+function moradorExist(array, cpf) {
+    return array.some(function (p) {
+        return p.cpf === cpf;
     });
 }
 
