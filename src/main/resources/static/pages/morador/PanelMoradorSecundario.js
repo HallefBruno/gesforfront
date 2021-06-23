@@ -93,11 +93,12 @@ function addMoradorSecundarioAutomovel() {
                 var nomeClass = tbody.attr("class");
                 var posicao = Number(nomeClass.substring((nomeClass.lastIndexOf("-") + 1), nomeClass.length));
                 tbody.removeAttr("class");
-                listMorador[posicao].automoveis.push(moradorAutomovel);
+                window.console.log("Erro aqui!");
+                listMorador[posicao].automoveisMoradores.push(moradorAutomovel);
                 $(".tbl-add-automovel-morador-secundario").DataTable().clear().draw();
-                for (var i = 0; i < listMorador[posicao].automoveis.length; i++) {
+                for (var i = 0; i < listMorador[posicao].automoveisMoradores.length; i++) {
                     for (var j = 0; j < automoveisMoradorSecundarioGrid.length; j++) {
-                        if (listMorador[posicao].automoveis[i].placa === automoveisMoradorSecundarioGrid[j].placa) {
+                        if (listMorador[posicao].automoveisMoradores[i].placa === automoveisMoradorSecundarioGrid[j].placa) {
                             if (automoveisMoradorSecundarioGrid[j].tipoAutomovel === "Carro") {
                                 htmltipo = "<span class='text-center badge badge-primary'>" + automoveisMoradorSecundarioGrid[j].tipoAutomovel + "</span>";
                             } else if (automoveisMoradorSecundarioGrid[j].tipoAutomovel === "Moto") {
@@ -182,7 +183,6 @@ function addMoradorSecundarioAutomovel() {
             cleanForm("#formPrincipalMoradorSecundario",selects);
             toast.show("Morador secundário adicionado!");
             automoveisMoradorSecundario = [];
-            setStorage64("listMoradorSecundario",listMorador);
         }
     });
     
@@ -248,7 +248,6 @@ function addMoradorSecundarioAutomovel() {
         if (automoveisMoradorSecundarioGrid.length === 0) {
             $("#listaVazia").attr("value", true);
         }
-        setStorage64("listMoradorSecundario",listMorador);
         toast.show("Automóvel removido!");
     });
     
@@ -286,7 +285,6 @@ function addMoradorSecundarioAutomovel() {
         if(listMorador.length === 0) {
             $("#listaVazia").attr("value",true);
         }
-        setStorage64("listMoradorSecundario",listMorador);
         toast.show("Morador removido");
     });
     

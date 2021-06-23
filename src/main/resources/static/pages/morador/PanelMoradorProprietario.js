@@ -1,4 +1,4 @@
-/* global Message, CONSTANTES, listTelefoneModal */
+/* global Message, CONSTANTES, listTelefoneModal, listMorador */
 
 var automoveis = [];
 
@@ -30,7 +30,7 @@ function salvarMorador() {
                 telefones = listTelefoneModal;
             }
             if(JSON.parse(getStorage64("listMoradorSecundario")) !== null) {
-                listaMoradoresSecundarios = JSON.parse(getStorage64("listMoradorSecundario"));
+                listaMoradoresSecundarios = listMorador;
             }
 
             var morador = {
