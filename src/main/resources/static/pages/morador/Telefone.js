@@ -17,9 +17,9 @@ $(function () {
         mascaraTelefone("#numeroTelefone");
         $(".alert-modal-telefone").hide();
         try {
+            window.console.log("Doido");
             if (listTelefoneEditarMoradorProprietario !== undefined && listTelefoneEditarMoradorProprietario !== null && listTelefoneEditarMoradorProprietario.length > 0) {
                 listaTelefones = listTelefoneEditarMoradorProprietario;
-                listTelefoneEditarMoradorProprietario = [];
                 popularTabelaTelefone(listaTelefones);
             }
         } catch (ex) {
@@ -71,6 +71,7 @@ $(function () {
         $(".alert-modal-telefone").hide();
         $("#modalTelefone").find("#numeroTelefone").val("");
         $("#modalTelefone").modal("dispose");
+        listaTelefones = [];
     });
 
 });

@@ -1,7 +1,10 @@
-/* global Message */
+/* global Message, listMoradorSecundario */
+
+var moradoresSecundariosPopulados = [];
 
 $(function () {
-
+    listTelefoneEditarMoradorProprietario = [];
+    navegarObjeto();
     $("#divMoradorProprietario").empty();
     $("#divMoradorProprietario").load("pages/morador/PanelMoradorProprietario.html");
 
@@ -20,6 +23,7 @@ $(function () {
             $("#divMoradorProprietario").load("pages/morador/PanelMoradorProprietario.html");
         }
         $(this).tab("show");
+        navegarObjeto();
     });
 
     $("#tabMoradorSecundario").on("click", function (e) {
@@ -47,5 +51,16 @@ $(function () {
             $("#divMoradorSegundario").load("pages/morador/PanelMoradorSecundario.html");
         }
         $(this).tab("show");
+        navegarObjeto();
     });
 });
+
+function navegarObjeto() {
+    try {
+        if (listMoradorSecundario !== undefined && listMoradorSecundario !== null && listMoradorSecundario.length > 0) {
+            moradoresSecundariosPopulados = listMoradorSecundario;
+        }
+    } catch (ex) {
+        ex.message;
+    }
+}

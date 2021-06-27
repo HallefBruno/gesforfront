@@ -1,4 +1,4 @@
-/* global Message, CONSTANTES, listTelefoneModal, listMorador */
+/* global Message, CONSTANTES, listTelefoneModal, listMoradorSecundario, moradoresSecundariosPopulados */
 
 var automoveis = [];
 
@@ -29,8 +29,13 @@ function salvarMorador() {
             if(listTelefoneModal !== undefined && listTelefoneModal !== null && listTelefoneModal.length > 0) {
                 telefones = listTelefoneModal;
             }
-            if(JSON.parse(getStorage64("listMoradorSecundario")) !== null) {
-                listaMoradoresSecundarios = listMorador;
+            
+            try {
+                if (moradoresSecundariosPopulados !== undefined && moradoresSecundariosPopulados !== null && moradoresSecundariosPopulados.length > 0) {
+                    listaMoradoresSecundarios = moradoresSecundariosPopulados;
+                }
+            } catch (ex) {
+                ex.message;
             }
 
             var morador = {
@@ -61,7 +66,9 @@ function salvarMorador() {
                     201: function (data) {
                         var message = new Message.Success();
                         automoveis = [];
-                        removeAllLocalStorage();
+                        listTelefoneModal = [];
+                        moradoresSecundariosPopulados = [];
+                        listMoradorSecundario = [];
                         message.show("Registro salvo com sucesso!");
                         loadPageHtml("pages/morador/Pesquisar.html");
                     }
