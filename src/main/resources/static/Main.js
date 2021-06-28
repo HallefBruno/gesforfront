@@ -204,10 +204,10 @@ function setUrlInBar() {
 
 window.onabort = function () {
     alert("window.onabort");
-    //removeAllLocalStorage();
 };
 
-window.onbeforeunload = function () {
+window.onbeforeunload = function (event) {
+    window.console.log(event,"onbeforeunload");
     var url = window.location.href;
     const urlPage = url.substring(url.lastIndexOf("#")+1,url.length);
     if(!urlPage.includes("Index") && !urlPage.includes("http") && !urlPage.includes("flash") && !urlPage.includes("https") && urlPage !== "") {
@@ -223,3 +223,8 @@ function clickBtnIndex() {
         window.location.href="/flash";
     });
 }
+
+$(window).on("beforeunload", function(event) {
+    event.preventDefault();
+    event.returnValue = '';
+});

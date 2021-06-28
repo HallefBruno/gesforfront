@@ -86,6 +86,9 @@ function cleanForm(form, object) {
 
 function setValueInputInForm(form,obj) {
     const selector = form+" input[type=text]";
+    const selectorDate = form+" input[type=date]";
+    const selectorNumber = form+" input[type=number]";
+    
     $(selector).each(function () {
         if($(this).attr("name") === "cpf") {
             $(this).val(mascaraStringCpf(obj[$(this).attr("name")]));
@@ -96,6 +99,14 @@ function setValueInputInForm(form,obj) {
         } else {
             $(this).val(obj[$(this).attr("name")]);
         }
+    });
+    
+    $(selectorDate).each(function () {
+        $(this).val(obj[$(this).attr("name")]);
+    });
+    
+    $(selectorNumber).each(function () {
+        $(this).val(obj[$(this).attr("name")]);
     });
 }
 
@@ -117,7 +128,7 @@ function loadPageHtml(pathPage, obj) {
     }
 }
 
-function params () {
+function getParam () {
     try {
         var url = $(location).attr("href");
         var urlFinal = url.substring(url.toString().indexOf(".html") + 1, url.length);
@@ -195,7 +206,7 @@ function mascaraStringPlaca(placa) {
     return placa;
 }
 
-function removelAllCaracterSpacialString(string) {
+function removeAllCaracterString(string) {
     var desired = string.replace(/[^\w\s]/gi, '').replace(/\s/g, '');
     return desired;
 }

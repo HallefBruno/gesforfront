@@ -17,7 +17,6 @@ $(function () {
         mascaraTelefone("#numeroTelefone");
         $(".alert-modal-telefone").hide();
         try {
-            window.console.log("Doido");
             if (listTelefoneEditarMoradorProprietario !== undefined && listTelefoneEditarMoradorProprietario !== null && listTelefoneEditarMoradorProprietario.length > 0) {
                 listaTelefones = listTelefoneEditarMoradorProprietario;
                 popularTabelaTelefone(listaTelefones);
@@ -57,7 +56,7 @@ $(function () {
     $("#addTelefone").on("click", "#btnRemove", function () {
         const tel = $(this).data("numero").toString();
         for (var i = 0; i < listaTelefones.length; i++) {
-            if (removelAllCaracterSpacialString(listaTelefones[i].numero) === tel) {
+            if (removeAllCaracterString(listaTelefones[i].numero) === tel) {
                 listaTelefones.splice(i, 1);
             }
         }
@@ -84,7 +83,7 @@ function popularTabelaTelefone(data) {
 
     if (data.length !== "undefined" && data.length !== null && data.length > 0) {
         for (var i = 0; i < data.length; i++) {
-            body += "<tr><td>" + mascaraStringTel(data[i].numero) + "</td>" + "<td class='text-center'>" + "<button id='btnRemove' data-numero='" + removelAllCaracterSpacialString(data[i].numero) + "' type='button' title='Remover da lista' class='btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>" + "</td>" + "</tr>";
+            body += "<tr><td>" + mascaraStringTel(data[i].numero) + "</td>" + "<td class='text-center'>" + "<button id='btnRemove' data-numero='" + removeAllCaracterString(data[i].numero) + "' type='button' title='Remover da lista' class='btn btn-outline-danger btn-sm'><i class='fa fa-trash-o'></i></button>" + "</td>" + "</tr>";
         }
     } else {
         body += "<tr><td colspan='2'><span class='badge badge-dark'>Nenhum telefone adicionado</span></td></tr>";

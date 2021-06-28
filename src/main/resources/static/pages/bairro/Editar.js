@@ -6,7 +6,7 @@ $(document).ready(function() {
     var cidade = {};
 
     var path = CONSTANTES.currentUri;
-    var bairroId = params();
+    var bairroId = getParam();
     
     $('[data-toggle="tooltip"]').tooltip();
     

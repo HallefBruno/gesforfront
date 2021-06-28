@@ -3,7 +3,7 @@
 $(function () {
 
     var url = CONSTANTES.currentUri;
-    var estadoId = params();
+    var estadoId = getParam();
     
     $.get(url+"/estados/buscar/"+estadoId.id, function(data) {
         if ($("#nome").length) {

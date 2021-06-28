@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
     var url = CONSTANTES.currentUri;
-    var portaria = params();
+    var portaria = getParam();
     $.get(url + "/portarias/buscar/" + portaria.id, function (data) {
         $("#id").val(data.id);
         $("#nome").val(data.nome);

@@ -3,7 +3,7 @@
 $(function () {
 
     var path = CONSTANTES.currentUri;
-    var cidadeId = params();
+    var cidadeId = getParam();
 
     $.get(path + "/cidades/buscar/" + cidadeId.id, function (data) {
         $("#id").val(data.id);
